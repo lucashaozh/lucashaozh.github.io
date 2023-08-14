@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/pikachu.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lucas-hao.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Introduction GAN的全称是Generative Adversarial Nets，是一种生成模型，目的是为了训练出一个生成器，使得生成器能够生成我们想要的数据，比如说一张图片。GAN在刚推出的时候成功生成了简单的手写数字和人脸照片，虽然现在看来生成的图片质量也比较一般，但是也开创了一个生成模型的新时代。 在以前的生成网络中，需要有大量的概率计算, 极大似然估计, 比较麻烦i。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GAN论文精读">
+<meta property="og:url" content="https://lucas-hao.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/index.html">
+<meta property="og:site_name" content="Lucas的博客">
+<meta property="og:description" content="Introduction GAN的全称是Generative Adversarial Nets，是一种生成模型，目的是为了训练出一个生成器，使得生成器能够生成我们想要的数据，比如说一张图片。GAN在刚推出的时候成功生成了简单的手写数字和人脸照片，虽然现在看来生成的图片质量也比较一般，但是也开创了一个生成模型的新时代。 在以前的生成网络中，需要有大量的概率计算, 极大似然估计, 比较麻烦i。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-09T09:33:00.000Z">
+<meta property="article:modified_time" content="2023-07-09T09:34:14.000Z">
+<meta property="article:author" content="Lucas Hao">
+<meta property="article:tag" content="CV">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lucas-hao.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lucas-hao.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/","path":"2023/07/09/computervision/gan-lun-wen-jing-du/","title":"GAN论文精读"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GAN论文精读 | Lucas的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="Lucas的博客" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Lucas的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">游戏开发 | 香港中文大学学生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">43</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#adversarial-nets"><span class="nav-number">2.</span> <span class="nav-text">Adversarial Nets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">理论分析</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lucas Hao"
+      src="/images/pikachu.jpg">
+  <p class="site-author-name" itemprop="name">Lucas Hao</p>
+  <div class="site-description" itemprop="description">ACG爱好者</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lucas-hao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lucas-hao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lucashaozh@gmail.com" title="E-Mail → mailto:lucashaozh@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_45951701" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45951701" rel="noopener" target="_blank"><i class="fab fa-contao fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/shenghao-zhang-b03a64203/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;shenghao-zhang-b03a64203&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="Lucas Hao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lucas的博客">
+      <meta itemprop="description" content="ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="GAN论文精读 | Lucas的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GAN论文精读
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-07-09 17:33:00 / 修改时间：17:34:14" itemprop="dateCreated datePublished" datetime="2023-07-09T17:33:00+08:00">2023-07-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ComputerVision/" itemprop="url" rel="index"><span itemprop="name">ComputerVision</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="introduction">Introduction</h2>
+<p>GAN的全称是Generative Adversarial
+Nets，是一种生成模型，目的是为了训练出一个生成器，使得生成器能够生成我们想要的数据，比如说一张图片。GAN在刚推出的时候成功生成了简单的手写数字和人脸照片，虽然现在看来生成的图片质量也比较一般，但是也开创了一个生成模型的新时代。</p>
+<p>在以前的生成网络中，需要有大量的概率计算, 极大似然估计,
+比较麻烦i。GAN就成功的避免了概率计算的问题，不需要马尔科夫链、极大似然估计等等。GAN的思想非常简单，总的来说就是一个生成器和一个判别器进行对抗，最终达到一个纳什均衡的状态。
+## GAN和对抗样本(Adversarial examples)的区别
+对抗样本是指通过添加噪声的方式迷惑深度神经网络，让VGG等判别模型错误的对图像进行判断。下图中在熊猫的图片上增加了一个噪声，尽管生成的图片在人眼看来还是一个熊猫很难看出区别，但是使用深度神经网络进行判断的话就会错误的将熊猫判断为长臂猿。对抗样本通过训练（反向传播梯度下降）可以找到能够误导网络的噪声图。GAN和对抗样本的区别在于，对抗样本不是用来训练生成模型的，而是用来直接修改输入来达到误导网络的目的，二者的目的是不一样的。
+<img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/20221204204717.png" /></p>
+<h2 id="adversarial-nets">Adversarial Nets</h2>
+<p>GAN首次提出了对抗损失函数，如下所示 <span class="math display">\[
+\min_G \max_D V(D, G)=\mathbb{E_{x\sim p_{data}(x)}}[\log
+D(x)]+\mathbb{E_{z\sim p_{z}(z)}}[\log(1-D(G(z)))]
+\]</span>
+其中G代表使用多层感知器的生成器，D代表使用另一个多层感知器的判别器，z代表输入的噪声，<span
+class="math inline">\(p_z(z)\)</span>表示z的分布函数，x是真实的数据，<span
+class="math inline">\(D(x)\)</span>代表判别器判断x来自真实数据的概率。通过训练D来最大化判别成功的可能性（max判别器），第一项表示判别器输入真实数据时，判别器的输出越大越好，后一项代表判别器输入假数据时判别器输出越小越好。同时通过训练G来最小化第二项，使得生成器生成的图片更加不容易被判别器辨别。这个过程就像是一个双人极大极小博弈游戏
+(two-player minimax game)，G和D在互相对抗的同时共同进步。 <img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/20221204212017.png" />
+在训练过程中，GAN采用了同时训练生成器和判别器的方式，如上图所示。其中蓝色虚线代表判别器的分布，黑色虚线代表真实数据分布，绿色虚线代表生成器生成的数据分布，z代表输入的噪声。在图(a)中，噪声z映射到绿色线上，判别器目前分辨出假数据和真数据的能力并不好。通过一次判别器的训练，来到(b)状态，此时的判别器可以比较好的分辨出真实数据和假数据，接着训练生成器，生成器的分布会向着辨别器判定真数据的分布上靠拢，这样子不断迭代之后，最终我们可以达到(d)状态，达到一个平衡状态，判别器判定真假数据的概率都为1/2，无法再区分出真假数据。下图是GAN算法的伪代码。
+<img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/20221204212814.png" /></p>
+<h2 id="理论分析">理论分析</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />继续完成GAN的理论部分 🔽 ## 参考资料
+<a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oi4y1m7np/?spm_id_from=333.788.recommend_more_video.0&amp;vd_source=4363d4cc2554c5f82c74408e68eb7dc0">GAN论文精读-同济子豪兄</a>
+<a
+target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2014/hash/5ca3e9b122f61f8f06494c97b1afccf3-Abstract.htmla">GAN论文原文地址</a>
+后续相关论文笔记 [[CycleGAN论文精读]]</label></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CV/" rel="tag"># CV</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/07/09/computervision/cyclegan-lun-wen-jing-du/" rel="prev" title="CycleGAN论文精读">
+                  <i class="fa fa-chevron-left"></i> CycleGAN论文精读
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lucas Hao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">178k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:42</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cjk_width":0.9,"normal_width":0.6,"append_css":true,"js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Lucas-hao","repo":"gitalk-for-lucas-hao","client_id":"210697ff3f45adf6cabe","client_secret":"bbcd7f75b61423cebec0dff8568a8f2980d7b431","admin_user":"Lucas-hao","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"2543f654760066652e595bb51beb395b"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

@@ -33,10 +33,10 @@
 <meta property="og:image" content="https://i.loli.net/2021/03/27/uxRhTpL34nm21GC.png">
 <meta property="og:image" content="https://i.loli.net/2021/03/27/uxRhTpL34nm21GC.png">
 <meta property="article:published_time" content="2020-12-26T05:43:24.000Z">
-<meta property="article:modified_time" content="2022-12-12T12:25:41.957Z">
+<meta property="article:modified_time" content="2022-12-12T12:25:41.000Z">
 <meta property="article:author" content="Lucas Hao">
-<meta property="article:tag" content="Math">
 <meta property="article:tag" content="概率论">
+<meta property="article:tag" content="Math">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2021/03/27/i13cMAZSkxavU24.png">
 
@@ -100,7 +100,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">45</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">43</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -172,7 +172,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -183,7 +183,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -321,7 +321,9 @@
 <span id="more"></span>
 <h3 id="抽卡机制的大致分类">抽卡机制的大致分类</h3>
 <ol type="1">
-<li>最简单的抽卡模型就是每次抽卡的概率都是固定的，也就是说每次抽卡的概率都是<span class="math inline">\(p\)</span>,我们可以称之为纯随机。那么玩家第<span class="math inline">\(n\)</span>次抽中的随机变量分布就是一个几何分布。这种抽卡模型很明显对于非酋非常不友好，理论上可能存在抽了很多很多次仍然没有抽中的人存在。所以纯随机模型在抽卡游戏中是不会使用的。</li>
+<li>最简单的抽卡模型就是每次抽卡的概率都是固定的，也就是说每次抽卡的概率都是<span
+class="math inline">\(p\)</span>,我们可以称之为纯随机。那么玩家第<span
+class="math inline">\(n\)</span>次抽中的随机变量分布就是一个几何分布。这种抽卡模型很明显对于非酋非常不友好，理论上可能存在抽了很多很多次仍然没有抽中的人存在。所以纯随机模型在抽卡游戏中是不会使用的。</li>
 <li>对应于纯随机的，我们可以称之为伪随机（注意这里的伪随机和计算机随机数概念中的伪随机不是一个东西）。伪随机就是说每次抽卡的概率都是是会进行改变的。下面就重点介绍几种可能的伪随机模型。</li>
 </ol>
 <h3 id="伪随机模型">伪随机模型</h3>
@@ -335,34 +337,51 @@
 <p>这种十连保底的模型一般用于四星角色或者武器。四星虽然没有五星稀有，但是也是需要一定的保障以确保玩家甚至连四星都抽不到。</p></li>
 <li><h4 id="概率增加模型">概率增加模型</h4>
 <p>那么对于更加稀有的五星角色和武器来说，十连保底肯定就显得太过容易了。这个时候策划一般希望玩家差不多抽几十发可以抽中一个，所以就需要比如100抽保底这样的机制。但是如果这个时候继续采用以上的前面的概率都不变，那么很容易想到这样子的话大部分玩家都会是100发保底...所以就需要调整该概率。</p>
-<p>首先，我们设定一个初始概率<span class="math inline">\(p\)</span>，然后如果没有抽中，那么下一次抽卡概率就给他一个增量 <span class="math inline">\(\alpha\)</span>，如果抽中，那么就回归初始概率。所以，第X次抽中的概率就是<span class="math inline">\(p(x)=p+\alpha\times (x-1)\)</span>，概率质量函数</p>
+<p>首先，我们设定一个初始概率<span
+class="math inline">\(p\)</span>，然后如果没有抽中，那么下一次抽卡概率就给他一个增量
+<span
+class="math inline">\(\alpha\)</span>，如果抽中，那么就回归初始概率。所以，第X次抽中的概率就是<span
+class="math inline">\(p(x)=p+\alpha\times
+(x-1)\)</span>，概率质量函数</p>
 <p><span class="math display">\[
 P(x) =\Pi^{x-1}_{i=1}\lbrack(1-p(i))\rbrack\times p(x)
 =\Pi^{x-1}_{i=1}[(1-p-\alpha\times(i-1))]\times(p+\alpha\times(x-1))
 \]</span></p>
-<p>我们设定<span class="math inline">\(p=0.01, \alpha=0.01\)</span>，然后画出图像之后发现，这个图像居然很像是一个正态分布的图像，所以顺便把正态分布的图像画了出来对比，虽然也不知道为什么这两张图这么像。</p></li>
+<p>我们设定<span class="math inline">\(p=0.01,
+\alpha=0.01\)</span>，然后画出图像之后发现，这个图像居然很像是一个正态分布的图像，所以顺便把正态分布的图像画了出来对比，虽然也不知道为什么这两张图这么像。</p></li>
 </ul>
 <p><img src="https://i.loli.net/2021/03/27/3mABlhKoPTYfWyQ.png" /></p>
-<p>在这个概率模型下，由于100次的时候<span class="math inline">\(p(100)=0.01+99\times0.1=1\)</span>，所以实现了一个100抽保底的效果。但是策划希望的是100抽保底，并且大部分人应该是在五六十抽的时候抽到的，而在这个模型中，超过90%的人在前二十抽就抽到了，这显然不符合预期。所以在这个模型的基础上，我们需要进行相应的调整，让模型的最高点向右偏移。我们由此可以使用一下模型：前50次抽卡概率固定，后50次抽卡使用上面的模型，每次抽卡概率增加。这样我们得出的该概率质量函数就是 <span class="math display">\[
+<p>在这个概率模型下，由于100次的时候<span
+class="math inline">\(p(100)=0.01+99\times0.1=1\)</span>，所以实现了一个100抽保底的效果。但是策划希望的是100抽保底，并且大部分人应该是在五六十抽的时候抽到的，而在这个模型中，超过90%的人在前二十抽就抽到了，这显然不符合预期。所以在这个模型的基础上，我们需要进行相应的调整，让模型的最高点向右偏移。我们由此可以使用一下模型：前50次抽卡概率固定，后50次抽卡使用上面的模型，每次抽卡概率增加。这样我们得出的该概率质量函数就是
+<span class="math display">\[
   p(x)=
     \begin{cases}
     p, &amp; x&lt;50 \\\\
     p+\alpha(x-50), &amp;x&gt;=50
     \end{cases}
 \]</span></p>
-<p>和上面一样，如果需要满足100抽保底的话，让<span class="math inline">\(p=0.02,\alpha=0.02\)</span>。其概率质量函数和累积分布函数图像如下：</p>
+<p>和上面一样，如果需要满足100抽保底的话，让<span
+class="math inline">\(p=0.02,\alpha=0.02\)</span>。其概率质量函数和累积分布函数图像如下：</p>
 <figure>
-<img src="https://i.loli.net/2021/03/27/uxRhTpL34nm21GC.png" alt="拓展模型模拟结果" /><figcaption aria-hidden="true">拓展模型模拟结果</figcaption>
+<img src="https://i.loli.net/2021/03/27/uxRhTpL34nm21GC.png"
+alt="拓展模型模拟结果" />
+<figcaption aria-hidden="true">拓展模型模拟结果</figcaption>
 </figure>
 <p>这张图我认为说可以用作五星的概率模型了。70发之前大部分人都能够抽到，并且集中在40发到70发，占了43.69%。这也可以视作游戏玩家口中的“低保”。</p>
 <p>我们使用上面的模型模拟10000次100连抽，得到的结果如下：</p>
 <figure>
-<img src="https://i.loli.net/2021/03/27/uxRhTpL34nm21GC.png" alt="拓展模型模拟结果" /><figcaption aria-hidden="true">拓展模型模拟结果</figcaption>
+<img src="https://i.loli.net/2021/03/27/uxRhTpL34nm21GC.png"
+alt="拓展模型模拟结果" />
+<figcaption aria-hidden="true">拓展模型模拟结果</figcaption>
 </figure>
-<p>​ 这个结果个人认为就非常像真实游戏中的结果了，大部分人都只能够抽到1-2发，并且很多人都是依靠低保的（这很真实）</p>
+<p>​
+这个结果个人认为就非常像真实游戏中的结果了，大部分人都只能够抽到1-2发，并且很多人都是依靠低保的（这很真实）</p>
 <hr />
 <h3 id="参考资料">参考资料</h3>
-<p><a target="_blank" rel="noopener" href="https://www.40407.com/zixun/7986.html">明日方舟抽卡概率和保底机制研</a> <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/031e53e8553c">游戏抽奖概率模型</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.40407.com/zixun/7986.html">明日方舟抽卡概率和保底机制研</a>
+<a
+target="_blank" rel="noopener" href="https://www.jianshu.com/p/031e53e8553c">游戏抽奖概率模型</a></p>
 
     </div>
 
@@ -372,15 +391,15 @@ P(x) =\Pi^{x-1}_{i=1}\lbrack(1-p(i))\rbrack\times p(x)
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Math/" rel="tag"># Math</a>
               <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" rel="tag"># 概率论</a>
+              <a href="/tags/Math/" rel="tag"># Math</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/12/25/algorithms/permutation/" rel="prev" title="C语言实现全排列">
+                <a href="/2020/12/25/algorithms/c-yu-yan-shi-xian-quan-pai-lie/" rel="prev" title="C语言实现全排列">
                   <i class="fa fa-chevron-left"></i> C语言实现全排列
                 </a>
             </div>
@@ -409,7 +428,7 @@ P(x) =\Pi^{x-1}_{i=1}\lbrack(1-p(i))\rbrack\times p(x)
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -421,14 +440,14 @@ P(x) =\Pi^{x-1}_{i=1}\lbrack(1-p(i))\rbrack\times p(x)
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">175k</span>
+    <span title="站点总字数">178k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:39</span>
+    <span title="站点阅读时长">2:42</span>
   </span>
 </div>
 <div class="busuanzi-count">

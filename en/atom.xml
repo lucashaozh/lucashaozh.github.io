@@ -28,7 +28,8 @@
       
         
         
-    <summary type="html">&lt;p&gt;This android weather application is a android learning project followed by &lt;em&gt;Android: The first line of code&lt;/em&gt;. The application is</summary>
+    <summary type="html">&lt;p&gt;This android weather application is a android learning project
+followed by &lt;em&gt;Android: The first line of code&lt;/em&gt;. The application</summary>
         
       
     
@@ -55,7 +56,8 @@
       
         
         
-    <summary type="html">&lt;p&gt;This game is implemented in OpenGL by myself from scratch. In this game, players can control the spacecraft to move around. There are</summary>
+    <summary type="html">&lt;p&gt;This game is implemented in OpenGL by myself from scratch. In this
+game, players can control the spacecraft to move around. There are</summary>
         
       
     
@@ -84,7 +86,8 @@
       
         
         
-    <summary type="html">&lt;p&gt;A music synthesizer game made by my partner and I with Supercollider in our &lt;em&gt;Introduction to Computer Music&lt;/em&gt; Course. All the</summary>
+    <summary type="html">&lt;p&gt;A music synthesizer game made by my partner and I with Supercollider
+in our &lt;em&gt;Introduction to Computer Music&lt;/em&gt; Course. All the</summary>
         
       
     
@@ -93,9 +96,9 @@
     <category term="Project" scheme="https://lucas-hao.github.io/hexo_en/categories/Project/"/>
     
     
-    <category term="Computer Music" scheme="https://lucas-hao.github.io/hexo_en/tags/Computer-Music/"/>
-    
     <category term="Project" scheme="https://lucas-hao.github.io/hexo_en/tags/Project/"/>
+    
+    <category term="Computer Music" scheme="https://lucas-hao.github.io/hexo_en/tags/Computer-Music/"/>
     
   </entry>
   
@@ -111,7 +114,8 @@
       
         
         
-    <summary type="html">&lt;p&gt;In this project, I implemented two ray tracing renderers including witted-style ray tracing and Monte Carlo path tracing. This project</summary>
+    <summary type="html">&lt;p&gt;In this project, I implemented two ray tracing renderers including
+witted-style ray tracing and Monte Carlo path tracing. This project</summary>
         
       
     
@@ -120,9 +124,9 @@
     <category term="Project" scheme="https://lucas-hao.github.io/hexo_en/categories/Project/"/>
     
     
-    <category term="Project" scheme="https://lucas-hao.github.io/hexo_en/tags/Project/"/>
-    
     <category term="Rendering" scheme="https://lucas-hao.github.io/hexo_en/tags/Rendering/"/>
+    
+    <category term="Project" scheme="https://lucas-hao.github.io/hexo_en/tags/Project/"/>
     
   </entry>
   
@@ -138,7 +142,8 @@
       
         
         
-    <summary type="html">&lt;p&gt;In this game, players need to give a seed to initialize a world. The world is randomly generated with the seed and the world should be</summary>
+    <summary type="html">&lt;p&gt;In this game, players need to give a seed to initialize a world. The
+world is randomly generated with the seed and the world should be</summary>
         
       
     
@@ -165,7 +170,8 @@
       
         
         
-    <summary type="html">&lt;p&gt;This is my first English blog post. I would like to share with you my works and learning experiences in this website in the</summary>
+    <summary type="html">&lt;p&gt;This is my first English blog post. I would like to share with you my
+works and learning experiences in this website in the</summary>
         
       
     

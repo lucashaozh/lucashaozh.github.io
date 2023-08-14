@@ -28,7 +28,7 @@
 <meta property="og:description" content="记录一下给定一个时间戳，Java获取这一天开始和结束时间的方法，主要还是没有系统的学习过Java时间相关的类和使用方法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-22T05:18:09.000Z">
-<meta property="article:modified_time" content="2022-12-04T17:09:52.897Z">
+<meta property="article:modified_time" content="2022-12-04T17:09:52.000Z">
 <meta property="article:author" content="Lucas Hao">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -93,7 +93,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">45</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">43</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -164,7 +164,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -175,7 +175,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -312,8 +312,12 @@
         <p>记录一下给定一个时间戳，Java获取这一天开始和结束时间的方法，主要还是没有系统的学习过Java时间相关的类和使用方法</p>
 <span id="more"></span>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 获取指定某一天的开始时间戳</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> timeStamp 毫秒级时间戳</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> timeZone  如 GMT+8:00</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title function_">getDailyStartTime</span><span class="params">(Long timeStamp, String timeZone)</span> &#123;</span><br><span class="line">    <span class="type">Calendar</span> <span class="variable">calendar</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">    calendar.setTimeZone(TimeZone.getTimeZone(timeZone));</span><br><span class="line">    calendar.setTimeInMillis(timeStamp);</span><br><span class="line">    calendar.set(Calendar.HOUR_OF_DAY, <span class="number">0</span>);</span><br><span class="line">    calendar.set(Calendar.SECOND, <span class="number">0</span>);</span><br><span class="line">    calendar.set(Calendar.MINUTE, <span class="number">0</span>);</span><br><span class="line">    calendar.set(Calendar.MILLISECOND, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> calendar.getTimeInMillis();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 获取指定某一天的结束时间戳</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> timeStamp 毫秒级时间戳</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> timeZone  如 GMT+8:00</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title function_">getDailyEndTime</span><span class="params">(Long timeStamp, String timeZone)</span> &#123;</span><br><span class="line">    <span class="type">Calendar</span> <span class="variable">calendar</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">    calendar.setTimeZone(TimeZone.getTimeZone(timeZone));</span><br><span class="line">    calendar.setTimeInMillis(timeStamp);</span><br><span class="line">    calendar.set(Calendar.HOUR_OF_DAY, <span class="number">23</span>);</span><br><span class="line">    calendar.set(Calendar.MINUTE, <span class="number">59</span>);</span><br><span class="line">    calendar.set(Calendar.SECOND, <span class="number">59</span>);</span><br><span class="line">    calendar.set(Calendar.MILLISECOND, <span class="number">999</span>);</span><br><span class="line">    <span class="keyword">return</span> calendar.getTimeInMillis();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>关于<code>TimeZone</code>的用法可以参考<a target="_blank" rel="noopener" href="https://www.jb51.net/article/85930.htm#:~:text=TimeZone可以用来获取或者规定时区%2C也可以用来计算时差%2C这里我们就来详解Java中的时区类TimeZone的用法%2C特别要注意下面所提到的TimeZone相关的时间校准问题.%20TimeZone%20表示时区偏移量，也可以计算夏令时。%20在操作%20Date%2C%20Calendar等表示日期%2F时间的对象时，经常会用到TimeZone；因为不同的时区，时间不同。%20下面说说TimeZone对象的,2种常用创建方式。%20关于%20getTimeZone%20(String%20id)%20这种方式支持的全部id参数的取值，可以通过以下方式查找：%20例如，创建上面第2个打印值%22Etc%2FGMT%2B11%22对应的TimeZone。%20方法如下：">详解Java中的时区类TimeZone的用法_java_脚本之家 (jb51.net)</a>，获取默认<code>TimeZone</code>可以使用<code>TimeZone.getDefault().getID()</code>。</p>
-<p>原文来自于<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lingyejun/p/11298186.html">Java获取当天、当前月、当前年(今年)的开始和结束时间戳 - 翎野 - 博客园</a></p>
+<p>关于<code>TimeZone</code>的用法可以参考<a
+target="_blank" rel="noopener" href="https://www.jb51.net/article/85930.htm#:~:text=TimeZone可以用来获取或者规定时区%2C也可以用来计算时差%2C这里我们就来详解Java中的时区类TimeZone的用法%2C特别要注意下面所提到的TimeZone相关的时间校准问题.%20TimeZone%20表示时区偏移量，也可以计算夏令时。%20在操作%20Date%2C%20Calendar等表示日期%2F时间的对象时，经常会用到TimeZone；因为不同的时区，时间不同。%20下面说说TimeZone对象的,2种常用创建方式。%20关于%20getTimeZone%20(String%20id)%20这种方式支持的全部id参数的取值，可以通过以下方式查找：%20例如，创建上面第2个打印值%22Etc%2FGMT%2B11%22对应的TimeZone。%20方法如下：">详解Java中的时区类TimeZone的用法_java_脚本之家
+(jb51.net)</a>，获取默认<code>TimeZone</code>可以使用<code>TimeZone.getDefault().getID()</code>。</p>
+<p>原文来自于<a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/lingyejun/p/11298186.html">Java获取当天、当前月、当前年(今年)的开始和结束时间戳
+- 翎野 - 博客园</a></p>
 
     </div>
 
@@ -359,7 +363,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -371,14 +375,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">175k</span>
+    <span title="站点总字数">178k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:39</span>
+    <span title="站点阅读时长">2:42</span>
   </span>
 </div>
 <div class="busuanzi-count">

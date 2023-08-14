@@ -20,16 +20,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lucas-hao.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="最近在做暑研，要求是需要获取到Android手机中的应用使用情况，经过查找，发现Android提供了 UsageStatsManager类来帮助进行应用使用信息的统计（注明，Android5.0系统大部分手机不支持这个类，Android5.1系统之后完全支持[1], 显然现在大部分手机都是支持的），这篇文章主要记录一下这个类的使用方法。">
+    <meta name="description" content="最近在做暑研，要求是需要获取到Android手机中的应用使用情况，经过查找，发现Android提供了 UsageStatsManager类来帮助进行应用使用信息的统计（注明，Android5.0系统大部分手机不支持这个类，Android5.1系统之后完全支持[1], 显然现在大部分手机都是支持的），这篇文章主要记录一下这个类的使用方法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android获取应用使用时长和次数-UsageStatsManager使用">
 <meta property="og:url" content="https://lucas-hao.github.io/2021/06/02/android/android-huo-qu-ying-yong-shi-yong-shi-chang-he-ci-shu-usagestatsmanager-shi-yong/index.html">
 <meta property="og:site_name" content="Lucas的博客">
-<meta property="og:description" content="最近在做暑研，要求是需要获取到Android手机中的应用使用情况，经过查找，发现Android提供了 UsageStatsManager类来帮助进行应用使用信息的统计（注明，Android5.0系统大部分手机不支持这个类，Android5.1系统之后完全支持[1], 显然现在大部分手机都是支持的），这篇文章主要记录一下这个类的使用方法。">
+<meta property="og:description" content="最近在做暑研，要求是需要获取到Android手机中的应用使用情况，经过查找，发现Android提供了 UsageStatsManager类来帮助进行应用使用信息的统计（注明，Android5.0系统大部分手机不支持这个类，Android5.1系统之后完全支持[1], 显然现在大部分手机都是支持的），这篇文章主要记录一下这个类的使用方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2021/06/02/qDJ56Ld182YUrof.png">
 <meta property="article:published_time" content="2021-06-02T11:49:11.000Z">
-<meta property="article:modified_time" content="2022-11-30T13:23:09.174Z">
+<meta property="article:modified_time" content="2022-11-30T13:23:09.000Z">
 <meta property="article:author" content="Lucas Hao">
 <meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
@@ -95,7 +95,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">45</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">43</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -167,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -178,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -312,12 +312,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>最近在做暑研，要求是需要获取到Android手机中的应用使用情况，经过查找，发现Android提供了 <code>UsageStatsManager</code>类来帮助进行应用使用信息的统计（注明，Android5.0系统大部分手机不支持这个类，Android5.1系统之后完全支持[1], 显然现在大部分手机都是支持的），这篇文章主要记录一下这个类的使用方法。</p>
+        <p>最近在做暑研，要求是需要获取到Android手机中的应用使用情况，经过查找，发现Android提供了
+<code>UsageStatsManager</code>类来帮助进行应用使用信息的统计（注明，Android5.0系统大部分手机不支持这个类，Android5.1系统之后完全支持[1],
+显然现在大部分手机都是支持的），这篇文章主要记录一下这个类的使用方法。</p>
 <span id="more"></span>
 <h4 id="授权">授权</h4>
 <p>想要使用这个类来获取应用使用信息，首先需要对app进行授权，我们需要在AndroidManifest.xml文件中加入<code>uses-permission</code></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">&quot;android.permission.PACKAGE_USAGE_STATS&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:ignore</span>=<span class="string">&quot;ProtectedPermissions&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>然后需要我们在设置-安全-更多安全设置-使用情况访问权限中给对应的app打开使用权限（华为p30 pro）。我们在代码中也可以进行判断，主动要求用户打开该设置。</p>
+<p>然后需要我们在设置-安全-更多安全设置-使用情况访问权限中给对应的app打开使用权限（华为p30
+pro）。我们在代码中也可以进行判断，主动要求用户打开该设置。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先判断获取到的list是否为空 if (packageInfoList == null)</span></span><br><span class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt; Build.VERSION_CODES.LOLLIPOP) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        startActivity(<span class="keyword">new</span> <span class="title class_">Intent</span>(Settings.ACTION_USAGE_ACCESS_SETTINGS));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        Toast.makeText(MainActivity.<span class="built_in">this</span>,<span class="string">&quot;无法开启允许查看使用情况的应用界面&quot;</span>,Toast.LENGTH_LONG).show();</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="对象初始化">对象初始化</h4>
 <p>初始化<code>UsageStatsManager</code>类我们需要以下代码</p>
@@ -354,28 +357,46 @@
 </tr>
 <tr class="odd">
 <td><code>int INTERVAL_BEST</code></td>
-<td>An interval type that will use the best fit interval for the given time range.</td>
+<td>An interval type that will use the best fit interval for the given
+time range.</td>
 </tr>
 </tbody>
 </table>
 <p><code>queryAndAggregateUsageStats</code>默认的间隔类型是<code>INTERVAL_BEST</code>。</p>
-<p>下面的图片代表了我们传入的时间和我们的间隔类型结合应该得到的时间范围，需要注意的是，<strong>我们传入的beginTime和endTime不完全是系统获取app信息的开始和结束时间，beginTime和endTime是包含在开始和结束时间之中</strong>，也就是说，如果我们的间隔类型设置为<code>INTERVAL_DAILY</code>， 我们获取的使用信息的开始时间可能是beginTime的当天0时，结束时间可能是endTime的当天23:59，这个时间具体还和时区相关，所以具体情况需要视实际情况而定，更详细的解析可以看这一篇[2] <a target="_blank" rel="noopener" href="https://blog.csdn.net/liuwan1992/article/details/83625520">关于 UsageStatsManager.queryUsageStats 的注意事项及 UsageStatsService 的简单原理_菜鸟的自我修养-CSDN博客</a>。</p>
+<p>下面的图片代表了我们传入的时间和我们的间隔类型结合应该得到的时间范围，需要注意的是，<strong>我们传入的beginTime和endTime不完全是系统获取app信息的开始和结束时间，beginTime和endTime是包含在开始和结束时间之中</strong>，也就是说，如果我们的间隔类型设置为<code>INTERVAL_DAILY</code>，
+我们获取的使用信息的开始时间可能是beginTime的当天0时，结束时间可能是endTime的当天23:59，这个时间具体还和时区相关，所以具体情况需要视实际情况而定，更详细的解析可以看这一篇[2]
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/liuwan1992/article/details/83625520">关于
+UsageStatsManager.queryUsageStats 的注意事项及 UsageStatsService
+的简单原理_菜鸟的自我修养-CSDN博客</a>。</p>
 <figure>
-<img src="https://i.loli.net/2021/06/02/qDJ56Ld182YUrof.png" alt="image-20210602210207843" /><figcaption aria-hidden="true">image-20210602210207843</figcaption>
+<img src="https://i.loli.net/2021/06/02/qDJ56Ld182YUrof.png"
+alt="image-20210602210207843" />
+<figcaption aria-hidden="true">image-20210602210207843</figcaption>
 </figure>
 <h4 id="获取应用名应用包名使用时长">获取应用名，应用包名，使用时长</h4>
 <p>我们可以通过<code>UsageStats.getPackageName()</code>这个方法来获取应用的包名，通过<code>UsageStats.getTotalTimeInForeground()</code>这个方法获取应用在前台的使用时间。</p>
 <p>获取应用的名字我们需要用到<code>PackageManger</code>中的<code>getApplcationLabel(ApplicationInfo info)</code>这个方法，获取<code>ApplicationInfo</code>可以使用<code>getApplicationInfo(String packageName, int flags)</code>这个方法，代码如下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">getApplicationNameByPackageName</span><span class="params">(Context context, String packageName)</span> &#123;</span><br><span class="line">    <span class="type">PackageManager</span> <span class="variable">pm</span> <span class="operator">=</span> context.getPackageManager();</span><br><span class="line">    String Name;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Name = pm.getApplicationLabel(pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA)).toString();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;</span><br><span class="line">        Name = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Name;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="获取应用使用次数">获取应用使用次数</h4>
-<p>至于应用使用次数，通过查询发现<code>UsageStats</code>中有<code>mLauchCount</code>这个变量，但是Android没有提供对应的get方法，所以我们就需要用反射来获取使用次数 [3]。</p>
+<p>至于应用使用次数，通过查询发现<code>UsageStats</code>中有<code>mLauchCount</code>这个变量，但是Android没有提供对应的get方法，所以我们就需要用反射来获取使用次数
+[3]。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 利用反射，获取UsageStats中统计的应用使用次数</span></span><br><span class="line"><span class="meta">@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)</span></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">getLaunchCount</span><span class="params">(UsageStats usageStats)</span> <span class="keyword">throws</span> IllegalAccessException &#123;</span><br><span class="line">    <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        field = usageStats.getClass().getDeclaredField(<span class="string">&quot;mLaunchCount&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NoSuchFieldException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        Log.e(TAG, <span class="string">&quot;getLaunchCount: NoSuchFieldException&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Log.i(TAG, <span class="string">&quot;getLaunchCount: &quot;</span> + <span class="string">&quot;Package Name: &quot;</span> + usageStats.getPackageName() +</span><br><span class="line">          <span class="string">&quot;\t&quot;</span> + (<span class="type">int</span>) field.get(usageStats));</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">int</span>) field.get(usageStats);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但是实际使用下来的情况发现，得到的数据可能为0，原因不知道为什么，所以还可以通过一种较为复杂的方法进行实现。通过<code>UsageStatsManager.queryEvents(long beginTime, long endTime)</code>获取Android提供的另一个类<code>UsageEvents</code>，遍历可以获取到所有的events，通过<code>getEventType()</code>方法可以得到对应的event type，其中<code>ACTIVITY_PAUSED</code>和<code>ACTIVITY_RESUMED</code>分别代表了活动移动到了后台和移动到前台，可以通过这两个活动的次数来计算出应用使用次数。详细代码可以参考[3] <a target="_blank" rel="noopener" href="https://blog.csdn.net/github_37271067/article/details/85292543">android统计手机应用使用时长以及开启次数_github_37271067的博客-CSDN博客</a>。</p>
+<p>但是实际使用下来的情况发现，得到的数据可能为0，原因不知道为什么，所以还可以通过一种较为复杂的方法进行实现。通过<code>UsageStatsManager.queryEvents(long beginTime, long endTime)</code>获取Android提供的另一个类<code>UsageEvents</code>，遍历可以获取到所有的events，通过<code>getEventType()</code>方法可以得到对应的event
+type，其中<code>ACTIVITY_PAUSED</code>和<code>ACTIVITY_RESUMED</code>分别代表了活动移动到了后台和移动到前台，可以通过这两个活动的次数来计算出应用使用次数。详细代码可以参考[3]
+<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/github_37271067/article/details/85292543">android统计手机应用使用时长以及开启次数_github_37271067的博客-CSDN博客</a>。</p>
 <h4 id="参考资料">参考资料</h4>
-<p>[1] <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI0NDYzMzg0OQ==&amp;mid=2247483683&amp;idx=1&amp;sn=1cceed0d62a5fbfcc373d5ec45370ed9&amp;chksm=e95b98b5de2c11a37c180d231633245e94c9ede239dbdfcca769afe09f1461e6d995c81241ec#rd作者：唐码农链接：https://www.jianshu.com/p/f88b6a9f7462来源：简书著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。">Android 5.0以上通过UsageStatsManager类 获取应用使用情况（精品） (qq.com)</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://blog.csdn.net/liuwan1992/article/details/83625520">关于 UsageStatsManager.queryUsageStats 的注意事项及 UsageStatsService 的简单原理_菜鸟的自我修养-CSDN博客</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://blog.csdn.net/github_37271067/article/details/85292543">android统计手机应用使用时长以及开启次数_github_37271067的博客-CSDN博客</a></p>
-<p>[4] <a target="_blank" rel="noopener" href="https://developer.android.com/reference">Google Developers</a></p>
+<p>[1] <a
+target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI0NDYzMzg0OQ==&amp;mid=2247483683&amp;idx=1&amp;sn=1cceed0d62a5fbfcc373d5ec45370ed9&amp;chksm=e95b98b5de2c11a37c180d231633245e94c9ede239dbdfcca769afe09f1461e6d995c81241ec#rd作者：唐码农链接：https://www.jianshu.com/p/f88b6a9f7462来源：简书著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。">Android
+5.0以上通过UsageStatsManager类 获取应用使用情况（精品） (qq.com)</a></p>
+<p>[2] <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/liuwan1992/article/details/83625520">关于
+UsageStatsManager.queryUsageStats 的注意事项及 UsageStatsService
+的简单原理_菜鸟的自我修养-CSDN博客</a></p>
+<p>[3] <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/github_37271067/article/details/85292543">android统计手机应用使用时长以及开启次数_github_37271067的博客-CSDN博客</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="https://developer.android.com/reference">Google
+Developers</a></p>
 
     </div>
 
@@ -421,7 +442,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -433,14 +454,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">175k</span>
+    <span title="站点总字数">178k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:39</span>
+    <span title="站点阅读时长">2:42</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lucas-hao.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="回溯法是一种非常常见的算法，八皇后问题和迷宫问题都可以使用回溯法进行求解。以下是百度百科中对于回溯法的解释  回溯法（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。 ——百度百科  回溯法采用一种试探回溯的思">
+    <meta name="description" content="回溯法是一种非常常见的算法，八皇后问题和迷宫问题都可以使用回溯法进行求解。以下是百度百科中对于回溯法的解释  回溯法（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。 ——百度百科  回溯法采用一种试探回溯的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法：回溯法学习记录">
 <meta property="og:url" content="https://lucas-hao.github.io/2021/07/26/algorithms/suan-fa-hui-su-fa-xue-xi-ji-lu/index.html">
 <meta property="og:site_name" content="Lucas的博客">
-<meta property="og:description" content="回溯法是一种非常常见的算法，八皇后问题和迷宫问题都可以使用回溯法进行求解。以下是百度百科中对于回溯法的解释  回溯法（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。 ——百度百科  回溯法采用一种试探回溯的思">
+<meta property="og:description" content="回溯法是一种非常常见的算法，八皇后问题和迷宫问题都可以使用回溯法进行求解。以下是百度百科中对于回溯法的解释  回溯法（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。 ——百度百科  回溯法采用一种试探回溯的">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2021/07/26/W3ZKphw9uAESN8V.png">
 <meta property="og:image" content="https://i.loli.net/2021/07/26/W3ZKphw9uAESN8V.png">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://i.loli.net/2021/07/26/W3ZKphw9uAESN8V.png">
 <meta property="og:image" content="https://i.loli.net/2021/07/26/W3ZKphw9uAESN8V.png">
 <meta property="article:published_time" content="2021-07-26T14:52:11.000Z">
-<meta property="article:modified_time" content="2022-12-04T16:55:36.368Z">
+<meta property="article:modified_time" content="2022-12-04T16:55:36.000Z">
 <meta property="article:author" content="Lucas Hao">
 <meta property="article:tag" content="回溯法">
 <meta property="article:tag" content="算法">
@@ -101,7 +101,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">45</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">43</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -173,7 +173,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -184,7 +184,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -320,14 +320,19 @@
     <div class="post-body" itemprop="articleBody">
         <p>回溯法是一种非常常见的算法，八皇后问题和迷宫问题都可以使用回溯法进行求解。以下是百度百科中对于回溯法的解释</p>
 <blockquote>
-<p>回溯法（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/条件/1783021">条件</a>的某个<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/状态/33204">状态</a>的点称为“回溯点”。 ——百度百科</p>
+<p>回溯法（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯<a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/条件/1783021">条件</a>的某个<a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/状态/33204">状态</a>的点称为“回溯点”。
+——百度百科</p>
 </blockquote>
 <p>回溯法采用一种试探回溯的思想。我们从一个一个分支逐步深入，一旦发现当前分支不是我们所需要的，就排除当前分支，然后回到上一步试探其他分支。迷宫问题就是一种常见的使用回溯法的算法问题。事实上，在现实生活中走迷宫我们也经常使用这种试探的走法。</p>
 <p>除了迷宫问题，全排列问题，八皇后问题也都是回溯法的典型问题</p>
 <p><span id="more"></span></p>
 <h3 id="八皇后问题">八皇后问题</h3>
 <blockquote>
-<p>问题表述为：在8×8格的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/国际象棋/80888">国际象棋</a>上摆放8个<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/皇后/15860305">皇后</a>，使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上，问有多少种摆法。</p>
+<p>问题表述为：在8×8格的<a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/国际象棋/80888">国际象棋</a>上摆放8个<a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/皇后/15860305">皇后</a>，使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上，问有多少种摆法。</p>
 </blockquote>
 <p>对于八皇后问题，我们采用逐行试探的方法。先在当前行找到一个符合条件的位置放置皇后，如果找不到，就回溯一行排除当前位置继续寻找，直到在最后一行找到一个合适的位置，就可以得到一个解。</p>
 <p>一下是四皇后问题的一个解的寻找过程。首先在(0,0)处放置皇后，转移到行1，查找到第一个合法的位置为(1,3)。</p>
@@ -391,7 +396,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -403,14 +408,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">175k</span>
+    <span title="站点总字数">178k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:39</span>
+    <span title="站点阅读时长">2:42</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -90,7 +90,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">45</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">43</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -161,7 +161,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -172,7 +172,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -225,6 +225,541 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="Lucas Hao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lucas的博客">
+      <meta itemprop="description" content="ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Lucas的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/09/computervision/gan-lun-wen-jing-du/" class="post-title-link" itemprop="url">GAN论文精读</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-07-09 17:33:00 / 修改时间：17:34:14" itemprop="dateCreated datePublished" datetime="2023-07-09T17:33:00+08:00">2023-07-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ComputerVision/" itemprop="url" rel="index"><span itemprop="name">ComputerVision</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="introduction">Introduction</h2>
+<p>GAN的全称是Generative Adversarial
+Nets，是一种生成模型，目的是为了训练出一个生成器，使得生成器能够生成我们想要的数据，比如说一张图片。GAN在刚推出的时候成功生成了简单的手写数字和人脸照片，虽然现在看来生成的图片质量也比较一般，但是也开创了一个生成模型的新时代。</p>
+<p>在以前的生成网络中，需要有大量的概率计算, 极大似然估计,
+比较麻烦i。GAN就成功的避免了概率计算的问题，不需要马尔科夫链、极大似然估计等等。GAN的思想非常简单，总的来说就是一个生成器和一个判别器进行对抗，最终达到一个纳什均衡的状态。
+## GAN和对抗样本(Adversarial examples)的区别
+对抗样本是指通过添加噪声的方式迷惑深度神经网络，让VGG等判别模型错误的对图像进行判断。下图中在熊猫的图片上增加了一个噪声，尽管生成的图片在人眼看来还是一个熊猫很难看出区别，但是使用深度神经网络进行判断的话就会错误的将熊猫判断为长臂猿。对抗样本通过训练（反向传播梯度下降）可以找到能够误导网络的噪声图。GAN和对抗样本的区别在于，对抗样本不是用来训练生成模型的，而是用来直接修改输入来达到误导网络的目的，二者的目的是不一样的。
+<img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/20221204204717.png" /></p>
+<h2 id="adversarial-nets">Adversarial Nets</h2>
+<p>GAN首次提出了对抗损失函数，如下所示 <span class="math display">\[
+\min_G \max_D V(D, G)=\mathbb{E_{x\sim p_{data}(x)}}[\log
+D(x)]+\mathbb{E_{z\sim p_{z}(z)}}[\log(1-D(G(z)))]
+\]</span>
+其中G代表使用多层感知器的生成器，D代表使用另一个多层感知器的判别器，z代表输入的噪声，<span
+class="math inline">\(p_z(z)\)</span>表示z的分布函数，x是真实的数据，<span
+class="math inline">\(D(x)\)</span>代表判别器判断x来自真实数据的概率。通过训练D来最大化判别成功的可能性（max判别器），第一项表示判别器输入真实数据时，判别器的输出越大越好，后一项代表判别器输入假数据时判别器输出越小越好。同时通过训练G来最小化第二项，使得生成器生成的图片更加不容易被判别器辨别。这个过程就像是一个双人极大极小博弈游戏
+(two-player minimax game)，G和D在互相对抗的同时共同进步。 <img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/20221204212017.png" />
+在训练过程中，GAN采用了同时训练生成器和判别器的方式，如上图所示。其中蓝色虚线代表判别器的分布，黑色虚线代表真实数据分布，绿色虚线代表生成器生成的数据分布，z代表输入的噪声。在图(a)中，噪声z映射到绿色线上，判别器目前分辨出假数据和真数据的能力并不好。通过一次判别器的训练，来到(b)状态，此时的判别器可以比较好的分辨出真实数据和假数据，接着训练生成器，生成器的分布会向着辨别器判定真数据的分布上靠拢，这样子不断迭代之后，最终我们可以达到(d)状态，达到一个平衡状态，判别器判定真假数据的概率都为1/2，无法再区分出真假数据。下图是GAN算法的伪代码。
+<img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/20221204212814.png" /></p>
+<h2 id="理论分析">理论分析</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />继续完成GAN的理论部分 🔽 ## 参考资料
+<a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oi4y1m7np/?spm_id_from=333.788.recommend_more_video.0&amp;vd_source=4363d4cc2554c5f82c74408e68eb7dc0">GAN论文精读-同济子豪兄</a>
+<a
+target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2014/hash/5ca3e9b122f61f8f06494c97b1afccf3-Abstract.htmla">GAN论文原文地址</a>
+后续相关论文笔记 [[CycleGAN论文精读]]</label></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2023/07/09/computervision/cyclegan-lun-wen-jing-du/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="Lucas Hao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lucas的博客">
+      <meta itemprop="description" content="ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Lucas的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/09/computervision/cyclegan-lun-wen-jing-du/" class="post-title-link" itemprop="url">CycleGAN论文精读</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-07-09 17:25:00 / 修改时间：17:26:06" itemprop="dateCreated datePublished" datetime="2023-07-09T17:25:00+08:00">2023-07-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ComputerVision/" itemprop="url" rel="index"><span itemprop="name">ComputerVision</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="目的">目的</h2>
+<p>CycleGAN主要解决的问题是一个Image to Image
+Translation的问题，也就是从一个图像域转化到另一个图像域的问题，比如说给一张人脸图片，生成对应的动漫头像，还有比如说我们给一个cartoon的图像，需要生成对应的像素化后的图像
+(pixel image)。 其次，传统的Image to Image
+Translation的算法通常需要我们有配对的图像组，但是很显然这是很耗费时间的，也很难获得配对图像。所以CycleGAN提出了一种使用unpaired
+training
+set的方法，只需要给定对应两个图像域而不需要配对的图像，我们就可以实现Image
+to Image的转化。 ## 算法 CycleGAN在GAN的基础上提出了循环一致性损失
+(cycle consistency
+loss)[[GAN论文精读]]，不同于GAN从噪声生成相应的图片，CycleGAN的做法是准备非配对的两个图像域的数据集，训练两个GAN网络，一个用来将图像从A域转化到B域，另一个用来将图像从B域转化到A域。在训练过程中，有正反两个过程
+(Forward
+Backward)，正向过程首先将图片从A域转化为B域，然后在用另一个网络将生成的假B域的图片再转化成A域的图片，然后用生成回去的图像和原来的输入图像作差，也就是cycle
+consistency
+loss，我们希望这个loss尽可能小，也就是经过两次转化之后的图像能够和原来的图像尽可能相像。同样的，在反向过程中，我们从B到A，再A到B，再做一次cycle
+consistency loss。数学表示就是 <span class="math display">\[
+\begin{align}
+\text{forward: }&amp;x\rightarrow G(x)\rightarrow F(Gx)\approx x \\
+\text{backward: }&amp;y\rightarrow F(y)\rightarrow G(F(y))\approx y
+\end{align}
+\]</span></p>
+<p>为什么要这么做呢？如果说我们不采用正反两个过程和cycle consistency
+loss，我们就用一个GAN网络从A生成到B，那么可能会造成生成的图片虽然看着确实是B域的图片，但是它实际上和输入的图片已经没有关系了，甚至可能任何A域中的图片输入到网络中得到的B域图片都是一样的，也就造成了模式崩溃问题
+(Mode collapse)。而使用cycle consistency
+loss可以保证生成的图片的内容和原来的图片是相符的。 <img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/20221204215142.png" /></p>
+<h2 id="参考资料">参考资料</h2>
+<p><a
+target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_iccv_2017/html/Zhu_Unpaired_Image-To-Image_Translation_ICCV_2017_paper.html">CycleGAN论文原文</a>
+<a target="_blank" rel="noopener" href="https://junyanz.github.io/CycleGAN/">CycleGAN Project Page
+(junyanz.github.io)</a> <a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ya411a78P/?spm_id_from=333.788&amp;vd_source=4363d4cc2554c5f82c74408e68eb7dc0">精读CycleGAN论文-拍案叫绝的非配对图像风格迁移-同济子豪兄</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2023/06/10/gamegraphics/ue5-cha-jian-commonui-shi-yong-ji-yuan-li-pou-xi-input/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="Lucas Hao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lucas的博客">
+      <meta itemprop="description" content="ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Lucas的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/06/10/gamegraphics/ue5-cha-jian-commonui-shi-yong-ji-yuan-li-pou-xi-input/" class="post-title-link" itemprop="url">UE5插件CommonUI使用及原理剖析(Input)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-06-10 10:53:00" itemprop="dateCreated datePublished" datetime="2023-06-10T10:53:00+08:00">2023-06-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-15 00:04:00" itemprop="dateModified" datetime="2023-08-15T00:04:00+08:00">2023-08-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>CommonUI是UE5新推出的一款UI插件，原本是堡垒之夜里使用的插件，Epic就将其作为插件引入到了UE5中。他主要的功能在于两点：一是对于复杂的UI使用LayerStack的思想，对于不同层级的UI进行相应的管理，并使用栈的方式解决UI层级的响应问题；二是使用InputRouting实现对不同输入的统一适配，对于开发多平台游戏来说比较方便，通过配置配置表即可实现多平台的UI和输入适配。本篇主要着重在Input部分进行使用的详解和源码的简要剖析。
+### CommonUI Input的使用 CommonUI的使用参考<a
+target="_blank" rel="noopener" href="https://docs.unrealengine.com/5.0/zh-CN/common-ui-quickstart-guide-for-unreal-engine/">虚幻引擎Common
+UI快速指南 | 虚幻引擎5.0文档</a>，主要分为四个步骤： 1.
+设置Viewport为CommonUIClientViewport。在Project Settings -&gt; General
+Settings -&gt; GameViewportClientClass 修改为CommonGameViewportClient 2.
+创建<strong>InputActionDataTable</strong>进行控制器操作映射的配置。 <img
+src="https://s2.loli.net/2023/08/14/ZWoLkTa5DqVKAfm.png" /></p>
+<ol start="3" type="1">
+<li><p>设置 <strong>Default Navigation
+Actions</strong>，支持全局的点击和返回按钮功能。创建一个CommonUIInputData的蓝图类，设置Click
+Action和Back
+Action的InputAction映射，其中BackActionHandler可以在CommonUI的Widget中Override（设置一个布尔值IsBackHandler）
+<img
+src="https://s2.loli.net/2023/08/14/XucEgY4PHMtx2ZV.png" /></p></li>
+<li><p>创建 <strong>Controller Data Assets</strong>
+并且将其分配到特定平台上的特定控制器类型，可以为每个Button添加特定的Brush，通过这个设置就可以用CommonActionWidget来显示对应的Action的Icon了。
+<img src="https://s2.loli.net/2023/08/14/rlxmqL5RTfbaCw6.png" />
+通过以上四个步骤可以实现CommonUI
+Input的基本设置。要让一些功能生效，最好还是要使用CommonUI提供的Widget，比如CommonActivatableWidget、CommonButtonBase等等。详细可以参考<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=TTB5y-03SnE&amp;t=4740s">InsideUnreal的教程</a>，或者阅读CommonUI的源码进行理解。
+### CommonUI Input源码流程梳理
+通过阅读源码发现，其实CommonUI提供的不是一个完整的解决方案，我个人觉得更多的是一种思路。对于InputActionDataTable的使用，主要是在<code>UCommonUserWidget</code>中的<code>RegisterUIActionBinding()</code>函数中。在这个函数中进行InputAction的注册绑定，通过查找发现主要是三种操作:
+<code>CommonActivatableWidget</code>的Back操作，<code>CommonButtonBase</code>的Trigger操作，以及<code>CommonTabListWidgetBase</code>的Tab操作。在这些Widget中可以自定义是否Handle对应的操作。所以单单一个CommonUI对于Input的处理还是比较局限的。</p></li>
+</ol>
+<p><img src="https://s2.loli.net/2023/08/15/tAXBTyI17VY8PHm.png" /></p>
+<p>调用的流程是从<code>UCommonGameViewportClient</code>开始。在这个类中<code>UCommonGameViewportClient::InputKey</code>这个函数首先处理KeyInput，然后在<code>UCommonGameViewportClient::HandleRerouteInput</code>中在ActionRouter里处理Input
+<img src="https://s2.loli.net/2023/08/15/G6OHbLnVPuvQTSj.png" /></p>
+<p>在ActionRouter中，会将Input传递给CommonUI
+Widget中当前的ActiveRootNode进行处理。CommonUI会将所有的ActivatableWidget按照层级进行建树。每个节点会被抽象成为<code>FActivatableRootNode</code>。然后从根节点开始遍历，对于每个Child执行<code>ProcessNormalInput</code>，直到Input被Consume。</p>
+<blockquote>
+<p>Activatable Widgets are abstracted as nodes in a tree using
+<code>FActivatableRootNode</code>. Nodes are arranged in a hierarchy
+based on the hierarchy of Activatable Widgets in the UI's widget tree.
+Parent nodes act as <strong>root nodes</strong>, while their children
+are considered <strong>child</strong> or <strong>leaf
+nodes</strong>.</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/08/15/SxfgBUuKONc9rDh.jpg" /></p>
+<p>ProcessInputNorma函数如下 <img
+src="https://s2.loli.net/2023/08/15/M2ygsvznqeFulh9.png" /></p>
+<p>这里就是通过查找绑定的ActionBindings制定绑定的相应的操作。在IDE中查找后发现，追根溯源，ActionBindings的绑定就是在上面所说<code>UCommonUserWidget</code>中的<code>RegisterUIActionBinding()</code>函数中进行的。Click
+(确认) 和 Back
+(取消)两种操作上。但是他提供了一种通用Input的处理方法，在LyraStarterGame中，就通过这种方法又自定义了一些通用的ActionBindings。
+### 参考资料 <a
+target="_blank" rel="noopener" href="https://docs.unrealengine.com/5.0/zh-CN/common-ui-quickstart-guide-for-unreal-engine/">虚幻引擎Common
+UI快速指南 | 虚幻引擎5.0文档</a> <a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=TTB5y-03SnE&amp;t=4740s">InsideUnreal
+CommonUI Tutorial</a> <a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/553170706">游戏引擎应用——Unreal
+Engine的CommonUI插件分析 - 知乎</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="Lucas Hao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lucas的博客">
+      <meta itemprop="description" content="ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Lucas的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/" class="post-title-link" itemprop="url">图形学入门笔记4-实时阴影</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-06-04 21:44:00" itemprop="dateCreated datePublished" datetime="2023-06-04T21:44:00+08:00">2023-06-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-14 23:53:12" itemprop="dateModified" datetime="2023-08-14T23:53:12+08:00">2023-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>本文基于Games202 Lecture 3，作业1以及<a
+target="_blank" rel="noopener" href="https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping">LearnOpenGL</a>
+阴影在实时渲染中是非常重要的一个部分。没有引擎的画面就失去了三维的立体感。实现阴影的基本思想是Shadow
+Map，为了解决Shadow
+Map的锯齿问题，我们可以采用PCF和PCSS。本文结合Games202作业1记录一下各种阴影的实现方法。</p>
+<h3 id="shadow-map">Shadow Map</h3>
+<p>Shadow
+Map的思想非常简单，就是通过两个Pass将阴影渲染出来。在第一个Pass中，从光源的视角去渲染场景，记录片元的深度，得到一张深度图。然后进行第二个Pass，从摄像机的视角去渲染场景，对于渲染的每一个片元，将其坐标转化为以光源为参照的坐标，可以得到当前的深度，将这个深度值和存储在深度图中的深度值进行比较，如果说当前深度大于深度图中的深度，说明这个位置的光源被物体遮挡了，是一个阴影。</p>
+<p>但是，Shadow
+Map会造成摩尔纹的问题，如下图所示。这是由于采样率不足，多个不同位置但临近的片元有可能映射到同一个ShadowMap的像素上，如第二张图所示，这就会导致有些像素会被误认为是阴影（产生了错误的自遮挡）。为了解决这个问题我们可以增加一个非常小的bias，就好像让地面稍微悬空一点，让那些自遮挡的部分不被误判为阴影，这样子就可以解决摩尔纹的问题了。但同时，这样子做又会引出新的问题，就是物体看起来像是和地面悬空了一样。实际上有很多不同设置bias大小的办法。</p>
+<p><img src="https://s2.loli.net/2023/07/16/lm5TDGQndikEFe8.png" /></p>
+<p><img src="https://s2.loli.net/2023/07/16/oa3bpAV8tGkEcdZ.png" />
+比较简单的一种自适应bias方法是通过法线和入射光的夹角来确定。当入射光非常倾斜的时候，我们需要的bias是比较大的，反之会比较小。所以我们可以通过设定一个bias的最大值和最小值，然后通过法线和入射光的夹角使bias取一个合适的值。
+<img src="https://s2.loli.net/2023/07/16/aE9FG1uUdBkwXme.png" /></p>
+<p>更具体的，还可以采用更加细致的数学计算，可以参考<a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/370951892">自适应Shadow Bias算法 -
+知乎</a>中给出的公式。注意以上两种方法中，要考虑法线方向和光线方向在不同侧，会有负值，所以需要加一个abs（比如说小女孩的背面）。
+### PCF PCF全称是Percentage Closer
+Filtering，是为了解决锯齿问题的一种最简单的处理方法。顾名思义，这种方法是采用了filtering的方法，当计算某个像素是否被遮挡时，首先先采样以该像素为中心周围一些点的遮挡情况，最后的Visibility值为被遮挡的采样点的比率。注意这里的filtering操作是在计算可见度的时候进行的操作，并非是直接在深度图上进行的操作（直接在深度图上进行卷积最终计算的结果还是硬阴影，没有意义）。
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> <span class="title function_">PCF</span><span class="params">(sampler2D shadowMap, vec4 coords, <span class="type">float</span> biasC, <span class="type">float</span> filterRadiusUV)</span> &#123;</span><br><span class="line">  <span class="comment">//uniformDiskSamples(coords.xy);</span></span><br><span class="line">  poissonDiskSamples(coords.xy); <span class="comment">//使用xy坐标作为随机种子生成</span></span><br><span class="line">  <span class="type">float</span> visibility = <span class="number">0.0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; NUM_SAMPLES; i++)&#123;</span><br><span class="line">    vec2 offset = poissonDisk[i] * filterRadiusUV;</span><br><span class="line">    <span class="type">float</span> shadowDepth = useShadowMap(shadowMap, coords + vec4(offset, <span class="number">0.</span>, <span class="number">0.</span>), biasC, filterRadiusUV);</span><br><span class="line">    <span class="keyword">if</span>(coords.z &gt; shadowDepth + EPS)&#123;</span><br><span class="line">      visibility++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1.0</span> - visibility / <span class="type">float</span>(NUM_SAMPLES);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ### PCSS
+在PCF的基础上，PCSS会根据阴影距离物体的远近调整filtering的大小。PCSS分为三个步骤：1.
+Blocker Search，在某个特定范围内得出平均遮挡物的深度；2. 估计半影
+(Penumbra)区域的大小，根据相似三角形得出；3.
+使用计算得到的半影大小作为FilterRadius进行PCF <img
+src="https://s2.loli.net/2023/07/15/eFwgaTP76LSBcvu.png" /></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> <span class="title function_">findBlocker</span><span class="params">(sampler2D shadowMap, vec2 uv, <span class="type">float</span> zReceiver)</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> blockerNum = <span class="number">0</span>;</span><br><span class="line">  <span class="type">float</span> blockDepth = <span class="number">0.</span>;</span><br><span class="line">  <span class="type">float</span> posZFromLight = vPositionFromLight.z;</span><br><span class="line">  <span class="type">float</span> searchRadius = LIGHT_SIZE_UV * (posZFromLight - NEAR_PLANE) / posZFromLight;</span><br><span class="line"></span><br><span class="line">  poissonDiskSamples(uv);</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; NUM_SAMPLES; i++)&#123;</span><br><span class="line">    <span class="type">float</span> shadowDepth = unpack(texture2D(shadowMap, uv + poissonDisk[i] * searchRadius));</span><br><span class="line">    <span class="keyword">if</span>(zReceiver &gt; shadowDepth)&#123;</span><br><span class="line">      blockerNum++;</span><br><span class="line">      blockDepth += shadowDepth;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(blockerNum == <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1.</span>;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> blockDepth / <span class="type">float</span>(blockerNum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> <span class="title function_">PCSS</span><span class="params">(sampler2D shadowMap, vec4 coords, <span class="type">float</span> biasC)</span>&#123;</span><br><span class="line">  <span class="type">float</span> zReceiver = coords.z;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// STEP 1: avgblocker depth</span></span><br><span class="line">  <span class="type">float</span> avgBlockerDepth = findBlocker(shadowMap, coords.xy, zReceiver);</span><br><span class="line">  <span class="keyword">if</span>(avgBlockerDepth &lt; -EPS)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// STEP 2: penumbra size</span></span><br><span class="line">  <span class="type">float</span> penumbra = (zReceiver - avgBlockerDepth) * LIGHT_SIZE_UV / avgBlockerDepth;</span><br><span class="line">  <span class="type">float</span> filterRadiusUV = penumbra;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// STEP 3: filtering</span></span><br><span class="line">  <span class="keyword">return</span> PCF(shadowMap, coords, biasC, filterRadiusUV);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="参考资料">参考资料</h3>
+<ol type="1">
+<li><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/595039591">GAMES202-作业1：实时阴影 -
+知乎</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36242312/article/details/117562881">GAMES
+202 - 作业 1: 实时阴影_games202
+作业1_CCCCCCros____的博客-CSDN博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/370951892">自适应Shadow
+Bias算法 - 知乎</a></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -261,7 +796,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-05 00:55:36" itemprop="dateModified" datetime="2022-12-05T00:55:36+08:00">2022-12-05</time>
+      <time title="修改时间：2023-05-02 19:24:26" itemprop="dateModified" datetime="2023-05-02T19:24:26+08:00">2023-05-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -280,14 +815,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.6k</span>
+      <span>8.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>7 分钟</span>
+      <span>8 分钟</span>
     </span>
 </div>
 
@@ -339,7 +874,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2022/09/30/gamegraphics/ue5-feng-ge-hua-xuan-ran/">
+    <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2022/09/30/other/late-yu-fa-bi-ji/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/pikachu.jpg">
@@ -357,120 +892,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/30/gamegraphics/ue5-feng-ge-hua-xuan-ran/" class="post-title-link" itemprop="url">UE5风格化渲染</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-09-30 17:30:41" itemprop="dateCreated datePublished" datetime="2022-09-30T17:30:41+08:00">2022-09-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-05 00:55:36" itemprop="dateModified" datetime="2022-12-05T00:55:36+08:00">2022-12-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>466</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="ue5-风格化渲染">UE5 风格化渲染</h1>
-<p>风格化渲染主要需要有以下几个部分</p>
-<ol type="1">
-<li>风格化描边</li>
-<li>Diffuse, Specular 等效果的处理</li>
-</ol>
-<p>未完待续</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/09/30/gamegraphics/ue5-feng-ge-hua-xuan-ran/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2022/09/30/other/latex-notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/pikachu.jpg">
-      <meta itemprop="name" content="Lucas Hao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lucas的博客">
-      <meta itemprop="description" content="ACG爱好者">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Lucas的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/30/other/latex-notes/" class="post-title-link" itemprop="url">Latex的使用详解笔记(常用数学符号、图片表格等)持续更新</a>
+          <a href="/2022/09/30/other/late-yu-fa-bi-ji/" class="post-title-link" itemprop="url">Latex的使用详解笔记(常用数学符号、图片表格等)持续更新</a>
         </h2>
 
         <div class="post-meta-container">
@@ -529,7 +951,7 @@
 <p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/09/30/other/latex-notes/#more" rel="contents">
+              <a class="btn" href="/2022/09/30/other/late-yu-fa-bi-ji/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -635,10 +1057,18 @@
     <div class="post-body" itemprop="articleBody">
           <p>生成树指的是一个连通图G的覆盖所有顶点的无环子图，最小生成树指的是所有生成树中加权和最小的生成树。</p>
 <blockquote>
-<p>最小生成树的应用：聚类分析、网络架构设计、VLSI布线设计等诸多实际应用问题，都可转化并描述为最小支 撑树的构造问题。在这些应用中，边的权重大多对应于某种可量化的成本，因此作为对应优化问 题的基本模型，最小支撑树的价值不言而喻。——《数据结构C++版》</p>
+<p>最小生成树的应用：聚类分析、网络架构设计、VLSI布线设计等诸多实际应用问题，都可转化并描述为最小支
+撑树的构造问题。在这些应用中，边的权重大多对应于某种可量化的成本，因此作为对应优化问
+题的基本模型，最小支撑树的价值不言而喻。——《数据结构C++版》</p>
 </blockquote>
 <p>求最小支撑树的算法主要采用贪心算法，最著名的两个算法分别是Prim算法和Kruskal算法。</p>
-<p>本篇主要参考<a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/">Kruskal’s Minimum Spanning Tree Algorithm | Greedy Algo-2 - GeeksforGeeks</a>以及以及<a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/?ref=lbp">Prim’s Minimum Spanning Tree (MST) | Greedy Algo-5 - GeeksforGeeks</a>，GeeksforGeeks上的数据结构今天刚好搜到了，确实讲的不错，转载收藏一下作为笔记。</p>
+<p>本篇主要参考<a
+target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/">Kruskal’s
+Minimum Spanning Tree Algorithm | Greedy Algo-2 -
+GeeksforGeeks</a>以及以及<a
+target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/?ref=lbp">Prim’s
+Minimum Spanning Tree (MST) | Greedy Algo-5 -
+GeeksforGeeks</a>，GeeksforGeeks上的数据结构今天刚好搜到了，确实讲的不错，转载收藏一下作为笔记。</p>
 <p>
           <!--noindex-->
             <div class="post-button">
@@ -782,114 +1212,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2022/08/10/gamegraphics/ue-jiao-ben-fang-an-unlua-ru-men/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/pikachu.jpg">
-      <meta itemprop="name" content="Lucas Hao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lucas的博客">
-      <meta itemprop="description" content="ACG爱好者">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Lucas的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/10/gamegraphics/ue-jiao-ben-fang-an-unlua-ru-men/" class="post-title-link" itemprop="url">UE脚本方案UnLua入门</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-08-10 20:44:22" itemprop="dateCreated datePublished" datetime="2022-08-10T20:44:22+08:00">2022-08-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-05 00:55:36" itemprop="dateModified" datetime="2022-12-05T00:55:36+08:00">2022-12-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>在实际的游戏开发中，由于C++编译需要比较长的时间，蓝图使用连线的方式也会产生一些问题，比如说蓝图节点太多比较混乱，对于习惯写代码的程序员们并不是特别友好，并且蓝图以及C++都需要进行编译，在实际游戏开发过程中还会有热更新的需求，这个时候脚本语言的优势就体现出来了。Lua是游戏开发中一个非常重要的脚本语言，其中UnLua是腾讯开源的为UE提供脚本支持的框架，已经在很多项目中使用。本篇主要是记录一下UnLua的使用过程中所遇到的问题，作为一篇学习笔记。UnLua入门的教程可以参考 <a target="_blank" rel="noopener" href="https://github.com/Tencent/UnLua">Tencent/UnLua: A feature-rich, easy-learning and highly optimized Lua scripting plugin for UE. (github.com)</a>中的文档进行学习。</p>
-<p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/08/10/gamegraphics/ue-jiao-ben-fang-an-unlua-ru-men/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2022/07/27/gamegraphics/uelogsystem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -965,121 +1287,12 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="日志系统">日志系统</h2>
 <h3 id="设置项目自定义日志category">设置项目自定义日志Category</h3>
-<p>在ProjName.h中添加<code>DECLARE_LOG_CATEGORY_EXTERN(CategoryName, DefaultVerbosity, CompileTimeVerbosity);</code>，在ProjName.cpp中添加<code>DEFINE_LOG_CATEGORY(CategoryName);</code>。 实际上这两行宏展开后就是在头文件中申明了一个外部的结构体，然后在cpp文件中定义这个结构体</p>
+<p>在ProjName.h中添加<code>DECLARE_LOG_CATEGORY_EXTERN(CategoryName, DefaultVerbosity, CompileTimeVerbosity);</code>，在ProjName.cpp中添加<code>DEFINE_LOG_CATEGORY(CategoryName);</code>。
+实际上这两行宏展开后就是在头文件中申明了一个外部的结构体，然后在cpp文件中定义这个结构体</p>
 <p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/07/27/gamegraphics/uelogsystem/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2022/07/21/gamegraphics/unreal-engine-xue-xi-zi-liao-shou-cang/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/pikachu.jpg">
-      <meta itemprop="name" content="Lucas Hao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lucas的博客">
-      <meta itemprop="description" content="ACG爱好者">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Lucas的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/21/gamegraphics/unreal-engine-xue-xi-zi-liao-shou-cang/" class="post-title-link" itemprop="url">Unreal Engine 学习资料收藏</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-07-21 22:54:21" itemprop="dateCreated datePublished" datetime="2022-07-21T22:54:21+08:00">2022-07-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-05 00:55:36" itemprop="dateModified" datetime="2022-12-05T00:55:36+08:00">2022-12-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>用于记录Unreal Engine的学习路线以及资料收藏，持续更新，每学习一部分记录一下，作为学习游戏开发以及图形学的路线经历。</p>
-<p>Unreal Engine学习路线参考<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/459078565/answer/1886346828">UE4技术方向学习路线如何安排</a></p>
-<p>对于一个模块而言，Unreal Engine<a target="_blank" rel="noopener" href="https://docs.unrealengine.com/5.0/zh-CN/">官方的教程以及文档</a>已经包括了很多的内容，初学可以从这些教程入手，开始熟悉每一个模块。另外，官方UE4以及UE5都有一些示例，可以去看这些示例里的实现进行学习。</p>
-<p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/07/21/gamegraphics/unreal-engine-xue-xi-zi-liao-shou-cang/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1209,113 +1422,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lucas-hao.github.io/2022/07/10/computervision/tu-pian-xia-cai-yang-duo-chong-fang-fa-zong-jie/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/pikachu.jpg">
-      <meta itemprop="name" content="Lucas Hao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lucas的博客">
-      <meta itemprop="description" content="ACG爱好者">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Lucas的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/10/computervision/tu-pian-xia-cai-yang-duo-chong-fang-fa-zong-jie/" class="post-title-link" itemprop="url">图像像素画生成方法总结（图像下采样）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-07-10 11:55:49" itemprop="dateCreated datePublished" datetime="2022-07-10T11:55:49+08:00">2022-07-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-05 00:55:36" itemprop="dateModified" datetime="2022-12-05T00:55:36+08:00">2022-12-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ComputerVision/" itemprop="url" rel="index"><span itemprop="name">ComputerVision</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.7k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>图片的上采样和下采样分别对应图片的放大和缩小，在对图像进行采样的过程中会造成不同程度的模糊。图像的像素画生成采用的方法就是图片下采用的方法。本文会对图像像素化的方法进行总结。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/07/10/computervision/tu-pian-xia-cai-yang-duo-chong-fang-fa-zong-jie/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1329,7 +1435,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1341,14 +1447,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">175k</span>
+    <span title="站点总字数">178k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:39</span>
+    <span title="站点阅读时长">2:42</span>
   </span>
 </div>
 <div class="busuanzi-count">

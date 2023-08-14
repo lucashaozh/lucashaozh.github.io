@@ -27,15 +27,13 @@
 <meta property="og:site_name" content="Lucas的博客">
 <meta property="og:description" content="颜色距离是衡量颜色与颜色之间相似程度的一个概念。颜色距离越近代表了两个颜色越接近，最简单的一种表示就是两个颜色在RGB颜色空间中的欧式距离，但是由于人眼感知的问题，衍生出了RGB以外的一些计算颜色距离的方式。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20220908234421818.png">
 <meta property="article:published_time" content="2022-07-10T13:13:13.000Z">
-<meta property="article:modified_time" content="2022-12-04T16:55:36.369Z">
+<meta property="article:modified_time" content="2022-12-04T16:55:36.000Z">
 <meta property="article:author" content="Lucas Hao">
 <meta property="article:tag" content="CV">
 <meta property="article:tag" content="图像处理">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20220908234421818.png">
 
 
 <link rel="canonical" href="https://lucas-hao.github.io/2022/07/10/computervision/tu-xiang-chu-li-yan-se-ju-chi/">
@@ -97,7 +95,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">45</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">43</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -169,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -180,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -314,11 +312,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>颜色距离是衡量颜色与颜色之间相似程度的一个概念。颜色距离越近代表了两个颜色越接近，最简单的一种表示就是两个颜色在RGB颜色空间中的欧式距离，但是由于人眼感知的问题，衍生出了RGB以外的一些计算颜色距离的方式。 <span id="more"></span></p>
+        <p>颜色距离是衡量颜色与颜色之间相似程度的一个概念。颜色距离越近代表了两个颜色越接近，最简单的一种表示就是两个颜色在RGB颜色空间中的欧式距离，但是由于人眼感知的问题，衍生出了RGB以外的一些计算颜色距离的方式。
+<span id="more"></span></p>
 <h2 id="rgb-距离">RGB 距离</h2>
-<p><span class="math inline">\(\Delta_{RGB}=\sqrt{(R_2-R_1)^2+(G_2-G_1)^2+(B_2-B_1)^2}\)</span></p>
-<p>根据维基百科，我们还可以加上一定的权重使得结果更加符合人类的感知，比如说2、4、3（虽然我也不知道这是怎么来的）<span class="math inline">\(\Delta_{RGB}=\sqrt{2(R_2-R_1)^2+4(G_2-G_1)^2+3(B_2-B_1)^2}\)</span></p>
-<p>当然联想到欧式距离，自然就会联想到曼哈顿距离，个人认为也可以算作是一种计算颜色距离的方式<span class="math inline">\(\Delta_{RGB}=|R_2-R_1|+|G_2-G_1|+|B_2-B_1|\)</span></p>
+<p><span
+class="math inline">\(\Delta_{RGB}=\sqrt{(R_2-R_1)^2+(G_2-G_1)^2+(B_2-B_1)^2}\)</span></p>
+<p>根据维基百科，我们还可以加上一定的权重使得结果更加符合人类的感知，比如说2、4、3（虽然我也不知道这是怎么来的）<span
+class="math inline">\(\Delta_{RGB}=\sqrt{2(R_2-R_1)^2+4(G_2-G_1)^2+3(B_2-B_1)^2}\)</span></p>
+<p>当然联想到欧式距离，自然就会联想到曼哈顿距离，个人认为也可以算作是一种计算颜色距离的方式<span
+class="math inline">\(\Delta_{RGB}=|R_2-R_1|+|G_2-G_1|+|B_2-B_1|\)</span></p>
 <h2 id="cielab-距离">CIELAB 距离</h2>
 <p>颜色空间不仅仅只有RGB，还有XYZ，CMYK，LAB，SRGB，HSV等等，理论上说每一种都可以使用欧式距离作为颜色空间，但其中CIELAB是专门为了符合人类感官而设定的颜色空间。</p>
 <blockquote>
@@ -330,11 +332,15 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lab_image = cv2.cvtColor(input_image, cv2.COLOR_RGB2LAB)</span><br></pre></td></tr></table></figure>
 <p>具体的实现原理在OpenCV官方文档里有相关介绍，具体的我们需要先将RGB转化为XYZ，然后再通过以下公式最终得到LAB颜色</p>
 <figure>
-<img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20220908234421818.png" alt="image-20220908234421818" /><figcaption aria-hidden="true">image-20220908234421818</figcaption>
+<img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20220908234421818.png"
+alt="image-20220908234421818" />
+<figcaption aria-hidden="true">image-20220908234421818</figcaption>
 </figure>
 <h2 id="参考资料">参考资料</h2>
 <ol type="1">
-<li><a target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/zh-hans/颜色差异">颜色差异 - 维基百科，自由的百科全书 (wikipedia.org)</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/zh-hans/颜色差异">颜色差异 -
+维基百科，自由的百科全书 (wikipedia.org)</a></li>
 </ol>
 
     </div>
@@ -359,8 +365,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/07/21/gamegraphics/unreal-engine-xue-xi-zi-liao-shou-cang/" rel="next" title="Unreal Engine 学习资料收藏">
-                  Unreal Engine 学习资料收藏 <i class="fa fa-chevron-right"></i>
+                <a href="/2022/07/27/gamegraphics/uelogsystem/" rel="next" title="UELogSystem">
+                  UELogSystem <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -383,7 +389,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -395,14 +401,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">175k</span>
+    <span title="站点总字数">178k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:39</span>
+    <span title="站点阅读时长">2:42</span>
   </span>
 </div>
 <div class="busuanzi-count">

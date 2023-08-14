@@ -27,18 +27,13 @@
 <meta property="og:site_name" content="Lucas的博客">
 <meta property="og:description" content="贝塞尔曲线是图形学中非常重要的知识，是绘制曲线以及曲面的基础，在很多地方都有着非常广泛的应用，比如Photoshop里的钢笔工具，字体设计，各种过渡动画等等。本文将记录贝塞尔曲线的原理公式，以及使用Three.js中的贝塞尔曲线API进行简单的心形绘制。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20220210111040096.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20220210112920807.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/aEsuA.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/heart.gif">
 <meta property="article:published_time" content="2022-02-10T02:38:45.000Z">
-<meta property="article:modified_time" content="2022-12-04T16:55:36.368Z">
+<meta property="article:modified_time" content="2022-12-04T16:55:36.000Z">
 <meta property="article:author" content="Lucas Hao">
 <meta property="article:tag" content="图形学">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="Three.js">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20220210111040096.png">
 
 
 <link rel="canonical" href="https://lucas-hao.github.io/2022/02/10/gamegraphics/three-js-shi-yong-bei-sai-er-qu-xian-hui-zhi-xin-xing/">
@@ -100,7 +95,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">45</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">43</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-engligh"><a href="https://lucas-hao.github.io/en/" rel="section"><i class="fa fa-language fa-fw"></i>Engligh</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -172,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -183,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -325,44 +320,88 @@
 <p>一阶曲线非常简单，因为没有控制点，所以就是一条从起始点到终止点的线段。</p>
 <h4 id="二阶曲线">二阶曲线</h4>
 <figure>
-<img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20220210111040096.png" alt="image-20220210111040096" /><figcaption aria-hidden="true">image-20220210111040096</figcaption>
+<img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20220210111040096.png"
+alt="image-20220210111040096" />
+<figcaption aria-hidden="true">image-20220210111040096</figcaption>
 </figure>
-<p>二阶曲线由起始点、终止点和一个控制点组成。贝塞尔曲线由以下规则形成：对于[0, 1]内任何t，在<span class="math inline">\(b_0b_1\)</span>上取一个点<span class="math inline">\(b_0^1\)</span>，满足<span class="math inline">\(b_0b_0^1\)</span>和<span class="math inline">\(b_0^1b_1\)</span>的关系为<span class="math inline">\(t : 1-t\)</span>，同样的，在在<span class="math inline">\(b_1b_2\)</span>上取一个点<span class="math inline">\(b_1^1\)</span>，满足<span class="math inline">\(b_1b_1^1\)</span>和<span class="math inline">\(b_1^1b_2\)</span>的关系为<span class="math inline">\(t : 1-t\)</span>。最后将<span class="math inline">\(b_0^1b_1^1\)</span>相连，在<span class="math inline">\(b_0^1b_1^1\)</span>上继续取一点满足<span class="math inline">\(b_0^1b_0^2:b_0^2b_1^1=t:1-t\)</span>。所有的t所形成的<span class="math inline">\(b_0^2\)</span>形成一道曲线，这道曲线就是贝塞尔曲线。对应的点的坐标在向量表示下很容易表示出来： <span class="math display">\[
+<p>二阶曲线由起始点、终止点和一个控制点组成。贝塞尔曲线由以下规则形成：对于[0,
+1]内任何t，在<span class="math inline">\(b_0b_1\)</span>上取一个点<span
+class="math inline">\(b_0^1\)</span>，满足<span
+class="math inline">\(b_0b_0^1\)</span>和<span
+class="math inline">\(b_0^1b_1\)</span>的关系为<span
+class="math inline">\(t : 1-t\)</span>，同样的，在在<span
+class="math inline">\(b_1b_2\)</span>上取一个点<span
+class="math inline">\(b_1^1\)</span>，满足<span
+class="math inline">\(b_1b_1^1\)</span>和<span
+class="math inline">\(b_1^1b_2\)</span>的关系为<span
+class="math inline">\(t : 1-t\)</span>。最后将<span
+class="math inline">\(b_0^1b_1^1\)</span>相连，在<span
+class="math inline">\(b_0^1b_1^1\)</span>上继续取一点满足<span
+class="math inline">\(b_0^1b_0^2:b_0^2b_1^1=t:1-t\)</span>。所有的t所形成的<span
+class="math inline">\(b_0^2\)</span>形成一道曲线，这道曲线就是贝塞尔曲线。对应的点的坐标在向量表示下很容易表示出来：
+<span class="math display">\[
 \vec{b^1_0}(t)=(1-t)\vec{b_0}+t\vec b_1 \\
 \vec{b^1_1}(t)=(1-t)\vec{b_1}+t\vec b_2 \\
 \vec{b^2_0}(t)=(1-t)\vec{b_0^1}+t\vec b_1^1 \\
-\Rightarrow \vec{b_0^2}(t)=(1-t)^2\vec b_0 + 2t(1-t)\vec{b_1}+t^2\vec b_2
+\Rightarrow \vec{b_0^2}(t)=(1-t)^2\vec b_0 + 2t(1-t)\vec{b_1}+t^2\vec
+b_2
 \]</span></p>
 <h4 id="三阶以及多阶曲线">三阶以及多阶曲线</h4>
 <p>类似于二阶曲线，三阶以及多阶贝塞尔曲线也是采用同样的方法，不断进行迭代，每一个t确定一个点，最后形成一条曲线。</p>
 <figure>
-<img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20220210112920807.png" alt="image-20220210112920807" /><figcaption aria-hidden="true">image-20220210112920807</figcaption>
+<img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20220210112920807.png"
+alt="image-20220210112920807" />
+<figcaption aria-hidden="true">image-20220210112920807</figcaption>
 </figure>
-<p>计算贝塞尔曲线有一个对于任意阶通用的公式：<strong>德卡斯特里奥算法</strong> (De Casteljau's algorithm)，是一种递归的计算贝塞尔曲线的方法： <span class="math display">\[
-\vec b^n(t)=\vec b_0^n(t)=\sum_{j=0}^n\vec b_jB_j^n(t)\text{, where }\vec b_j \text{ is the Bernstein polynomial} \\
+<p>计算贝塞尔曲线有一个对于任意阶通用的公式：<strong>德卡斯特里奥算法</strong>
+(De Casteljau's algorithm)，是一种递归的计算贝塞尔曲线的方法： <span
+class="math display">\[
+\vec b^n(t)=\vec b_0^n(t)=\sum_{j=0}^n\vec b_jB_j^n(t)\text{, where
+}\vec b_j \text{ is the Bernstein polynomial} \\
 \text{Bernstein polynomial: }B^n_t(t)=\tbinom{n}{t}t^i(1-t)^{n-i}
 \]</span></p>
-<h3 id="使用three.js中的贝塞尔曲线绘制心形">使用Three.js中的贝塞尔曲线绘制心形</h3>
+<h3
+id="使用three.js中的贝塞尔曲线绘制心形">使用Three.js中的贝塞尔曲线绘制心形</h3>
 <h4 id="绘制圆形">绘制圆形</h4>
 <p>我们首先可以通过贝塞尔曲线绘制出一个圆形，心形可以在圆形的基础上进行一定的控制点的调整就可以绘制而成。</p>
 <figure>
-<img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/aEsuA.png" alt="aEsuA" /><figcaption aria-hidden="true">aEsuA</figcaption>
+<img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/aEsuA.png"
+alt="aEsuA" />
+<figcaption aria-hidden="true">aEsuA</figcaption>
 </figure>
-<p>从上图中可以看出，一个圆形可以被分成四个弧线，每条弧线可以通过一个三阶贝塞尔曲线绘制而成（两个控制点），控制点的位置在<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1734745/how-to-create-circle-with-bézier-curves">geometry - How to create circle with Bézier curves? - Stack Overflow</a>已经有人计算好了，我们可以直接使用（这里的计算也并不是特别复杂，简单的数学知识就可以计算出来）。由此，我们可以通过贝塞尔曲线创建出一个圆的形状：</p>
+<p>从上图中可以看出，一个圆形可以被分成四个弧线，每条弧线可以通过一个三阶贝塞尔曲线绘制而成（两个控制点），控制点的位置在<a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1734745/how-to-create-circle-with-bézier-curves">geometry
+- How to create circle with Bézier curves? - Stack
+Overflow</a>已经有人计算好了，我们可以直接使用（这里的计算也并不是特别复杂，简单的数学知识就可以计算出来）。由此，我们可以通过贝塞尔曲线创建出一个圆的形状：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">0</span>, y = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> radius = <span class="number">30</span>;</span><br><span class="line"><span class="keyword">const</span> c = <span class="number">0.551915024494</span> * radius;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> heartShape = <span class="keyword">new</span> <span class="variable constant_">THREE</span>.<span class="title class_">Shape</span>()</span><br><span class="line">    .<span class="title function_">moveTo</span>(x, y+radius)</span><br><span class="line">    .<span class="title function_">bezierCurveTo</span>(x+c,y+radius, x+radius, y+c, x+radius, y)</span><br><span class="line">    .<span class="title function_">bezierCurveTo</span>(x+radius,y-c, x+c, y-radius, x, y-radius)</span><br><span class="line">    .<span class="title function_">bezierCurveTo</span>(x-c,y-radius, x-radius, y-c, x-radius, y)</span><br><span class="line">    .<span class="title function_">bezierCurveTo</span>(x-radius,y+c, x-c, y+radius, x, y+radius)</span><br></pre></td></tr></table></figure>
 <p><code>bezierCurveTo()</code>是Three.js中的贝塞尔曲线的API，它接受六个参数，前四个分别是两个控制点的x,y坐标，最后两个是终止点的x,y坐标。这里只需要设定好参数，使用四段贝塞尔曲线一一绘制出来就可以了。</p>
 <h4 id="绘制心形">绘制心形</h4>
 <p>心形其实就是在圆形的基础上移动了三个控制点的位置，将y轴上上方的起始点稍向下移动，以及下方左右两个控制点向上移动，就可以绘制出一个心形，代码以及效果图如下所示。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">0</span>, y = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> radius = <span class="number">30</span>;</span><br><span class="line"><span class="keyword">const</span> c = <span class="number">0.551915024494</span> * radius;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> heartShape = <span class="keyword">new</span> <span class="variable constant_">THREE</span>.<span class="title class_">Shape</span>()</span><br><span class="line">    .<span class="title function_">moveTo</span>(x, y+radius/<span class="number">3</span>)</span><br><span class="line">    .<span class="title function_">bezierCurveTo</span>(x+c,y+radius, x+radius, y+c, x+radius, y)</span><br><span class="line">    .<span class="title function_">bezierCurveTo</span>(x+radius,y-c, x+c, y-radius/<span class="number">2</span>, x, y-radius)</span><br><span class="line">    .<span class="title function_">bezierCurveTo</span>(x-c,y-radius/<span class="number">2</span>, x-radius, y-c, x-radius, y)</span><br><span class="line">    .<span class="title function_">bezierCurveTo</span>(x-radius,y+c, x-c, y+radius, x, y+radius/<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
 <figure>
-<img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/heart.gif" alt="heart" /><figcaption aria-hidden="true">heart</figcaption>
+<img
+src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/heart.gif"
+alt="heart" />
+<figcaption aria-hidden="true">heart</figcaption>
 </figure>
 <h3 id="参考资料">参考资料</h3>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=11">GAMES101-现代计算机图形学入门-闫令琪_哔哩哔哩_bilibili</a></p>
-<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/德卡斯特里奥算法">德卡斯特里奥算法 - 维基百科，自由的百科全书 (wikipedia.org)</a></p>
-<p><a target="_blank" rel="noopener" href="https://threejs.org/docs/#api/en/extras/core/Path.bezierCurveTo">Path#bezierCurveTo – three.js docs (threejs.org)</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/%5B06%5DPath_Bezier.md">AndroidNote_Path_BezierGcsSloop/AndroidNote (github.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1734745/how-to-create-circle-with-bézier-curves">geometry - How to create circle with Bézier curves? - Stack Overflow</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=11">GAMES101-现代计算机图形学入门-闫令琪_哔哩哔哩_bilibili</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/德卡斯特里奥算法">德卡斯特里奥算法 -
+维基百科，自由的百科全书 (wikipedia.org)</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://threejs.org/docs/#api/en/extras/core/Path.bezierCurveTo">Path#bezierCurveTo
+– three.js docs (threejs.org)</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://github.com/GcsSloop/AndroidNote/blob/master/CustomView/Advance/%5B06%5DPath_Bezier.md">AndroidNote_Path_BezierGcsSloop/AndroidNote
+(github.com)</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1734745/how-to-create-circle-with-bézier-curves">geometry
+- How to create circle with Bézier curves? - Stack Overflow</a></p>
 
     </div>
 
@@ -410,7 +449,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -422,14 +461,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">175k</span>
+    <span title="站点总字数">178k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:39</span>
+    <span title="站点阅读时长">2:42</span>
   </span>
 </div>
 <div class="busuanzi-count">
