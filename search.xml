@@ -431,9 +431,9 @@
             
             <tag> 算法 </tag>
             
-            <tag> Java </tag>
-            
             <tag> LeetCode </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
@@ -487,9 +487,9 @@
             
             <tag> 算法 </tag>
             
-            <tag> Java </tag>
-            
             <tag> LeetCode </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
@@ -539,9 +539,9 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> LeetCode </tag>
+            
+            <tag> Java </tag>
             
             <tag> 差分 </tag>
             
@@ -676,9 +676,9 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> LeetCode </tag>
+            
+            <tag> Java </tag>
             
             <tag> 双指针 </tag>
             
@@ -907,9 +907,9 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> LeetCode </tag>
+            
+            <tag> Java </tag>
             
             <tag> 链表 </tag>
             
@@ -936,9 +936,9 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> LeetCode </tag>
+            
+            <tag> Java </tag>
             
             <tag> 双指针 </tag>
             
@@ -1080,6 +1080,31 @@
     
     
     <entry>
+      <title>JAVA String学习笔记</title>
+      <link href="/2021/07/01/java/java-string-xue-xi-bi-ji/"/>
+      <url>/2021/07/01/java/java-string-xue-xi-bi-ji/</url>
+      
+        <content type="html"><![CDATA[<p>String是一种特殊的对象（不同于8种基本数据类型）。String类的特殊性可以它的两个其他的类不具有的特点体现出来<span id="more"></span></p><ul><li><p>在创建一个String对象的时候，我们不仅可以通过和其他类类似的创建方式，通过<code>new</code>的方式创建，我们也可以直接通过赋值创建<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">newStr1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;content&quot;</span>); <span class="comment">// 和其他对象类似的创建方式</span></span><br><span class="line"><span class="type">String</span> <span class="variable">newStr2</span> <span class="operator">=</span>  <span class="string">&quot;content&quot;</span>;</span><br><span class="line"><span class="comment">// String 特殊的创建方式</span></span><br></pre></td></tr></table></figure></p></li><li><p>String可以直接进行+运算，达到字符串连接的效果</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> <span class="string">&quot;One String&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str4</span> <span class="operator">=</span> <span class="string">&quot; Another String&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str5</span> <span class="operator">=</span> str3 + str4;</span><br><span class="line"><span class="comment">// str5 = &quot;One String Another String&quot;</span></span><br></pre></td></tr></table></figure></li></ul><p>另外一个需要注意的点：String可以为空，但是空字符串不代表<code>null</code>。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str6</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str7</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>();</span><br><span class="line"><span class="type">String</span> <span class="variable">str8</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="comment">/* str6和str7一样,但和str8不一样 */</span></span><br></pre></td></tr></table></figure><p>String作为一个对象，具有一个对象应该具有基本元素。String的field都是private的，所以我们也不需要知道他们的具体内容。String提供的method可以帮助我们实现很多对String的操作</p><ul><li><p><code>char charAt(int i)</code> 返回String在第<spanclass="math inline">\(i\)</span>个位置的字符</p></li><li><p><code>int compareTo(String anotherString)</code>返回值是整型，它是先比较对应字符的大小(ASCII码顺序)，如果第一个字符和参数的第一个字符不等，结束比较，返回他们之间的<strong>差值</strong>，如果第一个字符和参数的第一个字符相等，则以第二个字符和参数的第二个字符做比较，以此类推,直至比较的字符或被比较的字符有一方结束。（<ahref="https://www.runoob.com/java/java-string-compareto.html">菜鸟教程</a>）</p></li><li><p><code>String concat(String str)</code>和加法运算符相同的效果</p></li><li><p><code>int indexOf(int ch)</code><code>int indexOf(int ch, int fromIndex)</code><code>int indexOf(String str)</code><code>int indexOf(String str, int fromIndex)</code>返回String中出现的第一个相应的参数字符的下标，<code>fromIndex</code>表示从此处开始搜索。对应的有<code>int lastIndexOf(parameters)</code>表示最后一个出现的字符下标</p></li><li><p><code>boolean isEmpty()</code>判断一个String是否为空，若是返回true。</p></li><li><p><code>String replace(char oldChar, char newChar)</code>将原本的字符串中的所有<code>oldchar</code>用<code>newChar</code>代替，返回替换后的字符串</p></li><li><p><code>String[] split(String regex, int limit)</code>以<code>regex</code>为界限分割String得到一个数组。参数<code>int limit</code>(optional)表示分割的上限次数（以前limit-1的<code>regex</code>进行分割，共分成limit个String），limit&lt;=0表示无界限。</p><p>e.g. 在下面这种情况中，<code>|</code>被编译器默认认为是或运算符,所以我们需要用<code>"\\|"</code>进行区分</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String s=“ABC|DEF|GHI”;</span><br><span class="line">s.split(“|”)</span><br><span class="line"><span class="comment">/*-&gt; [ “A”, “B”, “C”, “|”, “D”, “E”, “F”, “|”, “G”, “H”, “I”];*/</span></span><br><span class="line">String s=“ABC|DEF|GHI”;</span><br><span class="line">s.split(“\\|”);</span><br><span class="line"><span class="comment">/* -&gt; [ “ABC”, “DEF”, “GHI”]; */</span></span><br></pre></td></tr></table></figure></li><li><p><code>String substring(int beginIndex, int endIndex)</code>返回从<code>beginIndex</code>开始到<code>endIndex</code>（不包括）的substring。</p></li><li><p><code>String trim()</code> 返回消除了所有空格之后的字符串</p><ul><li>有关String更详细的方法可以参考<ahref="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html">官方文档</a></li></ul></li></ul><p>String一旦被创建就不能再更改（注：<code>String.concat()</code>和运算符"+"都会创建一个新的String对象而不是在原来的String基础上进行更改），所以Java提供了另一个类来实现String的更改</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">StringBuilder</span> <span class="variable">strbui</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;something &quot;</span>);</span><br><span class="line">strbui.append(<span class="string">&quot;another thing &quot;</span>);</span><br><span class="line"><span class="comment">// strbui: something another thing</span></span><br></pre></td></tr></table></figure><p>相比于<code>concat</code>和加法运算，使用StringBuilder的好处就是提高了效率</p><p>数字和字符串之间的转换</p><ul><li><p>Integer与String转化</p><ul><li><p><code>Integer.parseInt(str)</code>将<code>str</code>转化为对应的Integer</p></li><li><p>Integer转化为对应的字符串</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span> + <span class="number">123</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> Integer.toString(<span class="number">123</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> String.valueOf(<span class="number">123</span>);</span><br></pre></td></tr></table></figure></li></ul></li><li><p>Double与String转化</p><ul><li><p><code>Double.parseDouble(str)</code>将<code>str</code>转化为对应的Double</p></li><li><p>Double转化为String使用<code>String.valueOf(double d)</code></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">11.01</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> String.valueOf(d);</span><br></pre></td></tr></table></figure></li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Java实现一个简单的计算器</title>
       <link href="/2021/07/01/java/java-jian-dan-de-ji-suan-qi/"/>
       <url>/2021/07/01/java/java-jian-dan-de-ji-suan-qi/</url>
@@ -1101,31 +1126,6 @@
             <tag> Java </tag>
             
             <tag> 栈 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>JAVA String学习笔记</title>
-      <link href="/2021/07/01/java/java-string-xue-xi-bi-ji/"/>
-      <url>/2021/07/01/java/java-string-xue-xi-bi-ji/</url>
-      
-        <content type="html"><![CDATA[<p>String是一种特殊的对象（不同于8种基本数据类型）。String类的特殊性可以它的两个其他的类不具有的特点体现出来<span id="more"></span></p><ul><li><p>在创建一个String对象的时候，我们不仅可以通过和其他类类似的创建方式，通过<code>new</code>的方式创建，我们也可以直接通过赋值创建<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">newStr1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;content&quot;</span>); <span class="comment">// 和其他对象类似的创建方式</span></span><br><span class="line"><span class="type">String</span> <span class="variable">newStr2</span> <span class="operator">=</span>  <span class="string">&quot;content&quot;</span>;</span><br><span class="line"><span class="comment">// String 特殊的创建方式</span></span><br></pre></td></tr></table></figure></p></li><li><p>String可以直接进行+运算，达到字符串连接的效果</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> <span class="string">&quot;One String&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str4</span> <span class="operator">=</span> <span class="string">&quot; Another String&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str5</span> <span class="operator">=</span> str3 + str4;</span><br><span class="line"><span class="comment">// str5 = &quot;One String Another String&quot;</span></span><br></pre></td></tr></table></figure></li></ul><p>另外一个需要注意的点：String可以为空，但是空字符串不代表<code>null</code>。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str6</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str7</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>();</span><br><span class="line"><span class="type">String</span> <span class="variable">str8</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="comment">/* str6和str7一样,但和str8不一样 */</span></span><br></pre></td></tr></table></figure><p>String作为一个对象，具有一个对象应该具有基本元素。String的field都是private的，所以我们也不需要知道他们的具体内容。String提供的method可以帮助我们实现很多对String的操作</p><ul><li><p><code>char charAt(int i)</code> 返回String在第<spanclass="math inline">\(i\)</span>个位置的字符</p></li><li><p><code>int compareTo(String anotherString)</code>返回值是整型，它是先比较对应字符的大小(ASCII码顺序)，如果第一个字符和参数的第一个字符不等，结束比较，返回他们之间的<strong>差值</strong>，如果第一个字符和参数的第一个字符相等，则以第二个字符和参数的第二个字符做比较，以此类推,直至比较的字符或被比较的字符有一方结束。（<ahref="https://www.runoob.com/java/java-string-compareto.html">菜鸟教程</a>）</p></li><li><p><code>String concat(String str)</code>和加法运算符相同的效果</p></li><li><p><code>int indexOf(int ch)</code><code>int indexOf(int ch, int fromIndex)</code><code>int indexOf(String str)</code><code>int indexOf(String str, int fromIndex)</code>返回String中出现的第一个相应的参数字符的下标，<code>fromIndex</code>表示从此处开始搜索。对应的有<code>int lastIndexOf(parameters)</code>表示最后一个出现的字符下标</p></li><li><p><code>boolean isEmpty()</code>判断一个String是否为空，若是返回true。</p></li><li><p><code>String replace(char oldChar, char newChar)</code>将原本的字符串中的所有<code>oldchar</code>用<code>newChar</code>代替，返回替换后的字符串</p></li><li><p><code>String[] split(String regex, int limit)</code>以<code>regex</code>为界限分割String得到一个数组。参数<code>int limit</code>(optional)表示分割的上限次数（以前limit-1的<code>regex</code>进行分割，共分成limit个String），limit&lt;=0表示无界限。</p><p>e.g. 在下面这种情况中，<code>|</code>被编译器默认认为是或运算符,所以我们需要用<code>"\\|"</code>进行区分</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String s=“ABC|DEF|GHI”;</span><br><span class="line">s.split(“|”)</span><br><span class="line"><span class="comment">/*-&gt; [ “A”, “B”, “C”, “|”, “D”, “E”, “F”, “|”, “G”, “H”, “I”];*/</span></span><br><span class="line">String s=“ABC|DEF|GHI”;</span><br><span class="line">s.split(“\\|”);</span><br><span class="line"><span class="comment">/* -&gt; [ “ABC”, “DEF”, “GHI”]; */</span></span><br></pre></td></tr></table></figure></li><li><p><code>String substring(int beginIndex, int endIndex)</code>返回从<code>beginIndex</code>开始到<code>endIndex</code>（不包括）的substring。</p></li><li><p><code>String trim()</code> 返回消除了所有空格之后的字符串</p><ul><li>有关String更详细的方法可以参考<ahref="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html">官方文档</a></li></ul></li></ul><p>String一旦被创建就不能再更改（注：<code>String.concat()</code>和运算符"+"都会创建一个新的String对象而不是在原来的String基础上进行更改），所以Java提供了另一个类来实现String的更改</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">StringBuilder</span> <span class="variable">strbui</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;something &quot;</span>);</span><br><span class="line">strbui.append(<span class="string">&quot;another thing &quot;</span>);</span><br><span class="line"><span class="comment">// strbui: something another thing</span></span><br></pre></td></tr></table></figure><p>相比于<code>concat</code>和加法运算，使用StringBuilder的好处就是提高了效率</p><p>数字和字符串之间的转换</p><ul><li><p>Integer与String转化</p><ul><li><p><code>Integer.parseInt(str)</code>将<code>str</code>转化为对应的Integer</p></li><li><p>Integer转化为对应的字符串</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span> + <span class="number">123</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> Integer.toString(<span class="number">123</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> String.valueOf(<span class="number">123</span>);</span><br></pre></td></tr></table></figure></li></ul></li><li><p>Double与String转化</p><ul><li><p><code>Double.parseDouble(str)</code>将<code>str</code>转化为对应的Double</p></li><li><p>Double转化为String使用<code>String.valueOf(double d)</code></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">11.01</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> String.valueOf(d);</span><br></pre></td></tr></table></figure></li></ul></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Java </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Java </tag>
             
         </tags>
       
