@@ -3,14 +3,14 @@
   <title>皓</title>
   
   <subtitle>游戏开发 | ETH MSCS 在读</subtitle>
-  <link href="https://lucas-hao.github.io/atom.xml" rel="self"/>
+  <link href="https://lucashaozh.github.io/atom.xml" rel="self"/>
   
-  <link href="https://lucas-hao.github.io/"/>
-  <updated>2024-01-01T22:14:23.903Z</updated>
-  <id>https://lucas-hao.github.io/</id>
+  <link href="https://lucashaozh.github.io/"/>
+  <updated>2024-01-01T22:45:38.100Z</updated>
+  <id>https://lucashaozh.github.io/</id>
   
   <author>
-    <name>Lucas Hao</name>
+    <name>皓</name>
     
   </author>
   
@@ -18,10 +18,10 @@
   
   <entry>
     <title>Nori Renderer (Course Project)</title>
-    <link href="https://lucas-hao.github.io/2023/12/24/gamegraphics/noriproject/"/>
-    <id>https://lucas-hao.github.io/2023/12/24/gamegraphics/noriproject/</id>
+    <link href="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/"/>
+    <id>https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/</id>
     <published>2023-12-24T15:49:46.000Z</published>
-    <updated>2024-01-01T22:14:23.903Z</updated>
+    <updated>2024-01-01T22:45:38.100Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;motivational-image&quot;&gt;Motivational Image&lt;/h1&gt;
@@ -34,27 +34,27 @@ essence of the bar&#39;s mystique, inviting participants to let their
 imagination run wild as they bring out the richness of the hidden
 stories within the rendering. The following two images are our
 motivation images.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;motivation_image1.jpeg&quot; /&gt; &lt;img
-src=&quot;motivation_image2.jpeg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2024/01/02/FHRUOCLqBpaJQgw.jpg&quot; /&gt; &lt;img
+src=&quot;https://s2.loli.net/2024/01/02/fexQVhryYm2gdnl.jpg&quot; /&gt;&lt;/p&gt;
 &lt;h1 id=&quot;final-images&quot;&gt;Final Images&lt;/h1&gt;
 &lt;p&gt;Based on the motivation images, we rendered our final images.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;final_image.png&quot; /&gt;&lt;/p&gt;</summary>
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2024/01/02/SVn3gKIpMBth4ND.png&quot; /&gt;&lt;/p&gt;</summary>
     
     
     
-    <category term="GameGraphics" scheme="https://lucas-hao.github.io/categories/GameGraphics/"/>
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="Math" scheme="https://lucas-hao.github.io/tags/Math/"/>
+    <category term="Math" scheme="https://lucashaozh.github.io/tags/Math/"/>
     
-    <category term="图形学" scheme="https://lucas-hao.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
     
   </entry>
   
   <entry>
     <title>GAN论文精读</title>
-    <link href="https://lucas-hao.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/"/>
-    <id>https://lucas-hao.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/</id>
+    <link href="https://lucashaozh.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/"/>
+    <id>https://lucashaozh.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/</id>
     <published>2023-07-09T15:33:00.000Z</published>
     <updated>2023-11-04T15:03:38.570Z</updated>
     
@@ -70,17 +70,17 @@ src=&quot;motivation_image2.jpeg&quot; /&gt;&lt;/p&gt;
     
     
     
-    <category term="ComputerVision" scheme="https://lucas-hao.github.io/categories/ComputerVision/"/>
+    <category term="ComputerVision" scheme="https://lucashaozh.github.io/categories/ComputerVision/"/>
     
     
-    <category term="CV" scheme="https://lucas-hao.github.io/tags/CV/"/>
+    <category term="CV" scheme="https://lucashaozh.github.io/tags/CV/"/>
     
   </entry>
   
   <entry>
     <title>CycleGAN论文精读</title>
-    <link href="https://lucas-hao.github.io/2023/07/09/computervision/cyclegan-lun-wen-jing-du/"/>
-    <id>https://lucas-hao.github.io/2023/07/09/computervision/cyclegan-lun-wen-jing-du/</id>
+    <link href="https://lucashaozh.github.io/2023/07/09/computervision/cyclegan-lun-wen-jing-du/"/>
+    <id>https://lucashaozh.github.io/2023/07/09/computervision/cyclegan-lun-wen-jing-du/</id>
     <published>2023-07-09T15:25:00.000Z</published>
     <updated>2023-11-04T15:04:05.314Z</updated>
     
@@ -96,17 +96,17 @@ src=&quot;motivation_image2.jpeg&quot; /&gt;&lt;/p&gt;
     
     
     
-    <category term="ComputerVision" scheme="https://lucas-hao.github.io/categories/ComputerVision/"/>
+    <category term="ComputerVision" scheme="https://lucashaozh.github.io/categories/ComputerVision/"/>
     
     
-    <category term="CV" scheme="https://lucas-hao.github.io/tags/CV/"/>
+    <category term="CV" scheme="https://lucashaozh.github.io/tags/CV/"/>
     
   </entry>
   
   <entry>
     <title>UE5插件CommonUI使用及原理剖析(Input)</title>
-    <link href="https://lucas-hao.github.io/2023/06/10/gamegraphics/ue5-cha-jian-commonui-shi-yong-ji-yuan-li-pou-xi-input/"/>
-    <id>https://lucas-hao.github.io/2023/06/10/gamegraphics/ue5-cha-jian-commonui-shi-yong-ji-yuan-li-pou-xi-input/</id>
+    <link href="https://lucashaozh.github.io/2023/06/10/gamegraphics/ue5-cha-jian-commonui-shi-yong-ji-yuan-li-pou-xi-input/"/>
+    <id>https://lucashaozh.github.io/2023/06/10/gamegraphics/ue5-cha-jian-commonui-shi-yong-ji-yuan-li-pou-xi-input/</id>
     <published>2023-06-10T08:53:00.000Z</published>
     <updated>2023-11-04T14:39:15.736Z</updated>
     
@@ -115,19 +115,19 @@ src=&quot;motivation_image2.jpeg&quot; /&gt;&lt;/p&gt;
     
     
     
-    <category term="GameGraphics" scheme="https://lucas-hao.github.io/categories/GameGraphics/"/>
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="Unreal Engine" scheme="https://lucas-hao.github.io/tags/Unreal-Engine/"/>
+    <category term="Unreal Engine" scheme="https://lucashaozh.github.io/tags/Unreal-Engine/"/>
     
-    <category term="UI" scheme="https://lucas-hao.github.io/tags/UI/"/>
+    <category term="UI" scheme="https://lucashaozh.github.io/tags/UI/"/>
     
   </entry>
   
   <entry>
     <title>图形学入门笔记4-实时阴影</title>
-    <link href="https://lucas-hao.github.io/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/"/>
-    <id>https://lucas-hao.github.io/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/</id>
+    <link href="https://lucashaozh.github.io/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/"/>
+    <id>https://lucashaozh.github.io/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/</id>
     <published>2023-06-04T19:44:00.000Z</published>
     <updated>2023-11-04T14:39:25.106Z</updated>
     
@@ -143,19 +143,19 @@ Map的思想非常简单，就是通过两个Pass将阴影渲染出来。在第�
     
     
     
-    <category term="GameGraphics" scheme="https://lucas-hao.github.io/categories/GameGraphics/"/>
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="图形学" scheme="https://lucas-hao.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
     
-    <category term="Cpp" scheme="https://lucas-hao.github.io/tags/Cpp/"/>
+    <category term="Cpp" scheme="https://lucashaozh.github.io/tags/Cpp/"/>
     
   </entry>
   
   <entry>
     <title>图形学入门笔记3:Path Tracing-Games101作业7</title>
-    <link href="https://lucas-hao.github.io/2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/"/>
-    <id>https://lucas-hao.github.io/2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/</id>
+    <link href="https://lucashaozh.github.io/2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/"/>
+    <id>https://lucashaozh.github.io/2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/</id>
     <published>2022-10-05T17:57:26.000Z</published>
     <updated>2023-05-02T11:24:26.000Z</updated>
     
@@ -171,19 +171,19 @@ Map的思想非常简单，就是通过两个Pass将阴影渲染出来。在第�
     
     
     
-    <category term="GameGraphics" scheme="https://lucas-hao.github.io/categories/GameGraphics/"/>
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="图形学" scheme="https://lucas-hao.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
     
-    <category term="Cpp" scheme="https://lucas-hao.github.io/tags/Cpp/"/>
+    <category term="Cpp" scheme="https://lucashaozh.github.io/tags/Cpp/"/>
     
   </entry>
   
   <entry>
     <title>Latex的使用详解笔记(常用数学符号、图片表格等)持续更新</title>
-    <link href="https://lucas-hao.github.io/2022/09/30/other/late-yu-fa-bi-ji/"/>
-    <id>https://lucas-hao.github.io/2022/09/30/other/late-yu-fa-bi-ji/</id>
+    <link href="https://lucashaozh.github.io/2022/09/30/other/late-yu-fa-bi-ji/"/>
+    <id>https://lucashaozh.github.io/2022/09/30/other/late-yu-fa-bi-ji/</id>
     <published>2022-09-30T15:10:03.000Z</published>
     <updated>2022-12-04T16:55:36.000Z</updated>
     
@@ -193,19 +193,19 @@ Map的思想非常简单，就是通过两个Pass将阴影渲染出来。在第�
     
     
     
-    <category term="Other" scheme="https://lucas-hao.github.io/categories/Other/"/>
+    <category term="Other" scheme="https://lucashaozh.github.io/categories/Other/"/>
     
     
-    <category term="Math" scheme="https://lucas-hao.github.io/tags/Math/"/>
+    <category term="Math" scheme="https://lucashaozh.github.io/tags/Math/"/>
     
-    <category term="Latex" scheme="https://lucas-hao.github.io/tags/Latex/"/>
+    <category term="Latex" scheme="https://lucashaozh.github.io/tags/Latex/"/>
     
   </entry>
   
   <entry>
     <title>算法：最小生成树(Minimum Spanning Tree)</title>
-    <link href="https://lucas-hao.github.io/2022/09/28/algorithms/suan-fa-minimum-spanning-tree/"/>
-    <id>https://lucas-hao.github.io/2022/09/28/algorithms/suan-fa-minimum-spanning-tree/</id>
+    <link href="https://lucashaozh.github.io/2022/09/28/algorithms/suan-fa-minimum-spanning-tree/"/>
+    <id>https://lucashaozh.github.io/2022/09/28/algorithms/suan-fa-minimum-spanning-tree/</id>
     <published>2022-09-28T11:12:17.000Z</published>
     <updated>2022-12-14T04:55:26.000Z</updated>
     
@@ -228,19 +228,19 @@ GeeksforGeeks&lt;/a&gt;，GeeksforGeeks上的数据结构今天刚好搜到了�
     
     
     
-    <category term="Algorithms" scheme="https://lucas-hao.github.io/categories/Algorithms/"/>
+    <category term="Algorithms" scheme="https://lucashaozh.github.io/categories/Algorithms/"/>
     
     
-    <category term="C++" scheme="https://lucas-hao.github.io/tags/C/"/>
+    <category term="算法" scheme="https://lucashaozh.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="算法" scheme="https://lucas-hao.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="C++" scheme="https://lucashaozh.github.io/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>PyTorch Inplace Operation Notes</title>
-    <link href="https://lucas-hao.github.io/2022/09/25/bug/pytorch-inplace-operation-notes/"/>
-    <id>https://lucas-hao.github.io/2022/09/25/bug/pytorch-inplace-operation-notes/</id>
+    <link href="https://lucashaozh.github.io/2022/09/25/bug/pytorch-inplace-operation-notes/"/>
+    <id>https://lucashaozh.github.io/2022/09/25/bug/pytorch-inplace-operation-notes/</id>
     <published>2022-09-25T21:05:57.000Z</published>
     <updated>2022-10-08T06:04:17.000Z</updated>
     
@@ -251,23 +251,23 @@ GeeksforGeeks&lt;/a&gt;，GeeksforGeeks上的数据结构今天刚好搜到了�
     
     
     
-    <category term="Bug" scheme="https://lucas-hao.github.io/categories/Bug/"/>
+    <category term="Bug" scheme="https://lucashaozh.github.io/categories/Bug/"/>
     
     
-    <category term="Bug" scheme="https://lucas-hao.github.io/tags/Bug/"/>
+    <category term="Bug" scheme="https://lucashaozh.github.io/tags/Bug/"/>
     
-    <category term="PyTorch" scheme="https://lucas-hao.github.io/tags/PyTorch/"/>
+    <category term="CV" scheme="https://lucashaozh.github.io/tags/CV/"/>
     
-    <category term="CV" scheme="https://lucas-hao.github.io/tags/CV/"/>
+    <category term="PyTorch" scheme="https://lucashaozh.github.io/tags/PyTorch/"/>
     
-    <category term="Python" scheme="https://lucas-hao.github.io/tags/Python/"/>
+    <category term="Python" scheme="https://lucashaozh.github.io/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>UE日志系统以及自定义控制台命令</title>
-    <link href="https://lucas-hao.github.io/2022/07/27/gamegraphics/uelogsystem/"/>
-    <id>https://lucas-hao.github.io/2022/07/27/gamegraphics/uelogsystem/</id>
+    <link href="https://lucashaozh.github.io/2022/07/27/gamegraphics/uelogsystem/"/>
+    <id>https://lucashaozh.github.io/2022/07/27/gamegraphics/uelogsystem/</id>
     <published>2022-07-27T21:28:35.000Z</published>
     <updated>2023-11-04T14:38:49.048Z</updated>
     
@@ -280,19 +280,19 @@ GeeksforGeeks&lt;/a&gt;，GeeksforGeeks上的数据结构今天刚好搜到了�
     
     
     
-    <category term="GameGraphics" scheme="https://lucas-hao.github.io/categories/GameGraphics/"/>
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="Unreal Engine" scheme="https://lucas-hao.github.io/tags/Unreal-Engine/"/>
+    <category term="Unreal Engine" scheme="https://lucashaozh.github.io/tags/Unreal-Engine/"/>
     
-    <category term="Log System" scheme="https://lucas-hao.github.io/tags/Log-System/"/>
+    <category term="Log System" scheme="https://lucashaozh.github.io/tags/Log-System/"/>
     
   </entry>
   
   <entry>
     <title>图像像素画生成方法总结（图像下采样）</title>
-    <link href="https://lucas-hao.github.io/2022/07/10/computervision/tu-pian-xia-cai-yang-duo-chong-fang-fa-zong-jie/"/>
-    <id>https://lucas-hao.github.io/2022/07/10/computervision/tu-pian-xia-cai-yang-duo-chong-fang-fa-zong-jie/</id>
+    <link href="https://lucashaozh.github.io/2022/07/10/computervision/tu-pian-xia-cai-yang-duo-chong-fang-fa-zong-jie/"/>
+    <id>https://lucashaozh.github.io/2022/07/10/computervision/tu-pian-xia-cai-yang-duo-chong-fang-fa-zong-jie/</id>
     <published>2022-07-10T09:55:49.000Z</published>
     <updated>2023-11-04T14:33:49.481Z</updated>
     
@@ -301,21 +301,21 @@ GeeksforGeeks&lt;/a&gt;，GeeksforGeeks上的数据结构今天刚好搜到了�
     
     
     
-    <category term="ComputerVision" scheme="https://lucas-hao.github.io/categories/ComputerVision/"/>
+    <category term="ComputerVision" scheme="https://lucashaozh.github.io/categories/ComputerVision/"/>
     
     
-    <category term="CV" scheme="https://lucas-hao.github.io/tags/CV/"/>
+    <category term="CV" scheme="https://lucashaozh.github.io/tags/CV/"/>
     
-    <category term="python" scheme="https://lucas-hao.github.io/tags/python/"/>
+    <category term="python" scheme="https://lucashaozh.github.io/tags/python/"/>
     
-    <category term="图像处理" scheme="https://lucas-hao.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    <category term="图像处理" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>使用Rider和Emmylua进行UnLua配置</title>
-    <link href="https://lucas-hao.github.io/2022/06/27/gamegraphics/shi-yong-rider-he-emmylua-jin-xing-unlua-pei-zhi/"/>
-    <id>https://lucas-hao.github.io/2022/06/27/gamegraphics/shi-yong-rider-he-emmylua-jin-xing-unlua-pei-zhi/</id>
+    <link href="https://lucashaozh.github.io/2022/06/27/gamegraphics/shi-yong-rider-he-emmylua-jin-xing-unlua-pei-zhi/"/>
+    <id>https://lucashaozh.github.io/2022/06/27/gamegraphics/shi-yong-rider-he-emmylua-jin-xing-unlua-pei-zhi/</id>
     <published>2022-06-27T21:15:29.000Z</published>
     <updated>2022-12-04T16:55:36.000Z</updated>
     
@@ -326,19 +326,19 @@ Studio加番茄插件更加好用。所以还是非常推荐使用Rider进行UE�
     
     
     
-    <category term="GameGraphics" scheme="https://lucas-hao.github.io/categories/GameGraphics/"/>
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="Unreal Engine" scheme="https://lucas-hao.github.io/tags/Unreal-Engine/"/>
+    <category term="Unreal Engine" scheme="https://lucashaozh.github.io/tags/Unreal-Engine/"/>
     
-    <category term="IDE" scheme="https://lucas-hao.github.io/tags/IDE/"/>
+    <category term="IDE" scheme="https://lucashaozh.github.io/tags/IDE/"/>
     
   </entry>
   
   <entry>
     <title>图形学入门笔记2：Basic Ray Tracing-Games101作业5</title>
-    <link href="https://lucas-hao.github.io/2022/02/28/gamegraphics/tu-xing-xue-ru-men-bi-ji-2-basic-ray-tracing-games101-zuo-ye-5/"/>
-    <id>https://lucas-hao.github.io/2022/02/28/gamegraphics/tu-xing-xue-ru-men-bi-ji-2-basic-ray-tracing-games101-zuo-ye-5/</id>
+    <link href="https://lucashaozh.github.io/2022/02/28/gamegraphics/tu-xing-xue-ru-men-bi-ji-2-basic-ray-tracing-games101-zuo-ye-5/"/>
+    <id>https://lucashaozh.github.io/2022/02/28/gamegraphics/tu-xing-xue-ru-men-bi-ji-2-basic-ray-tracing-games101-zuo-ye-5/</id>
     <published>2022-02-28T01:15:17.000Z</published>
     <updated>2023-11-04T14:40:34.030Z</updated>
     
@@ -350,19 +350,19 @@ Algorithm笔记&lt;/p&gt;
     
     
     
-    <category term="GameGraphics" scheme="https://lucas-hao.github.io/categories/GameGraphics/"/>
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="图形学" scheme="https://lucas-hao.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
     
-    <category term="Cpp" scheme="https://lucas-hao.github.io/tags/Cpp/"/>
+    <category term="Cpp" scheme="https://lucashaozh.github.io/tags/Cpp/"/>
     
   </entry>
   
   <entry>
     <title>vscode编译.cpp文件出现中文乱码解决方案</title>
-    <link href="https://lucas-hao.github.io/2022/02/25/bug/g-bian-yi.cpp-wen-jian-chu-xian-zhong-wen-luan-ma-jie-jue-fang-an/"/>
-    <id>https://lucas-hao.github.io/2022/02/25/bug/g-bian-yi.cpp-wen-jian-chu-xian-zhong-wen-luan-ma-jie-jue-fang-an/</id>
+    <link href="https://lucashaozh.github.io/2022/02/25/bug/g-bian-yi.cpp-wen-jian-chu-xian-zhong-wen-luan-ma-jie-jue-fang-an/"/>
+    <id>https://lucashaozh.github.io/2022/02/25/bug/g-bian-yi.cpp-wen-jian-chu-xian-zhong-wen-luan-ma-jie-jue-fang-an/</id>
     <published>2022-02-25T16:57:35.000Z</published>
     <updated>2022-02-25T09:58:32.000Z</updated>
     
@@ -375,19 +375,19 @@ href=&quot;https://www.runoob.com/cplusplus/cpp-data-types.html&quot;&gt;菜鸟�
     
     
     
-    <category term="Bug" scheme="https://lucas-hao.github.io/categories/Bug/"/>
+    <category term="Bug" scheme="https://lucashaozh.github.io/categories/Bug/"/>
     
     
-    <category term="Bug" scheme="https://lucas-hao.github.io/tags/Bug/"/>
+    <category term="C++" scheme="https://lucashaozh.github.io/tags/C/"/>
     
-    <category term="C++" scheme="https://lucas-hao.github.io/tags/C/"/>
+    <category term="Bug" scheme="https://lucashaozh.github.io/tags/Bug/"/>
     
   </entry>
   
   <entry>
     <title>Three.js使用贝塞尔曲线绘制心形</title>
-    <link href="https://lucas-hao.github.io/2022/02/10/gamegraphics/three-js-shi-yong-bei-sai-er-qu-xian-hui-zhi-xin-xing/"/>
-    <id>https://lucas-hao.github.io/2022/02/10/gamegraphics/three-js-shi-yong-bei-sai-er-qu-xian-hui-zhi-xin-xing/</id>
+    <link href="https://lucashaozh.github.io/2022/02/10/gamegraphics/three-js-shi-yong-bei-sai-er-qu-xian-hui-zhi-xin-xing/"/>
+    <id>https://lucashaozh.github.io/2022/02/10/gamegraphics/three-js-shi-yong-bei-sai-er-qu-xian-hui-zhi-xin-xing/</id>
     <published>2022-02-10T09:38:45.000Z</published>
     <updated>2022-12-04T16:55:36.000Z</updated>
     
@@ -396,21 +396,21 @@ href=&quot;https://www.runoob.com/cplusplus/cpp-data-types.html&quot;&gt;菜鸟�
     
     
     
-    <category term="GameGraphics" scheme="https://lucas-hao.github.io/categories/GameGraphics/"/>
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="图形学" scheme="https://lucas-hao.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
     
-    <category term="前端" scheme="https://lucas-hao.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    <category term="前端" scheme="https://lucashaozh.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
     
-    <category term="Three.js" scheme="https://lucas-hao.github.io/tags/Three-js/"/>
+    <category term="Three.js" scheme="https://lucashaozh.github.io/tags/Three-js/"/>
     
   </entry>
   
   <entry>
     <title>BugMysql:Access Denied for user &#39;root&#39;@&#39;localhost&#39;</title>
-    <link href="https://lucas-hao.github.io/2021/11/21/bug/bugmysql-access-denied-for-user-root-localhost/"/>
-    <id>https://lucas-hao.github.io/2021/11/21/bug/bugmysql-access-denied-for-user-root-localhost/</id>
+    <link href="https://lucashaozh.github.io/2021/11/21/bug/bugmysql-access-denied-for-user-root-localhost/"/>
+    <id>https://lucashaozh.github.io/2021/11/21/bug/bugmysql-access-denied-for-user-root-localhost/</id>
     <published>2021-11-21T00:20:57.000Z</published>
     <updated>2021-11-20T17:44:18.000Z</updated>
     
@@ -420,19 +420,19 @@ href=&quot;https://www.runoob.com/cplusplus/cpp-data-types.html&quot;&gt;菜鸟�
     
     
     
-    <category term="Bug" scheme="https://lucas-hao.github.io/categories/Bug/"/>
+    <category term="Bug" scheme="https://lucashaozh.github.io/categories/Bug/"/>
     
     
-    <category term="Bug" scheme="https://lucas-hao.github.io/tags/Bug/"/>
+    <category term="Bug" scheme="https://lucashaozh.github.io/tags/Bug/"/>
     
-    <category term="Mysql" scheme="https://lucas-hao.github.io/tags/Mysql/"/>
+    <category term="Mysql" scheme="https://lucashaozh.github.io/tags/Mysql/"/>
     
   </entry>
   
   <entry>
     <title>算法：数组中的逆序对</title>
-    <link href="https://lucas-hao.github.io/2021/11/06/algorithms/suan-fa-shu-zu-zhong-de-ni-xu-dui/"/>
-    <id>https://lucas-hao.github.io/2021/11/06/algorithms/suan-fa-shu-zu-zhong-de-ni-xu-dui/</id>
+    <link href="https://lucashaozh.github.io/2021/11/06/algorithms/suan-fa-shu-zu-zhong-de-ni-xu-dui/"/>
+    <id>https://lucashaozh.github.io/2021/11/06/algorithms/suan-fa-shu-zu-zhong-de-ni-xu-dui/</id>
     <published>2021-11-06T12:50:11.000Z</published>
     <updated>2022-12-04T16:55:36.000Z</updated>
     
@@ -449,21 +449,21 @@ Offer 51. 数组中的逆序对 - 力扣（LeetCode） (leetcode-cn.com)&lt;/a&g
     
     
     
-    <category term="Algorithms" scheme="https://lucas-hao.github.io/categories/Algorithms/"/>
+    <category term="Algorithms" scheme="https://lucashaozh.github.io/categories/Algorithms/"/>
     
     
-    <category term="算法" scheme="https://lucas-hao.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://lucashaozh.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="Java" scheme="https://lucas-hao.github.io/tags/Java/"/>
+    <category term="LeetCode" scheme="https://lucashaozh.github.io/tags/LeetCode/"/>
     
-    <category term="LeetCode" scheme="https://lucas-hao.github.io/tags/LeetCode/"/>
+    <category term="Java" scheme="https://lucashaozh.github.io/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>图形学入门笔记1：图形学中的数学</title>
-    <link href="https://lucas-hao.github.io/2021/10/30/gamegraphics/tu-xing-xue-ru-men-bi-ji-1-tu-xing-xue-zhong-de-shu-xue/"/>
-    <id>https://lucas-hao.github.io/2021/10/30/gamegraphics/tu-xing-xue-ru-men-bi-ji-1-tu-xing-xue-zhong-de-shu-xue/</id>
+    <link href="https://lucashaozh.github.io/2021/10/30/gamegraphics/tu-xing-xue-ru-men-bi-ji-1-tu-xing-xue-zhong-de-shu-xue/"/>
+    <id>https://lucashaozh.github.io/2021/10/30/gamegraphics/tu-xing-xue-ru-men-bi-ji-1-tu-xing-xue-zhong-de-shu-xue/</id>
     <published>2021-10-30T21:39:17.000Z</published>
     <updated>2023-02-07T03:19:28.000Z</updated>
     
@@ -472,19 +472,19 @@ Offer 51. 数组中的逆序对 - 力扣（LeetCode） (leetcode-cn.com)&lt;/a&g
     
     
     
-    <category term="GameGraphics" scheme="https://lucas-hao.github.io/categories/GameGraphics/"/>
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="Math" scheme="https://lucas-hao.github.io/tags/Math/"/>
+    <category term="Math" scheme="https://lucashaozh.github.io/tags/Math/"/>
     
-    <category term="图形学" scheme="https://lucas-hao.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
     
   </entry>
   
   <entry>
     <title>算法：数组中第k大的数</title>
-    <link href="https://lucas-hao.github.io/2021/10/21/algorithms/suan-fa-shu-zu-zhong-di-k-da-de-shu/"/>
-    <id>https://lucas-hao.github.io/2021/10/21/algorithms/suan-fa-shu-zu-zhong-di-k-da-de-shu/</id>
+    <link href="https://lucashaozh.github.io/2021/10/21/algorithms/suan-fa-shu-zu-zhong-di-k-da-de-shu/"/>
+    <id>https://lucashaozh.github.io/2021/10/21/algorithms/suan-fa-shu-zu-zhong-di-k-da-de-shu/</id>
     <published>2021-10-20T22:30:10.000Z</published>
     <updated>2022-12-04T16:55:36.000Z</updated>
     
@@ -504,21 +504,21 @@ href=&quot;https://leetcode-cn.com/problems/kth-largest-element-in-an-array/&quo
     
     
     
-    <category term="Algorithms" scheme="https://lucas-hao.github.io/categories/Algorithms/"/>
+    <category term="Algorithms" scheme="https://lucashaozh.github.io/categories/Algorithms/"/>
     
     
-    <category term="算法" scheme="https://lucas-hao.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://lucashaozh.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="Java" scheme="https://lucas-hao.github.io/tags/Java/"/>
+    <category term="LeetCode" scheme="https://lucashaozh.github.io/tags/LeetCode/"/>
     
-    <category term="LeetCode" scheme="https://lucas-hao.github.io/tags/LeetCode/"/>
+    <category term="Java" scheme="https://lucashaozh.github.io/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>1109. 航班预订统计</title>
-    <link href="https://lucas-hao.github.io/2021/09/24/leetcode/1109-hang-ban-yu-ding-tong-ji/"/>
-    <id>https://lucas-hao.github.io/2021/09/24/leetcode/1109-hang-ban-yu-ding-tong-ji/</id>
+    <link href="https://lucashaozh.github.io/2021/09/24/leetcode/1109-hang-ban-yu-ding-tong-ji/"/>
+    <id>https://lucashaozh.github.io/2021/09/24/leetcode/1109-hang-ban-yu-ding-tong-ji/</id>
     <published>2021-09-24T19:02:30.000Z</published>
     <updated>2022-12-28T18:00:35.000Z</updated>
     
@@ -534,14 +534,14 @@ answer，里面的元素是每个航班预定的座位总数。&lt;/p&gt;
     
     
     
-    <category term="LeetCode" scheme="https://lucas-hao.github.io/categories/LeetCode/"/>
+    <category term="LeetCode" scheme="https://lucashaozh.github.io/categories/LeetCode/"/>
     
     
-    <category term="Java" scheme="https://lucas-hao.github.io/tags/Java/"/>
+    <category term="LeetCode" scheme="https://lucashaozh.github.io/tags/LeetCode/"/>
     
-    <category term="LeetCode" scheme="https://lucas-hao.github.io/tags/LeetCode/"/>
+    <category term="Java" scheme="https://lucashaozh.github.io/tags/Java/"/>
     
-    <category term="差分" scheme="https://lucas-hao.github.io/tags/%E5%B7%AE%E5%88%86/"/>
+    <category term="差分" scheme="https://lucashaozh.github.io/tags/%E5%B7%AE%E5%88%86/"/>
     
   </entry>
   
