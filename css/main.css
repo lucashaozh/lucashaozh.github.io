@@ -2860,3 +2860,9 @@ body.darkmode--activated {
 .popup {
   opacity: 0.9;
 }
+.post-body .twentytwenty-container {
+  margin: auto;
+}
+.post-body .twentytwenty-container img {
+  margin-bottom: 0px;
+}

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Lucas的博客</title>
+  <title>皓</title>
   
-  <subtitle>游戏开发 | ETH Master 在读</subtitle>
+  <subtitle>游戏开发 | ETH MSCS 在读</subtitle>
   <link href="https://lucas-hao.github.io/atom.xml" rel="self"/>
   
   <link href="https://lucas-hao.github.io/"/>
-  <updated>2023-11-04T14:32:40.737Z</updated>
+  <updated>2024-01-01T22:14:23.903Z</updated>
   <id>https://lucas-hao.github.io/</id>
   
   <author>
@@ -17,11 +17,46 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Nori Renderer (Course Project)</title>
+    <link href="https://lucas-hao.github.io/2023/12/24/gamegraphics/noriproject/"/>
+    <id>https://lucas-hao.github.io/2023/12/24/gamegraphics/noriproject/</id>
+    <published>2023-12-24T15:49:46.000Z</published>
+    <updated>2024-01-01T22:14:23.903Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;motivational-image&quot;&gt;Motivational Image&lt;/h1&gt;
+&lt;p&gt;The scene that we want to render is a dimly lit, smoky bar, inspired
+by the following two images. Rows of exquisite liquor bottles line the
+shelves, their labels veiled in the subtle play of light and shadow. An
+ashtray rests nearby, adorned with an unlit cigarette. A dim spotlight
+bathes the ashtray and the wine bottles. The scene is to capture the
+essence of the bar&#39;s mystique, inviting participants to let their
+imagination run wild as they bring out the richness of the hidden
+stories within the rendering. The following two images are our
+motivation images.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;motivation_image1.jpeg&quot; /&gt; &lt;img
+src=&quot;motivation_image2.jpeg&quot; /&gt;&lt;/p&gt;
+&lt;h1 id=&quot;final-images&quot;&gt;Final Images&lt;/h1&gt;
+&lt;p&gt;Based on the motivation images, we rendered our final images.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;final_image.png&quot; /&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucas-hao.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="Math" scheme="https://lucas-hao.github.io/tags/Math/"/>
+    
+    <category term="图形学" scheme="https://lucas-hao.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
     <title>GAN论文精读</title>
     <link href="https://lucas-hao.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/"/>
     <id>https://lucas-hao.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/</id>
     <published>2023-07-09T15:33:00.000Z</published>
-    <updated>2023-11-04T14:32:40.737Z</updated>
+    <updated>2023-11-04T15:03:38.570Z</updated>
     
     
       
@@ -47,7 +82,7 @@
     <link href="https://lucas-hao.github.io/2023/07/09/computervision/cyclegan-lun-wen-jing-du/"/>
     <id>https://lucas-hao.github.io/2023/07/09/computervision/cyclegan-lun-wen-jing-du/</id>
     <published>2023-07-09T15:25:00.000Z</published>
-    <updated>2023-11-04T14:33:06.033Z</updated>
+    <updated>2023-11-04T15:04:05.314Z</updated>
     
     
       
@@ -196,9 +231,9 @@ GeeksforGeeks&lt;/a&gt;，GeeksforGeeks上的数据结构今天刚好搜到了�
     <category term="Algorithms" scheme="https://lucas-hao.github.io/categories/Algorithms/"/>
     
     
-    <category term="算法" scheme="https://lucas-hao.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
     <category term="C++" scheme="https://lucas-hao.github.io/tags/C/"/>
+    
+    <category term="算法" scheme="https://lucas-hao.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -343,9 +378,9 @@ href=&quot;https://www.runoob.com/cplusplus/cpp-data-types.html&quot;&gt;菜鸟�
     <category term="Bug" scheme="https://lucas-hao.github.io/categories/Bug/"/>
     
     
-    <category term="C++" scheme="https://lucas-hao.github.io/tags/C/"/>
-    
     <category term="Bug" scheme="https://lucas-hao.github.io/tags/Bug/"/>
+    
+    <category term="C++" scheme="https://lucas-hao.github.io/tags/C/"/>
     
   </entry>
   
@@ -419,9 +454,9 @@ Offer 51. 数组中的逆序对 - 力扣（LeetCode） (leetcode-cn.com)&lt;/a&g
     
     <category term="算法" scheme="https://lucas-hao.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="LeetCode" scheme="https://lucas-hao.github.io/tags/LeetCode/"/>
-    
     <category term="Java" scheme="https://lucas-hao.github.io/tags/Java/"/>
+    
+    <category term="LeetCode" scheme="https://lucas-hao.github.io/tags/LeetCode/"/>
     
   </entry>
   
@@ -474,30 +509,9 @@ href=&quot;https://leetcode-cn.com/problems/kth-largest-element-in-an-array/&quo
     
     <category term="算法" scheme="https://lucas-hao.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="LeetCode" scheme="https://lucas-hao.github.io/tags/LeetCode/"/>
-    
     <category term="Java" scheme="https://lucas-hao.github.io/tags/Java/"/>
     
-  </entry>
-  
-  <entry>
-    <title>面试-Jane Street 电面</title>
-    <link href="https://lucas-hao.github.io/2021/09/27/other/mian-shi-jane-street-dian-mian/"/>
-    <id>https://lucas-hao.github.io/2021/09/27/other/mian-shi-jane-street-dian-mian/</id>
-    <published>2021-09-27T12:31:42.000Z</published>
-    <updated>2022-12-04T16:55:36.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;今天刚面了Jane Street (HK)
-的电面，再次感慨自己也太菜了，不过也权当积累经验了orz&lt;/p&gt;
-&lt;p&gt;</summary>
-    
-    
-    
-    <category term="Other" scheme="https://lucas-hao.github.io/categories/Other/"/>
-    
-    
-    <category term="面试" scheme="https://lucas-hao.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    <category term="LeetCode" scheme="https://lucas-hao.github.io/tags/LeetCode/"/>
     
   </entry>
   
@@ -523,9 +537,9 @@ answer，里面的元素是每个航班预定的座位总数。&lt;/p&gt;
     <category term="LeetCode" scheme="https://lucas-hao.github.io/categories/LeetCode/"/>
     
     
-    <category term="LeetCode" scheme="https://lucas-hao.github.io/tags/LeetCode/"/>
-    
     <category term="Java" scheme="https://lucas-hao.github.io/tags/Java/"/>
+    
+    <category term="LeetCode" scheme="https://lucas-hao.github.io/tags/LeetCode/"/>
     
     <category term="差分" scheme="https://lucas-hao.github.io/tags/%E5%B7%AE%E5%88%86/"/>
     
