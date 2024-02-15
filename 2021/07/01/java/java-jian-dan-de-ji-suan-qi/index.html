@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -343,6 +343,7 @@ input内输入一个字符串表达式，然后对数字和符号进行各自对
   function initialize_twentytwenty(){
     if($(".twentytwenty-container").twentytwenty){
       $(".twentytwenty-container").twentytwenty();
+      console.log("Twentytwenty Initialized");
     }else{
       setTimeout(function(){
         initialize_twentytwenty();
@@ -361,13 +362,13 @@ input内输入一个字符串表达式，然后对数字和符号进行各自对
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/07/01/java/java-lian-biao-zhan-dui-lie-ha-xi-biao-ji-he/" rel="prev" title="Java链表、栈、队列、哈希表、集合">
-                  <i class="fa fa-chevron-left"></i> Java链表、栈、队列、哈希表、集合
+                <a href="/2021/07/01/java/java-string-xue-xi-bi-ji/" rel="prev" title="JAVA String学习笔记">
+                  <i class="fa fa-chevron-left"></i> JAVA String学习笔记
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/07/01/java/java-string-xue-xi-bi-ji/" rel="next" title="JAVA String学习笔记">
-                  JAVA String学习笔记 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/07/06/backend/nginx-yi-ji-ngx-postgres-an-zhuang-yi-ji-pei-zhi/" rel="next" title="Nginx以及ngx_postgres安装以及配置">
+                  Nginx以及ngx_postgres安装以及配置 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

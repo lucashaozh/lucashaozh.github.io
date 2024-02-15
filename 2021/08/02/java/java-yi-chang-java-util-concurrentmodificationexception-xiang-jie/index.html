@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
@@ -382,8 +382,8 @@ thread2 6 thread2 7 thread2 8 thread2 9 thread2 10 thread2 11 thread2 12
 thread2 13 thread2 14 thread2 15 thread2 16 thread2 17 thread2 18
 thread2 19 Exception in thread "Thread-0"
 java.util.ConcurrentModificationException at java.util.ArrayList<span
-class="math inline">\(Itr.checkForComodification(ArrayList.java:901)  at
-java.util.ArrayList\)</span>Itr.next(ArrayList.java:851) at
+class="math inline">\(Itr.checkForComodification(ArrayList.java:901)
+  at java.util.ArrayList\)</span>Itr.next(ArrayList.java:851) at
 com.snow.ExceptionTest$1.run(ExceptionTest.java:74) at
 java.lang.Thread.run(Thread.java:745)</p>
 <p>Process finished with exit code 0</p>
@@ -436,8 +436,8 @@ thread2 6 thread2 7 thread2 8 thread2 9 thread2 10 thread2 11 thread2 12
 thread2 13 thread2 14 thread2 15 thread2 16 thread2 17 thread2 18
 thread2 19 Exception in thread "Thread-0"
 java.util.ConcurrentModificationException at java.util.Vector<span
-class="math inline">\(Itr.checkForComodification(Vector.java:1184)  at
-java.util.Vector\)</span>Itr.next(Vector.java:1137) at
+class="math inline">\(Itr.checkForComodification(Vector.java:1184)
+  at java.util.Vector\)</span>Itr.next(Vector.java:1137) at
 com.snow.ExceptionTest$3.run(ExceptionTest.java:112) at
 java.lang.Thread.run(Thread.java:745)</p>
 <p>Process finished with exit code 0</p>
@@ -553,6 +553,7 @@ remove掉一个元素之后为什么还会输出5了。在thread2中，第二次
   function initialize_twentytwenty(){
     if($(".twentytwenty-container").twentytwenty){
       $(".twentytwenty-container").twentytwenty();
+      console.log("Twentytwenty Initialized");
     }else{
       setTimeout(function(){
         initialize_twentytwenty();
