@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/pikachu.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+CJK+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lucashaozh.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在AWS EC2上部署Ubuntu  登录AWS，进入EC2 Dashboard，点击Launch instance来新建一个实例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS EC2上创建一个Ubuntu Instance 并使用WSL连接">
+<meta property="og:url" content="https://lucashaozh.github.io/2021/06/29/backend/aws-ec2-shang-chuang-jian-yi-ge-ubuntu-instance-bing-shi-yong-wsl-lian-jie/index.html">
+<meta property="og:site_name" content="皓">
+<meta property="og:description" content="在AWS EC2上部署Ubuntu  登录AWS，进入EC2 Dashboard，点击Launch instance来新建一个实例。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/07/16/XOg3CIUzjirtlhw.png">
+<meta property="og:image" content="https://i.loli.net/2021/07/16/ClQOwTNs6BJj13m.png">
+<meta property="og:image" content="https://i.loli.net/2021/07/16/ObrBC8DadxVcq3e.png">
+<meta property="og:image" content="https://i.loli.net/2021/07/16/GmKzbHiEfoO6CJs.png">
+<meta property="og:image" content="https://i.loli.net/2021/07/16/XZeKmCSxHiFzoTD.png">
+<meta property="og:image" content="https://i.loli.net/2021/07/16/wB8JRmPL5ldi2AD.png">
+<meta property="article:published_time" content="2021-06-29T11:33:55.000Z">
+<meta property="article:modified_time" content="2024-11-15T14:42:47.827Z">
+<meta property="article:author" content="皓">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/07/16/XOg3CIUzjirtlhw.png">
+
+
+<link rel="canonical" href="https://lucashaozh.github.io/2021/06/29/backend/aws-ec2-shang-chuang-jian-yi-ge-ubuntu-instance-bing-shi-yong-wsl-lian-jie/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lucashaozh.github.io/2021/06/29/backend/aws-ec2-shang-chuang-jian-yi-ge-ubuntu-instance-bing-shi-yong-wsl-lian-jie/","path":"2021/06/29/backend/aws-ec2-shang-chuang-jian-yi-ge-ubuntu-instance-bing-shi-yong-wsl-lian-jie/","title":"AWS EC2上创建一个Ubuntu Instance 并使用WSL连接"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AWS EC2上创建一个Ubuntu Instance 并使用WSL连接 | 皓</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="皓" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">皓</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">游戏开发 | ETH MSCS 在读</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-english"><a href="https://lucashaozh.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">在AWS EC2上部署Ubuntu</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">使用WSL进行服务器远程访问</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="皓"
+      src="/images/pikachu.jpg">
+  <p class="site-author-name" itemprop="name">皓</p>
+  <div class="site-description" itemprop="description">图形学及ACG爱好者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lucashaozh" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lucashaozh" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lucashaozh@gmail.com" title="E-Mail → mailto:lucashaozh@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_45951701" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45951701" rel="noopener me" target="_blank"><i class="fab fa-contao fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/shenghao-zhang-b03a64203/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;shenghao-zhang-b03a64203&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+<script src="/js/switch_language.js"></script>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2021/06/29/backend/aws-ec2-shang-chuang-jian-yi-ge-ubuntu-instance-bing-shi-yong-wsl-lian-jie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="皓">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="皓">
+      <meta itemprop="description" content="图形学及ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="AWS EC2上创建一个Ubuntu Instance 并使用WSL连接 | 皓">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AWS EC2上创建一个Ubuntu Instance 并使用WSL连接
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-29 13:33:55" itemprop="dateCreated datePublished" datetime="2021-06-29T13:33:55+02:00">2021-06-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-15 15:42:47" itemprop="dateModified" datetime="2024-11-15T15:42:47+01:00">2024-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Backend/" itemprop="url" rel="index"><span itemprop="name">Backend</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h4><span id="在aws-ec2上部署ubuntu">在AWS EC2上部署Ubuntu</span></h4>
+<ol type="1">
+<li><p>登录AWS，进入EC2 Dashboard，点击Launch instance来新建一个实例。
+<img src="https://i.loli.net/2021/07/16/XOg3CIUzjirtlhw.png" alt="Ubuntu-lauch-instance"></p>
+<p><span id="more"></span></p></li>
+<li><p>选择AMI，这里我选择了Ubuntu 20.04 <img src="https://i.loli.net/2021/07/16/ClQOwTNs6BJj13m.png" alt="choose-ami"></p></li>
+<li><p>选择想要的Instance
+Type，可以根据自己的实际需求进行选择，如果是进行学习的话，AWS对于第一次注册的用户在12个月内提供免费的套餐，如果我没有记错的话应该是t2.micro。选择好之后，默认情况下我们直接点击Review
+and Launch。 <img src="https://i.loli.net/2021/07/16/ObrBC8DadxVcq3e.png"></p></li>
+<li><p>之后页面上会显示创建的实例的一些信息，如果有需要改变的地方，可以这里进行改变。在这里，由于我的目的是为这一个实例上部署一个PostgreSQL数据库，然后从远程访问这个数据库，所以我需要对Security
+Groups进行一些设置和修改，详情可以看这一篇博文<a target="_blank" rel="noopener" href="https://lucas-hao.github.io/2021/06/29/aws-ec2-shang-bu-shu-postgresql-timescaledb/#more">AWS
+EC2上部署PostgreSQL + TimeScaleDB)</a>。 <img src="https://i.loli.net/2021/07/16/GmKzbHiEfoO6CJs.png" alt="review-instance-launch"></p></li>
+<li><p>设置完成之后点击Launch，跳出如下页面，我们需要选择或者创建一个密钥对</p>
+<p><img src="https://i.loli.net/2021/07/16/XZeKmCSxHiFzoTD.png" alt="key-pair">输入密钥对的名字之后，我们将这个密钥对下载到我们的电脑里面，这个密钥对一定要保存好，因为我们需要这个密钥对远程通过SSH连接这个服务器。然后点击Launch
+Instances就成功在EC2上部署了一个Ubuntu的实例。</p></li>
+</ol>
+<h4><span id="使用wsl进行服务器远程访问">使用WSL进行服务器远程访问</span></h4>
+<p>首先要确保Windows上安装了WSL和Linux子系统。想要连接到EC2，首先要将下载到Windows中的密钥对文件复制到WSL中的路径中，有两种方式：</p>
+<ol type="1">
+<li><p>使用命令行命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /mnt/&lt;Windows drive letter&gt;/path/my-key-pair.pem ~/WSL-path/my-key-pair.pem</span><br></pre></td></tr></table></figure>
+<p>注：Windows本地的文件夹可以在WSL下的mnt文件夹中进行访问</p></li>
+<li><p>可以在Windows中的文件管理器中直接在地址栏中输入<code>\\wsl$</code>可以在网络中打开WSL的文件管理，然后直接将密钥对复制到对应的路径下就可以了。</p></li>
+</ol>
+<p>这个时候，还需要将密钥对的权限更改一下，否则的话由于我们没有对密钥对进行权限设置，直接连接的话就会报错。<img src="https://i.loli.net/2021/07/16/wB8JRmPL5ldi2AD.png" alt="wsl-warning"></p>
+<p>通过命令<code>chmod 400 filename.pem</code>更改文件权限，这个问题就能够解决了。接下来，我们就可以通过命令行命令连接到EC2上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i /path/my-key-pair.pem my-instance-user-name@my-instance-public-dns-name</span><br></pre></td></tr></table></figure>
+<p>以下为参数的解释</p>
+<ol type="1">
+<li><p>/path/my-key-pair.pem 当然就是密钥对所在的路径了</p></li>
+<li><p>my-instance-user-name
+就是所创建的EC2实例的用户名，下面是默认的用户名</p>
+<p>对于 Amazon Linux 2 或 Amazon Linux AMI，用户名称是 ec2-user。</p>
+<p>对于 CentOS AMI，用户名称是 centos。</p>
+<p>对于 Debian AMI，用户名称是 admin。</p>
+<p>对于 Fedora AMI，用户名为 ec2-user 或 fedora。</p>
+<p>对于 RHEL AMI，用户名称是 ec2-user 或 root。</p>
+<p>对于 SUSE AMI，用户名称是 ec2-user 或 root。</p>
+<p>对于 Ubuntu AMI，用户名称是 ubuntu。</p></li>
+<li><p>my-instance-public-dns-name 是创建的EC2实例的public IPv4
+DNS，在AWS EC2
+Dashboard中打开实例就可以找到，如果没有找到，那么在右上角的设置中打开显示即可。</p></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.event.move.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.twentytwenty.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/css/twentytwenty.min.css"/><script>
+(function(){
+  function initialize_twentytwenty() {
+    $(".twentytwenty-container").each(function() {
+      var $container = $(this);
+      var $images = $container.find('img');
+      var loadedImages = 0;
+
+      $images.on('load', function(){
+        loadedImages++;
+        if (loadedImages === $images.length) {
+          if ($.fn.twentytwenty) {
+            $container.twentytwenty();
+            console.log("Twentytwenty Initialized for", $container);
+          } else {
+            console.log("TwentyTwenty plugin not loaded yet");
+          }
+        }
+      }).each(function(){
+        if (this.complete) $(this).trigger('load');
+      });
+    });
+  }
+
+  $(document).ready(function() {
+    initialize_twentytwenty();
+  });
+
+  // 为了处理可能的延迟加载情况
+  $(window).on('load', function() {
+    initialize_twentytwenty();
+  });
+
+  $(document).on('pjax:complete', function() {
+    initialize_twentytwenty();
+  });
+})();
+</script>
+          <div class="post-tags">
+              <a href="/tags/AWS/" rel="tag"># AWS</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/06/02/android/android-huo-qu-ying-yong-shi-yong-shi-chang-he-ci-shu-usagestatsmanager-shi-yong/" rel="prev" title="Android获取应用使用时长和次数-UsageStatsManager使用">
+                  <i class="fa fa-angle-left"></i> Android获取应用使用时长和次数-UsageStatsManager使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/06/29/backend/aws-ec2-shang-bu-shu-postgresql-timescaledb/" rel="next" title="AWS EC2上部署PostgreSQL + TimeScaleDB">
+                  AWS EC2上部署PostgreSQL + TimeScaleDB <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">皓</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">205k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:07</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cjk_width":0.9,"normal_width":0.6,"append_css":true,"js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lucashaozh","repo":"GitalkBlogRepo","client_id":"c140415e06b9641c5d85","client_secret":"ab2e8dcb43c6c08eca4a2191c10630a8eb6f2d18","admin_user":"lucashaozh","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"877edaf4f5d1ab1d690e0298341754a7"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

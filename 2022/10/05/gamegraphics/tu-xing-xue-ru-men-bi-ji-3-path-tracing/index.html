@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/pikachu.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+CJK+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lucashaozh.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Path tracing笔记以及Games101作业7代码相关解读以及实现。笔记包括  辐射度量学相关概念 渲染方程 蒙特卡洛积分 Path Tracing逻辑。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图形学入门笔记3: Path Tracing">
+<meta property="og:url" content="https://lucashaozh.github.io/2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/index.html">
+<meta property="og:site_name" content="皓">
+<meta property="og:description" content="Path tracing笔记以及Games101作业7代码相关解读以及实现。笔记包括  辐射度量学相关概念 渲染方程 蒙特卡洛积分 Path Tracing逻辑。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005201356513.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005213331204.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005214101763.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005225016368.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005230600428.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005230708399.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/output-128.jpg">
+<meta property="article:published_time" content="2022-10-05T17:57:26.000Z">
+<meta property="article:modified_time" content="2024-11-15T14:42:48.592Z">
+<meta property="article:author" content="皓">
+<meta property="article:tag" content="图形学">
+<meta property="article:tag" content="Cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005201356513.png">
+
+
+<link rel="canonical" href="https://lucashaozh.github.io/2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lucashaozh.github.io/2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/","path":"2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/","title":"图形学入门笔记3: Path Tracing"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>图形学入门笔记3: Path Tracing | 皓</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="皓" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">皓</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">游戏开发 | ETH MSCS 在读</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-english"><a href="https://lucashaozh.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">辐射度量学 (Radiometry)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Bidirectional
+Reflectance Distribution Function (BRDF)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">蒙特卡洛积分 (Monte Carlo
+Integration)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">路径追踪 (Path Tracing)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">作业7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">多线程部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">微表面模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">8.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="皓"
+      src="/images/pikachu.jpg">
+  <p class="site-author-name" itemprop="name">皓</p>
+  <div class="site-description" itemprop="description">图形学及ACG爱好者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lucashaozh" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lucashaozh" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lucashaozh@gmail.com" title="E-Mail → mailto:lucashaozh@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_45951701" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45951701" rel="noopener me" target="_blank"><i class="fab fa-contao fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/shenghao-zhang-b03a64203/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;shenghao-zhang-b03a64203&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+<script src="/js/switch_language.js"></script>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="皓">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="皓">
+      <meta itemprop="description" content="图形学及ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="图形学入门笔记3: Path Tracing | 皓">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          图形学入门笔记3: Path Tracing
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-05 19:57:26" itemprop="dateCreated datePublished" datetime="2022-10-05T19:57:26+02:00">2022-10-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-15 15:42:48" itemprop="dateModified" datetime="2024-11-15T15:42:48+01:00">2024-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Path tracing笔记以及Games101作业7代码相关解读以及实现。笔记包括</p>
+<ol type="1">
+<li>辐射度量学相关概念</li>
+<li>渲染方程</li>
+<li>蒙特卡洛积分</li>
+<li>Path Tracing逻辑。</li>
+</ol>
+<p><span id="more"></span></p>
+<h3><span id="辐射度量学-radiometry">辐射度量学 (Radiometry)</span></h3>
+<ul>
+<li><p>辐射通量 (Radiant flux (power)) <span class="math inline">\(\Phi=\frac{\mathrm{d}Q}{\mathrm{d}t}\)</span>
+Energy per unit time，表示单位时间内光穿过一个截面的光能。</p></li>
+<li><p>辐射强度 (Radiant intensity)，<span class="math inline">\(I(\omega)=\frac{\mathrm{d}\Phi}{\mathrm{d}\omega}\)</span>
+Power per unit solid angle，表示单位立体角上的辐射通量。</p></li>
+<li><p>辐射率 (Radiance)，<span class="math inline">\(L(\mathrm
+p,\omega)=\frac{\mathrm d^2\Phi(p,\omega)}{\mathrm d \omega\cdot\mathrm
+dA\cos\theta}\)</span> Power emitted, reflected, transmitted or received
+by a surface, per unit solid angle, per projected unit
+area，表示单位立体角，单位投影面积上的辐射通量。这里多出来一个<span class="math inline">\(\cos \theta\)</span>是因为Lamber's Cosine
+Law，即阳光在斜照的时候强度会由于倾角变成原来的<span class="math inline">\(\cos \theta\)</span>倍。</p></li>
+<li><p>辐照度 (Irradiance)，<span class="math inline">\(E(\mathrm{x})=\frac{\mathrm d\Phi(\mathrm
+x)}{\mathrm d A}\)</span> Power per unit area incident on a surface
+point，表示单位面积上的辐射通量。这里有一种记忆方法，在Games104上学到的，将Irradiance拆分成Ir(In)和Radiance记为进入到表面的光照强度。</p></li>
+<li><p>立体角 (Solid Angles)</p>
+<p><img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005201356513.png"></p></li>
+</ul>
+<h3><span id="bidirectionalreflectance-distribution-function-brdf">Bidirectional
+Reflectance Distribution Function (BRDF)</span></h3>
+<ul>
+<li>渲染方程 (Rendering Equation) <span class="math display">\[
+L_o(p,\omega_0)=L_e(p,\omega_0)+\int_{\Omega+}L_i(p,\omega_i)f_r(p,\omega_i,\omega_0)(n\cdot\omega_i)\mathrm
+d\omega_i
+\]</span>
+其中第一项表示物体本身的发出的光照强度，第二项的积分所包括的内容就是我们的反射函数
+(Reflection Function)，即 <span class="math display">\[
+L_r(\mathrm p,
+\omega_r)=\int_{\Omega+}L_i(p,\omega_i)f_r(p,\omega_i,\omega_0)\cos\theta_i\mathrm
+d\omega_i
+\]</span>
+其中第一项为入射方向的Radiance，代表从单位立体角方向入射到单位面积上的光照强度，第二项就是双向反射分布函数，他表示以下比值
+<span class="math display">\[
+f_r(\omega_i\rightarrow\omega_r)=\frac{\mathrm dL_r(\omega_r)}{\mathrm
+dE_i(\omega_i)}=\frac{\mathrm
+dL_r(\omega_r)}{L_i(\omega_i)\cos\theta_i\mathrm
+d\omega_i}~~[\frac{1}{\text{sr}}]
+\]</span>
+也就是出射光Radiance与入射光Irradiance的比值，也就是代表了在各个方向上多少光照会被反射出去。这里的积分是对入射光的Radiance进行积分，得到的就是入射光在半球面上的Irradiance，然后和BRDF相乘得到的就是反射出的在单位立体角上的Radiance。</li>
+</ul>
+<h3><span id="蒙特卡洛积分-monte-carlointegration">蒙特卡洛积分 (Monte Carlo
+Integration)</span></h3>
+<ul>
+<li>Monte Carlo estimator <span class="math inline">\(F_N=\frac{1}{N}\sum^N_{i=1}\frac{f(X_i)}{p(X_i)}\)</span>,
+Example, Basic (Uniform) Monte Carlo estimator <span class="math inline">\(F_N=\frac{b-a}{N}\sum_{i=1}^Nf(X_i)\)</span></li>
+<li>Monte Carlo Integration <span class="math inline">\(\int f(x)\mathrm
+dx=\frac{1}{N}\sum_{i=1}^N\frac{f(X_i)}{p(X_i)}\)</span> The more
+samples, the less variance.</li>
+</ul>
+<h3><span id="路径追踪-path-tracing">路径追踪 (Path Tracing)</span></h3>
+<p>Whitted-style
+光线追踪始终采用镜面反射，在光线与diffuse表面相交时停止反射，这一假设会造成一些问题。首先，比如说诸如Glossy
+(感觉类似磨砂)的效果就无法表现出来。其次，由于不在diffuse表面进行反射，物体之间由于光线反射形成的现象比如说康奈尔Box中的墙面会映射出左右两面墙的红绿两种颜色(如下图)就无法表现出来。</p>
+<p><img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005213331204.png"></p>
+<p>Path tracing使用Rendering Equation进行光照的计算。在计算Rendering
+Equation中的积分部分时，我们就可以使用Monte Carlo
+Integration计算。一个简单的Monte Carlo的方法如下图所示 (Direct
+Illumination)，其中的pdf最直观的办法我们可以视为uniform的，也就是<span class="math inline">\(\mathrm{pdf}=\frac{1}{2\pi}\)</span>。</p>
+<p><img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005214101763.png"></p>
+<p>以上是最简单的直接光照的蒙特卡洛积分，然后我们再加上递归的间接光照以及控制递归深度就完成了最终的Path
+Tracing。为了控制深度，我们使用一种叫做俄罗斯轮盘赌 (Russian
+Roulette)的方法。非常简单，这种方法就是在每次光线进行反射的时候进行一次随机选择，p的概率继续递归，(1-p)的概率停止，如果继续反射，则我们计算反射的光照强度为<span class="math inline">\(\frac{L_r(p,\omega_r)}{p}\)</span>，这样我们最后根据数学期望得到的光照强度仍然是<span class="math inline">\(L_r(p,\omega_r)\)</span>。使用后RR的Path
+Tracing伪代码如下所示。</p>
+<p><img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005225016368.png"></p>
+<p>最后还有一个问题需要解决，使用以上方法进行采样的效率实际上是不高的，因为很多光线实际上是反射不到光源上的，那样就会造成很多浪费。因此，我们可以使用另外一种采样方式，Sampling
+the
+Light，从光源处采样。为了实现光源采样，我们可以重写反射方程，将对入射角度<span class="math inline">\(\omega\)</span>的积分转化为对光源面积<span class="math inline">\(A\)</span>的积分，由于<span class="math inline">\(\mathrm d\omega=\frac{\mathrm
+dA\cos\theta&#39;}{\Vert x&#39;-x\Vert^2}\)</span>
+(由立体角的定义得出)，因此 <span class="math display">\[
+\begin{align}
+L_r(\mathrm
+p,\omega_r)&amp;=\int_{\Omega+}L_i(x,\omega_i)f_r(x,\omega_i,\omega_0)\cos\theta_i\mathrm
+d\omega_i \\
+    &amp;=\int_{A}L_i(x,\omega_i)f_r(p,\omega_i,\omega_0)\frac{\cos\theta_i\cos\theta&#39;_i}{\Vert
+x&#39;-x\Vert^2}\mathrm d\omega_i
+\end{align}
+\]</span> <img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005230600428.png"></p>
+<p>最终版的Path Tracing伪代码如下</p>
+<p><img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/image-20221005230708399.png"></p>
+<h3><span id="作业7">作业7</span></h3>
+<p>首先，我们需要将上一次作业的几个函数的实现复制粘贴到这里来，包括<code>Triangle::getIntersection()</code>
+in
+Triangle.hpp，<code>IntersectP(const Ray&amp; ray, const Vector3f&amp; invDir, const std::array&lt;int, 3&gt;&amp; dirIsNeg)</code>
+in
+Bounds3.hpp以及<code>getIntersection(BVHBuildNode* node, const Ray ray)</code>
+in BVH.cpp。代码如下所示</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Triangle.hpp</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> Intersection <span class="title">Triangle::getIntersection</span><span class="params">(Ray ray)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Intersection inter;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">dotProduct</span>(ray.direction, normal) &gt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> inter;</span><br><span class="line">    <span class="type">double</span> u, v, t_tmp = <span class="number">0</span>;</span><br><span class="line">    Vector3f pvec = <span class="built_in">crossProduct</span>(ray.direction, e2);</span><br><span class="line">    <span class="type">double</span> det = <span class="built_in">dotProduct</span>(e1, pvec);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">fabs</span>(det) &lt; EPSILON)</span><br><span class="line">        <span class="keyword">return</span> inter;</span><br><span class="line"></span><br><span class="line">    <span class="type">double</span> det_inv = <span class="number">1.</span> / det;</span><br><span class="line">    Vector3f tvec = ray.origin - v0;</span><br><span class="line">    u = <span class="built_in">dotProduct</span>(tvec, pvec) * det_inv;</span><br><span class="line">    <span class="keyword">if</span> (u &lt; <span class="number">0</span> || u &gt; <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> inter;</span><br><span class="line">    Vector3f qvec = <span class="built_in">crossProduct</span>(tvec, e1);</span><br><span class="line">    v = <span class="built_in">dotProduct</span>(ray.direction, qvec) * det_inv;</span><br><span class="line">    <span class="keyword">if</span> (v &lt; <span class="number">0</span> || u + v &gt; <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> inter;</span><br><span class="line">    t_tmp = <span class="built_in">dotProduct</span>(e2, qvec) * det_inv;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// find ray triangle intersection</span></span><br><span class="line">    <span class="keyword">if</span> (t_tmp &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> inter;</span><br><span class="line">    inter.happened = <span class="literal">true</span>;</span><br><span class="line">    inter.distance = t_tmp;</span><br><span class="line">    inter.coords = <span class="built_in">ray</span>(t_tmp);</span><br><span class="line">    inter.normal = normal;</span><br><span class="line">    inter.obj = <span class="keyword">this</span>;</span><br><span class="line">    inter.m = m;</span><br><span class="line">    <span class="keyword">return</span> inter;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Bounds3.hpp</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">Bounds3::IntersectP</span><span class="params">(<span class="type">const</span> Ray&amp; ray, <span class="type">const</span> Vector3f&amp; invDir,</span></span></span><br><span class="line"><span class="params"><span class="function">                                <span class="type">const</span> std::array&lt;<span class="type">int</span>, <span class="number">3</span>&gt;&amp; dirIsNeg)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// invDir: ray direction(x,y,z), invDir=(1.0/x,1.0/y,1.0/z), use this because Multiply is faster that Division</span></span><br><span class="line">    <span class="comment">// dirIsNeg: ray direction(x,y,z), dirIsNeg=[int(x&gt;0),int(y&gt;0),int(z&gt;0)], use this to simplify your logic</span></span><br><span class="line">    <span class="comment">// test if ray bound intersects</span></span><br><span class="line">    Vector3f t_min = (<span class="keyword">this</span>-&gt;pMin - ray.origin) * invDir;</span><br><span class="line">    Vector3f t_max = (<span class="keyword">this</span>-&gt;pMax - ray.origin) * invDir;</span><br><span class="line">    <span class="keyword">if</span> (!dirIsNeg[<span class="number">0</span>]) std::<span class="built_in">swap</span>(t_min.x, t_max.x);</span><br><span class="line">    <span class="keyword">if</span> (!dirIsNeg[<span class="number">1</span>]) std::<span class="built_in">swap</span>(t_min.y, t_max.y);</span><br><span class="line">    <span class="keyword">if</span> (!dirIsNeg[<span class="number">2</span>]) std::<span class="built_in">swap</span>(t_min.z, t_max.z);</span><br><span class="line">    <span class="type">float</span> t_enter = <span class="built_in">fmax</span>(t_min.x, <span class="built_in">fmax</span>(t_min.y, t_min.z));</span><br><span class="line">    <span class="type">float</span> t_exit = <span class="built_in">fmin</span>(t_max.x, <span class="built_in">fmin</span>(t_max.y, t_max.z));</span><br><span class="line">    <span class="keyword">return</span> t_enter &lt;= t_exit &amp;&amp; t_exit &gt;= <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//BVH.cpp</span></span><br><span class="line"><span class="function">Intersection <span class="title">BVHAccel::getIntersection</span><span class="params">(BVHBuildNode* node, <span class="type">const</span> Ray&amp; ray)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Intersection inter;</span><br><span class="line">    <span class="keyword">if</span> (node == <span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span> inter;</span><br><span class="line">    std::array&lt;<span class="type">int</span>, 3&gt; dirIsNeg = &#123;<span class="built_in">int</span>(ray.direction.x &gt; <span class="number">0</span>), <span class="built_in">int</span>(ray.direction.y &gt; <span class="number">0</span>), <span class="built_in">int</span>(ray.direction.z &gt; <span class="number">0</span>)&#125;;</span><br><span class="line">    <span class="keyword">if</span> (!node-&gt;bounds.<span class="built_in">IntersectP</span>(ray, ray.direction_inv, dirIsNeg))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> inter; <span class="comment">// No intersection in the current node</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (node-&gt;left == <span class="literal">nullptr</span> &amp;&amp; node-&gt;right == <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (node-&gt;object == <span class="literal">nullptr</span>)</span><br><span class="line">            <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="string">&quot;NULL Object Error&quot;</span>);</span><br><span class="line">        inter = node-&gt;object-&gt;<span class="built_in">getIntersection</span>(ray);</span><br><span class="line">        <span class="keyword">return</span> inter;</span><br><span class="line">    &#125;</span><br><span class="line">    Intersection left_inter = <span class="built_in">getIntersection</span>(node-&gt;left, ray);</span><br><span class="line">    Intersection right_inter = <span class="built_in">getIntersection</span>(node-&gt;right, ray);</span><br><span class="line">    <span class="keyword">return</span> left_inter.distance &lt; right_inter.distance ? left_inter : right_inter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完成后确保编译运行都没有问题后，我们再正式开始这次作业的实现，我们只需要对<code>castRay(const Ray ray, int depth)</code>
+in Scene.cpp进行实现，代码如下所示</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Vector3f <span class="title">Scene::castRay</span><span class="params">(<span class="type">const</span> Ray &amp;ray, <span class="type">int</span> depth)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Vector3f L_dir = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, L_indir = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    Intersection intersection = Scene::<span class="built_in">intersect</span>(ray);</span><br><span class="line">    <span class="keyword">if</span> (!intersection.happened)</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (intersection.m-&gt;<span class="built_in">hasEmission</span>())</span><br><span class="line">        <span class="keyword">return</span> intersection.m-&gt;<span class="built_in">getEmission</span>();</span><br><span class="line"></span><br><span class="line">    Intersection light_pos;</span><br><span class="line">    <span class="type">float</span> light_pdf = <span class="number">0.0f</span>;</span><br><span class="line">    <span class="built_in">sampleLight</span>(light_pos, light_pdf);</span><br><span class="line">    Vector3f collision_light = light_pos.coords - intersection.coords;</span><br><span class="line">    <span class="type">float</span> dis = <span class="built_in">dotProduct</span>(collision_light, collision_light);</span><br><span class="line">    Vector3f collision_light_dir = collision_light.<span class="built_in">normalized</span>();</span><br><span class="line">    <span class="function">Ray <span class="title">light_to_object_ray</span><span class="params">(intersection.coords, collision_light_dir)</span></span>;</span><br><span class="line">    Intersection light_ray_inter = Scene::<span class="built_in">intersect</span>(light_to_object_ray);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">auto</span> f_r = intersection.m -&gt; <span class="built_in">eval</span>(ray.direction, collision_light_dir, intersection.normal);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Pay attention to the precision here</span></span><br><span class="line">    <span class="keyword">if</span> (light_ray_inter.distance - collision_light.<span class="built_in">norm</span>() &gt; <span class="number">-0.005</span>)&#123;</span><br><span class="line">        L_dir = light_pos.emit * f_r * <span class="built_in">dotProduct</span>(collision_light_dir, intersection.normal)</span><br><span class="line">                * <span class="built_in">dotProduct</span>(-collision_light_dir, light_pos.normal) / dis / light_pdf;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">get_random_float</span>() &gt; RussianRoulette)</span><br><span class="line">        <span class="keyword">return</span> L_dir;</span><br><span class="line"></span><br><span class="line">    Vector3f w0 = intersection.m -&gt; <span class="built_in">sample</span>(ray.direction, intersection.normal).<span class="built_in">normalized</span>();</span><br><span class="line">    <span class="function">Ray <span class="title">object_to_object_ray</span><span class="params">(intersection.coords, w0)</span></span>;</span><br><span class="line">    Intersection islight = Scene::<span class="built_in">intersect</span>(object_to_object_ray);</span><br><span class="line">    <span class="keyword">if</span> (islight.happened &amp;&amp; !islight.m-&gt;<span class="built_in">hasEmission</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">float</span> pdf = intersection.m-&gt;<span class="built_in">pdf</span>(ray.direction, w0, intersection.normal);</span><br><span class="line">        f_r = intersection.m-&gt;<span class="built_in">eval</span>(ray.direction, w0, intersection.normal);</span><br><span class="line">        L_indir = <span class="built_in">castRay</span>(object_to_object_ray, depth + <span class="number">1</span>) * f_r * <span class="built_in">dotProduct</span>(w0, intersection.normal) / pdf / RussianRoulette;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> L_dir + L_indir;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终生成的图片，这里为了效果好一点我跑了128的SPP，大概需要跑几个小时，如下图</p>
+<p><img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/output-128.jpg"></p>
+<h3><span id="多线程部分">多线程部分</span></h3>
+<p>多线程部分只需要把<code>render()</code>函数中部分渲染相关代码修改为以下内容，对多行像素进行同时渲染。C++多线程教程可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/sjc_0910/article/details/118861539">C++11
+多线程（std::thread）详解_std::thread
+查线程名称_sjc_0910的博客-CSDN博客</a>。使用多线程的速度可以看到显著提升
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> spp = <span class="number">64</span>;  </span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;SPP: &quot;</span> &lt;&lt; spp &lt;&lt; <span class="string">&quot;\n&quot;</span>;  </span><br><span class="line"><span class="type">const</span> <span class="type">int</span> thread_num = <span class="number">16</span>;  </span><br><span class="line">std::thread th[thread_num];  </span><br><span class="line">std::atomic_int process = <span class="number">0</span>;  </span><br><span class="line"><span class="type">int</span> times = scene.height / thread_num;  </span><br><span class="line"><span class="keyword">auto</span> func = [&amp;](<span class="type">uint32_t</span> y_min, <span class="type">uint32_t</span> y_max) &#123;  </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">uint32_t</span> j = y_min; j &lt; y_max; ++j) &#123;  </span><br><span class="line">        <span class="type">int</span> m = j * scene.width;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">uint32_t</span> i = <span class="number">0</span>; i &lt; scene.width; ++i) &#123;  </span><br><span class="line">            <span class="comment">// generate primary ray direction  </span></span><br><span class="line">            <span class="keyword">auto</span> x = <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;((<span class="number">2</span> * (i + <span class="number">0.5</span>) / (<span class="type">double</span>) scene.width - <span class="number">1</span>) * imageAspectRatio * scale);  </span><br><span class="line">            <span class="keyword">auto</span> y = <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;((<span class="number">1</span> - <span class="number">2</span> * (j + <span class="number">0.5</span>) / (<span class="type">double</span>) scene.height) * scale);  </span><br><span class="line">  </span><br><span class="line">            Vector3f dir = <span class="built_in">normalize</span>(<span class="built_in">Vector3f</span>(-x, y, <span class="number">1</span>));  </span><br><span class="line">  </span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">0</span>; k &lt; spp; k++) &#123;  </span><br><span class="line">                framebuffer[m] += scene.<span class="built_in">castRay</span>(<span class="built_in">Ray</span>(eye_pos, dir), <span class="number">0</span>) / spp;  </span><br><span class="line">            &#125;  </span><br><span class="line">            m++;  </span><br><span class="line">        &#125;  </span><br><span class="line">        mtx.<span class="built_in">lock</span>();  </span><br><span class="line">        process++;  </span><br><span class="line">        <span class="built_in">UpdateProgress</span>((<span class="type">float</span>) process / (<span class="type">float</span>) scene.height);  </span><br><span class="line">        mtx.<span class="built_in">unlock</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"><span class="keyword">for</span> (<span class="type">uint32_t</span> i = <span class="number">0</span>; i &lt; thread_num; ++i) &#123;  </span><br><span class="line">    th[i] = std::<span class="built_in">thread</span>(func, i * times, (i + <span class="number">1</span>) * times);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; thread_num; ++i) &#123;  </span><br><span class="line">    th[i].<span class="built_in">join</span>();  </span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Join thread &quot;</span> &lt;&lt; i &lt;&lt; std::endl;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="built_in">UpdateProgress</span>(<span class="number">1.f</span>);</span><br></pre></td></tr></table></figure></p>
+<h3><span id="微表面模型">微表面模型</span></h3>
+<p>另外，除了多线程还有一个提高部分是微表面模型，这个模型应该只需要去改一下Material相关的部分，只不过这部分目前还是有点不太熟悉，打算等到Games202之后才回过头来做完。</p>
+<h3><span id="参考资料">参考资料</span></h3>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41765657/article/details/121942469">GAMES101:作业7_南酒猫的博客-CSDN博客_games101作业7</a>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/sjc_0910/article/details/118861539">C++11
+多线程（std::thread）详解_std::thread
+查线程名称_sjc_0910的博客-CSDN博客</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.event.move.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.twentytwenty.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/css/twentytwenty.min.css"/><script>
+(function(){
+  function initialize_twentytwenty() {
+    $(".twentytwenty-container").each(function() {
+      var $container = $(this);
+      var $images = $container.find('img');
+      var loadedImages = 0;
+
+      $images.on('load', function(){
+        loadedImages++;
+        if (loadedImages === $images.length) {
+          if ($.fn.twentytwenty) {
+            $container.twentytwenty();
+            console.log("Twentytwenty Initialized for", $container);
+          } else {
+            console.log("TwentyTwenty plugin not loaded yet");
+          }
+        }
+      }).each(function(){
+        if (this.complete) $(this).trigger('load');
+      });
+    });
+  }
+
+  $(document).ready(function() {
+    initialize_twentytwenty();
+  });
+
+  // 为了处理可能的延迟加载情况
+  $(window).on('load', function() {
+    initialize_twentytwenty();
+  });
+
+  $(document).on('pjax:complete', function() {
+    initialize_twentytwenty();
+  });
+})();
+</script>
+          <div class="post-tags">
+              <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 图形学</a>
+              <a href="/tags/Cpp/" rel="tag"># Cpp</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/30/other/late-yu-fa-bi-ji/" rel="prev" title="Latex的使用详解笔记(常用数学符号、图片表格等)持续更新">
+                  <i class="fa fa-angle-left"></i> Latex的使用详解笔记(常用数学符号、图片表格等)持续更新
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/06/cpp/c-fan-she-ji-zhi-dong-tai-fan-she/" rel="next" title="C++反射机制详解（一） 动态反射">
+                  C++反射机制详解（一） 动态反射 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">皓</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">205k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:07</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cjk_width":0.9,"normal_width":0.6,"append_css":true,"js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lucashaozh","repo":"GitalkBlogRepo","client_id":"c140415e06b9641c5d85","client_secret":"ab2e8dcb43c6c08eca4a2191c10630a8eb6f2d18","admin_user":"lucashaozh","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"4d7dc2456de3b027158903fe06f98b83"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

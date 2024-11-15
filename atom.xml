@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>皓</title>
+  
+  <subtitle>游戏开发 | ETH MSCS 在读</subtitle>
+  <link href="https://lucashaozh.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://lucashaozh.github.io/"/>
+  <updated>2024-11-15T14:42:47.828Z</updated>
+  <id>https://lucashaozh.github.io/</id>
+  
+  <author>
+    <name>皓</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Geometry Processing Project</title>
+    <link href="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/"/>
+    <id>https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/</id>
+    <published>2024-09-22T14:09:00.000Z</published>
+    <updated>2024-11-15T14:42:47.828Z</updated>
+    
+    
+    <summary type="html">&lt;!-- toc --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#implicit-surface-reconstruction&quot;&gt;Implicit Surface
+Reconstruction&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#mesh-parameterization&quot;&gt;Mesh Parameterization&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#uniform-and-cotangent-laplacian&quot;&gt;Uniform and cotangent
+Laplacian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#lscm&quot;&gt;LSCM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#arap&quot;&gt;ARAP&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#shape-deformation&quot;&gt;Shape Deformation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#skinning-and-skeletal-animation&quot;&gt;Skinning and Skeletal
+Animation&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#rotation-representation&quot;&gt;Rotation Representation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#harmonic-skinning-weights-on-selected-handles&quot;&gt;Harmonic
+skinning weights on selected handles&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#handle-selection&quot;&gt;Handle selection&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#skinning-weights-visualization&quot;&gt;Skinning weights
+visualization&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#skeletal-animation&quot;&gt;Skeletal animation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#context-aware-per-vertex-lbs&quot;&gt;Context-aware per-vertex
+LBS&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- tocstop --&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="Graphics" scheme="https://lucashaozh.github.io/tags/Graphics/"/>
+    
+    <category term="Project" scheme="https://lucashaozh.github.io/tags/Project/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图形学入门笔记7: 空间加速结构</title>
+    <link href="https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/"/>
+    <id>https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/</id>
+    <published>2024-09-18T14:41:48.000Z</published>
+    <updated>2024-11-15T14:42:48.593Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在光追渲染中，我们需要对物体和射线的相交进行判断；在物理模拟中，我们需要对物体之间的碰撞进行检测。如果我们采用暴力算法，那么每一帧都需要大量时间计算射线或者碰撞检测。所以我们需要一些更加高效的方式来进行检测，这就需要我们用空间加速结构进行加速。
+今天主要记录几种在渲染和模拟中比较常用的方法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Spatial Hashing (Uniform Grid)&lt;/li&gt;
+&lt;li&gt;Spatial Hierarchy (Octree, Kd Tree, BSP tree)&lt;/li&gt;
+&lt;li&gt;Bounding Box Hierachy (BVH)</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Quaternion四元数详解</title>
+    <link href="https://lucashaozh.github.io/2024/02/19/gamegraphics/quaternion-si-yuan-shu-xiang-jie/"/>
+    <id>https://lucashaozh.github.io/2024/02/19/gamegraphics/quaternion-si-yuan-shu-xiang-jie/</id>
+    <published>2024-02-19T00:01:34.000Z</published>
+    <updated>2024-11-15T14:42:48.591Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;四元数(Quaternion)是用于表示旋转的一种方式，其相比于Rotation
+Matrix的好处在于能够更轻松的插值、不存在万向节(gimbal
+lock)的问题。其定义如下： &lt;span class=&quot;math display&quot;&gt;&#92;[
+q=a+bi+cj+dk
+&#92;]&lt;/span&gt; 其中&lt;span
+class=&quot;math inline&quot;&gt;&#92;(i^{2}=j^{2}=k^{2}=ijk=-1&#92;)&lt;/span&gt;。同时也可以用以下方式表示：
+&lt;span class=&quot;math display&quot;&gt;&#92;[
+q=&#92;left(a, &#92;mathbf{v}&#92;right), &#92;text{where
+}&#92;mathbf{v}=&#92;begin{bmatrix}b&#92;&#92;c&#92;&#92;d&#92;end{bmatrix}
+&#92;]&lt;/span&gt; &lt;span class=&quot;math inline&quot;&gt;&#92;(a&#92;)&lt;/span&gt;是实部，&lt;span
+class=&quot;math inline&quot;&gt;&#92;(&#92;mathbf{v}&#92;)&lt;/span&gt;是向量。四元数的旋转可以理解为四维坐标在三维空间中的投影，具体可以参考&lt;a
+href=&quot;https://www.youtube.com/watch?v=zjMuIxRvygQ&quot;&gt;3b1b的视频&lt;/a&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="Math" scheme="https://lucashaozh.github.io/tags/Math/"/>
+    
+    <category term="Simulation" scheme="https://lucashaozh.github.io/tags/Simulation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Postion Based Dynamics软体模拟</title>
+    <link href="https://lucashaozh.github.io/2024/02/19/gamegraphics/pbdsimulator/"/>
+    <id>https://lucashaozh.github.io/2024/02/19/gamegraphics/pbdsimulator/</id>
+    <published>2024-02-18T23:45:37.000Z</published>
+    <updated>2024-11-15T14:42:48.518Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在position based
+dynamics中，物体由许多的粒子组成，这些粒子之间有许多约束，比如说距离约束、体积约束等等。在物体运动的过程中，通过解这些约束来更新粒子的位置。大致的伪代码如下（这是XPBD的伪代码，XPBD的区别在于XPBD使用了substep加速收敛）</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="Project" scheme="https://lucashaozh.github.io/tags/Project/"/>
+    
+    <category term="Simulation" scheme="https://lucashaozh.github.io/tags/Simulation/"/>
+    
+    <category term="Taichi" scheme="https://lucashaozh.github.io/tags/Taichi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ray Tracing Renderer (Course Project)</title>
+    <link href="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/"/>
+    <id>https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/</id>
+    <published>2023-12-24T15:49:46.000Z</published>
+    <updated>2024-11-15T14:42:48.038Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;motivational-image&quot;&gt;Motivational Image&lt;/h1&gt;
+&lt;p&gt;The scene that we want to render is a dimly lit, smoky bar, inspired
+by the following two images. Rows of exquisite liquor bottles line the
+shelves, their labels veiled in the subtle play of light and shadow. An
+ashtray rests nearby, adorned with an unlit cigarette. A dim spotlight
+bathes the ashtray and the wine bottles. The scene is to capture the
+essence of the bar&#39;s mystique, inviting participants to let their
+imagination run wild as they bring out the richness of the hidden
+stories within the rendering. The following two images are our
+motivation images.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2024/01/02/FHRUOCLqBpaJQgw.jpg&quot; /&gt; &lt;img
+src=&quot;https://s2.loli.net/2024/01/02/fexQVhryYm2gdnl.jpg&quot; /&gt;&lt;/p&gt;
+&lt;h1 id=&quot;final-images&quot;&gt;Final Images&lt;/h1&gt;
+&lt;p&gt;Based on the motivation images, we rendered our final images.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2024/01/02/SVn3gKIpMBth4ND.png&quot; /&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="Graphics" scheme="https://lucashaozh.github.io/tags/Graphics/"/>
+    
+    <category term="Project" scheme="https://lucashaozh.github.io/tags/Project/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GAN论文精读</title>
+    <link href="https://lucashaozh.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/"/>
+    <id>https://lucashaozh.github.io/2023/07/09/computervision/gan-lun-wen-jing-du/</id>
+    <published>2023-07-09T15:33:00.000Z</published>
+    <updated>2024-11-15T14:42:47.828Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;GAN的全称是Generative Adversarial
+Nets，是一种生成模型，目的是为了训练出一个生成器，使得生成器能够生成我们想要的数据，比如说一张图片。GAN在刚推出的时候成功生成了简单的手写数字和人脸照片，虽然现在看来生成的图片质量也比较一般，但是也开创了一个生成模型的新时代。&lt;/p&gt;
+&lt;p&gt;在以前的生成网络中，需要有大量的概率计算, 极大似然估计,
+比较麻烦i。GAN就成功的避免了概率计算的问题，不需要马尔科夫链、极大似然估计等等。GAN的思想非常简单，总的来说就是一个生成器和一个判别器进行对抗，最终达到一个纳什均衡的状态。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ComputerVision" scheme="https://lucashaozh.github.io/categories/ComputerVision/"/>
+    
+    
+    <category term="CV" scheme="https://lucashaozh.github.io/tags/CV/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CycleGAN论文精读</title>
+    <link href="https://lucashaozh.github.io/2023/07/09/computervision/cyclegan-lun-wen-jing-du/"/>
+    <id>https://lucashaozh.github.io/2023/07/09/computervision/cyclegan-lun-wen-jing-du/</id>
+    <published>2023-07-09T15:25:00.000Z</published>
+    <updated>2024-11-15T14:42:47.828Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;目的&quot;&gt;目的&lt;/h2&gt;
+&lt;p&gt;CycleGAN主要解决的问题是一个Image to Image
+Translation的问题，也就是从一个图像域转化到另一个图像域的问题，比如说给一张人脸图片，生成对应的动漫头像，还有比如说我们给一个cartoon的图像，需要生成对应的像素化后的图像
+(pixel image)。 其次，传统的Image to Image
+Translation的算法通常需要我们有配对的图像组，但是很显然这是很耗费时间的，也很难获得配对图像。所以CycleGAN提出了一种使用unpaired
+training
+set的方法，只需要给定对应两个图像域而不需要配对的图像，我们就可以实现Image
+to Image的转化。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ComputerVision" scheme="https://lucashaozh.github.io/categories/ComputerVision/"/>
+    
+    
+    <category term="CV" scheme="https://lucashaozh.github.io/tags/CV/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>UE5插件CommonUI使用及原理剖析(Input)</title>
+    <link href="https://lucashaozh.github.io/2023/06/10/gamegraphics/ue5-cha-jian-commonui-shi-yong-ji-yuan-li-pou-xi-input/"/>
+    <id>https://lucashaozh.github.io/2023/06/10/gamegraphics/ue5-cha-jian-commonui-shi-yong-ji-yuan-li-pou-xi-input/</id>
+    <published>2023-06-10T08:53:00.000Z</published>
+    <updated>2024-11-15T14:42:48.591Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;CommonUI是UE5新推出的一款UI插件，原本是堡垒之夜里使用的插件，Epic就将其作为插件引入到了UE5中。他主要的功能在于两点：一是对于复杂的UI使用LayerStack的思想，对于不同层级的UI进行相应的管理，并使用栈的方式解决UI层级的响应问题；二是使用InputRouting实现对不同输入的统一适配，对于开发多平台游戏来说比较方便，通过配置配置表即可实现多平台的UI和输入适配。本篇主要着重在Input部分进行使用的详解和源码的简要剖析。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="Unreal Engine" scheme="https://lucashaozh.github.io/tags/Unreal-Engine/"/>
+    
+    <category term="UI" scheme="https://lucashaozh.github.io/tags/UI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图形学入门笔记4: 实时阴影</title>
+    <link href="https://lucashaozh.github.io/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/"/>
+    <id>https://lucashaozh.github.io/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/</id>
+    <published>2023-06-04T19:44:00.000Z</published>
+    <updated>2024-11-15T14:42:48.592Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文基于Games202 Lecture 3，作业1以及&lt;a
+href=&quot;https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping&quot;&gt;LearnOpenGL&lt;/a&gt;
+阴影在实时渲染中是非常重要的一个部分。没有引擎的画面就失去了三维的立体感。实现阴影的基本思想是Shadow
+Map，为了解决Shadow
+Map的锯齿问题，我们可以采用PCF和PCSS。本文结合Games202作业1记录一下各种阴影的实现方法。&lt;/p&gt;
+&lt;h3 id=&quot;shadow-map&quot;&gt;Shadow Map&lt;/h3&gt;
+&lt;p&gt;Shadow
+Map的思想非常简单，就是通过两个Pass将阴影渲染出来。在第一个Pass中，从光源的视角去渲染场景，记录片元的深度，得到一张深度图。然后进行第二个Pass，从摄像机的视角去渲染场景，对于渲染的每一个片元，将其坐标转化为以光源为参照的坐标，可以得到当前的深度，将这个深度值和存储在深度图中的深度值进行比较，如果说当前深度大于深度图中的深度，说明这个位置的光源被物体遮挡了，是一个阴影。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+    <category term="Cpp" scheme="https://lucashaozh.github.io/tags/Cpp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C++反射机制详解（一） 动态反射</title>
+    <link href="https://lucashaozh.github.io/2023/01/06/cpp/c-fan-she-ji-zhi-dong-tai-fan-she/"/>
+    <id>https://lucashaozh.github.io/2023/01/06/cpp/c-fan-she-ji-zhi-dong-tai-fan-she/</id>
+    <published>2023-01-06T20:16:00.000Z</published>
+    <updated>2024-11-15T19:01:24.036Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在实际的项目开发中，我们有时候需要进行一些操作比如说序列化。而如果我们对所有的内容都进行hardcode，显然这样的工作比较繁琐。因此，使用反射可以让我们在运行时获得类型信息，从而更方便的进行开发。在C++中原生不能提供反射机制，因此，通常需要我们手动去实现。&lt;/p&gt;
+&lt;</summary>
+        
+      
+    
+    
+    
+    <category term="Cpp" scheme="https://lucashaozh.github.io/categories/Cpp/"/>
+    
+    
+    <category term="Cpp" scheme="https://lucashaozh.github.io/tags/Cpp/"/>
+    
+    <category term="GameEngine" scheme="https://lucashaozh.github.io/tags/GameEngine/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图形学入门笔记3: Path Tracing</title>
+    <link href="https://lucashaozh.github.io/2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/"/>
+    <id>https://lucashaozh.github.io/2022/10/05/gamegraphics/tu-xing-xue-ru-men-bi-ji-3-path-tracing/</id>
+    <published>2022-10-05T17:57:26.000Z</published>
+    <updated>2024-11-15T14:42:48.592Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Path tracing笔记以及Games101作业7代码相关解读以及实现。笔记包括&lt;/p&gt;
+&lt;ol type=&quot;1&quot;&gt;
+&lt;li&gt;辐射度量学相关概念&lt;/li&gt;
+&lt;li&gt;渲染方程&lt;/li&gt;
+&lt;li&gt;蒙特卡洛积分&lt;/li&gt;
+&lt;li&gt;Path Tracing逻辑。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+    <category term="Cpp" scheme="https://lucashaozh.github.io/tags/Cpp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Latex的使用详解笔记(常用数学符号、图片表格等)持续更新</title>
+    <link href="https://lucashaozh.github.io/2022/09/30/other/late-yu-fa-bi-ji/"/>
+    <id>https://lucashaozh.github.io/2022/09/30/other/late-yu-fa-bi-ji/</id>
+    <published>2022-09-30T15:10:03.000Z</published>
+    <updated>2024-11-15T14:42:48.598Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本篇笔记用来记录在使用LaTeX过程中经常碰到的LaTeX数学符号以及一些基础的常用的操作比如添加图片，添加代码，如果有的话还会收藏一些比较实用的模板比如CV模板，作业模板论文模板等等。持续更新……&lt;/p&gt;
+&lt;p&gt;</summary>
+    
+    
+    
+    <category term="Other" scheme="https://lucashaozh.github.io/categories/Other/"/>
+    
+    
+    <category term="Math" scheme="https://lucashaozh.github.io/tags/Math/"/>
+    
+    <category term="Latex" scheme="https://lucashaozh.github.io/tags/Latex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法：最小生成树(Minimum Spanning Tree)</title>
+    <link href="https://lucashaozh.github.io/2022/09/28/algorithms/suan-fa-minimum-spanning-tree/"/>
+    <id>https://lucashaozh.github.io/2022/09/28/algorithms/suan-fa-minimum-spanning-tree/</id>
+    <published>2022-09-28T11:12:17.000Z</published>
+    <updated>2024-11-15T14:42:47.825Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;生成树指的是一个连通图G的覆盖所有顶点的无环子图，最小生成树指的是所有生成树中加权和最小的生成树。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;最小生成树的应用：聚类分析、网络架构设计、VLSI布线设计等诸多实际应用问题，都可转化并描述为最小支
+撑树的构造问题。在这些应用中，边的权重大多对应于某种可量化的成本，因此作为对应优化问
+题的基本模型，最小支撑树的价值不言而喻。——《数据结构C++版》&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;求最小支撑树的算法主要采用贪心算法，最著名的两个算法分别是Prim算法和Kruskal算法。&lt;/p&gt;
+&lt;p&gt;本篇主要参考&lt;a
+href=&quot;https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/&quot;&gt;Kruskal’s
+Minimum Spanning Tree Algorithm | Greedy Algo-2 -
+GeeksforGeeks&lt;/a&gt;以及以及&lt;a
+href=&quot;https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/?ref=lbp&quot;&gt;Prim’s
+Minimum Spanning Tree (MST) | Greedy Algo-5 -
+GeeksforGeeks&lt;/a&gt;，GeeksforGeeks上的数据结构今天刚好搜到了，确实讲的不错，转载收藏一下作为笔记。&lt;/p&gt;
+&lt;p&gt;</summary>
+    
+    
+    
+    <category term="Algorithms" scheme="https://lucashaozh.github.io/categories/Algorithms/"/>
+    
+    
+    <category term="算法" scheme="https://lucashaozh.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="C++" scheme="https://lucashaozh.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PyTorch Inplace Operation Notes</title>
+    <link href="https://lucashaozh.github.io/2022/09/25/bug/pytorch-inplace-operation-notes/"/>
+    <id>https://lucashaozh.github.io/2022/09/25/bug/pytorch-inplace-operation-notes/</id>
+    <published>2022-09-25T21:05:57.000Z</published>
+    <updated>2024-11-15T14:42:47.828Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近在跑实验的时候遇到了这样一个Bug花了很久才解决，记录一下学习一波以免以后再遇到。&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation: [torch.cuda.FloatTensor [3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;, 64, 7, 7]] is at version 2; expected version 1 instead. Hint: enable anomaly detection to find the operation that failed to compute it&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;s gradient, with torch.autograd.set_detect_anomaly(True).&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;</summary>
+    
+    
+    
+    <category term="Bug" scheme="https://lucashaozh.github.io/categories/Bug/"/>
+    
+    
+    <category term="Bug" scheme="https://lucashaozh.github.io/tags/Bug/"/>
+    
+    <category term="PyTorch" scheme="https://lucashaozh.github.io/tags/PyTorch/"/>
+    
+    <category term="CV" scheme="https://lucashaozh.github.io/tags/CV/"/>
+    
+    <category term="Python" scheme="https://lucashaozh.github.io/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图像像素画生成方法总结（图像下采样）</title>
+    <link href="https://lucashaozh.github.io/2022/07/10/computervision/tu-pian-xia-cai-yang-duo-chong-fang-fa-zong-jie/"/>
+    <id>https://lucashaozh.github.io/2022/07/10/computervision/tu-pian-xia-cai-yang-duo-chong-fang-fa-zong-jie/</id>
+    <published>2022-07-10T09:55:49.000Z</published>
+    <updated>2024-11-15T14:42:47.828Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;图片的上采样和下采样分别对应图片的放大和缩小，在对图像进行采样的过程中会造成不同程度的模糊。图像的像素画生成采用的方法就是图片下采用的方法。本文会对图像像素化的方法进行总结。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ComputerVision" scheme="https://lucashaozh.github.io/categories/ComputerVision/"/>
+    
+    
+    <category term="CV" scheme="https://lucashaozh.github.io/tags/CV/"/>
+    
+    <category term="python" scheme="https://lucashaozh.github.io/tags/python/"/>
+    
+    <category term="图像处理" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Rider和Emmylua进行UnLua配置</title>
+    <link href="https://lucashaozh.github.io/2022/06/27/gamegraphics/shi-yong-rider-he-emmylua-jin-xing-unlua-pei-zhi/"/>
+    <id>https://lucashaozh.github.io/2022/06/27/gamegraphics/shi-yong-rider-he-emmylua-jin-xing-unlua-pei-zhi/</id>
+    <published>2022-06-27T21:15:29.000Z</published>
+    <updated>2024-11-15T14:42:48.592Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在Rider中配置UnLua环境就可以使用同一个IDE同时进行c++和Lua的开发，不用切换vscode和Visual
+Studio，并且Rider更加美观，操作逻辑和代码提示也比Visual
+Studio加番茄插件更加好用。所以还是非常推荐使用Rider进行UE的开发的。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="Unreal Engine" scheme="https://lucashaozh.github.io/tags/Unreal-Engine/"/>
+    
+    <category term="IDE" scheme="https://lucashaozh.github.io/tags/IDE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图形学入门笔记2: Ray Tracing</title>
+    <link href="https://lucashaozh.github.io/2022/02/28/gamegraphics/tu-xing-xue-ru-men-bi-ji-2-ray-tracing/"/>
+    <id>https://lucashaozh.github.io/2022/02/28/gamegraphics/tu-xing-xue-ru-men-bi-ji-2-ray-tracing/</id>
+    <published>2022-02-28T01:15:17.000Z</published>
+    <updated>2024-11-15T14:42:48.592Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Games101作业5实现笔记以及Witted Style Ray Tracing和Moller Trumbore
+Algorithm笔记&lt;/p&gt;
+&lt;h2 id=&quot;witted-style-光线追踪&quot;&gt;Witted Style 光线追踪&lt;/h2&gt;
+&lt;p&gt;最基础最原始的光线追踪算法。根据光路的可逆性，我们从眼睛处朝着像素点发射一道光线，这道光线与场景中的物体相交会发生反射和折射，这里我们默认反射是镜面反射，产生的两道光线会继续和场景中的物体相交产生新的折射光线和反射光线，这就是光线追踪的基本原理。如果不加以限制，光路的反射和折射会不断进行下去，所以我们需要设置一个反射深度限制。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+    <category term="Cpp" scheme="https://lucashaozh.github.io/tags/Cpp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vscode编译.cpp文件出现中文乱码解决方案</title>
+    <link href="https://lucashaozh.github.io/2022/02/25/bug/g-bian-yi.cpp-wen-jian-chu-xian-zhong-wen-luan-ma-jie-jue-fang-an/"/>
+    <id>https://lucashaozh.github.io/2022/02/25/bug/g-bian-yi.cpp-wen-jian-chu-xian-zhong-wen-luan-ma-jie-jue-fang-an/</id>
+    <published>2022-02-25T16:57:35.000Z</published>
+    <updated>2024-11-15T14:42:47.828Z</updated>
+    
+    
+    <summary type="html">&lt;h1
+id=&quot;vscode编译.cpp文件出现中文乱码解决方案&quot;&gt;vscode编译.cpp文件出现中文乱码解决方案&lt;/h1&gt;
+&lt;p&gt;在vscode中编译.cpp文件，可以使用vscode中的插件code
+runner点击按钮运行，如果熟悉如何使用g++的命令也可以直接使用命令行语句编译运行。但是如果文件中出现了中文字符，就会出现编译之后生成乱码的问题。比如这一段代码（来源于&lt;a
+href=&quot;https://www.runoob.com/cplusplus/cpp-data-types.html&quot;&gt;菜鸟教程&lt;/a&gt;）&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Bug" scheme="https://lucashaozh.github.io/categories/Bug/"/>
+    
+    
+    <category term="C++" scheme="https://lucashaozh.github.io/tags/C/"/>
+    
+    <category term="Bug" scheme="https://lucashaozh.github.io/tags/Bug/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Three.js使用贝塞尔曲线绘制心形</title>
+    <link href="https://lucashaozh.github.io/2022/02/10/gamegraphics/three-js-shi-yong-bei-sai-er-qu-xian-hui-zhi-xin-xing/"/>
+    <id>https://lucashaozh.github.io/2022/02/10/gamegraphics/three-js-shi-yong-bei-sai-er-qu-xian-hui-zhi-xin-xing/</id>
+    <published>2022-02-10T09:38:45.000Z</published>
+    <updated>2024-11-15T14:42:48.591Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;贝塞尔曲线是图形学中非常重要的知识，是绘制曲线以及曲面的基础，在很多地方都有着非常广泛的应用，比如Photoshop里的钢笔工具，字体设计，各种过渡动画等等。本文将记录贝塞尔曲线的原理公式，以及使用Three.js中的贝塞尔曲线API进行简单的心形绘制。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+    <category term="前端" scheme="https://lucashaozh.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="Three.js" scheme="https://lucashaozh.github.io/tags/Three-js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>BugMysql:Access Denied for user &#39;root&#39;@&#39;localhost&#39;</title>
+    <link href="https://lucashaozh.github.io/2021/11/21/bug/bugmysql-access-denied-for-user-root-localhost/"/>
+    <id>https://lucashaozh.github.io/2021/11/21/bug/bugmysql-access-denied-for-user-root-localhost/</id>
+    <published>2021-11-21T00:20:57.000Z</published>
+    <updated>2024-11-15T14:42:47.828Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;终于将困扰了很长时间的mysql的Bug解决了。朋友在macOS上的mysql每次进入的时候都会弹出&lt;code&gt;Access denied......&lt;/code&gt;的错误提示，经过长时间的上网搜索未果，今天终于有机会将其解决。&lt;/p&gt;
+&lt;p&gt;</summary>
+    
+    
+    
+    <category term="Bug" scheme="https://lucashaozh.github.io/categories/Bug/"/>
+    
+    
+    <category term="Bug" scheme="https://lucashaozh.github.io/tags/Bug/"/>
+    
+    <category term="Mysql" scheme="https://lucashaozh.github.io/tags/Mysql/"/>
+    
+  </entry>
+  
+</feed>

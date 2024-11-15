@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/pikachu.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+CJK+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lucashaozh.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Motivational Image The scene that we want to render is a dimly lit, smoky bar, inspired by the following two images. Rows of exquisite liquor bottles line the shelves, their labels veiled in the su">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ray Tracing Renderer (Course Project)">
+<meta property="og:url" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/index.html">
+<meta property="og:site_name" content="皓">
+<meta property="og:description" content="Motivational Image The scene that we want to render is a dimly lit, smoky bar, inspired by the following two images. Rows of exquisite liquor bottles line the shelves, their labels veiled in the su">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/01/02/FHRUOCLqBpaJQgw.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/01/02/fexQVhryYm2gdnl.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/01/02/SVn3gKIpMBth4ND.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/plane-texture-nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/plane-texture-v06.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/floor-texture-nori-nearest.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/floor-texture-v06-nearest.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/mesh-texture-nori-bilinear.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/mesh-texture-v06-bilinear.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/plane-normalmap-c-nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/plane-normalmap-c-v06.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/plane-normalmap-t-nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/plane-normalmap-t-v06.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/floor-normalmap-c-nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/floor-normalmap-c-v06.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/floor-normalmap-t-nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/floor-normalmap-t-v06.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/sphere-mesh-normalmap-c-nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/sphere-mesh-normalmap-c-v06.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/sphere-mesh-normalmap-t-nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/sphere-mesh-normalmap-t-v06.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/floor-spotlight-nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/floor-spotlight-v06.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_spotlight_direct_nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_spotlight_direct_v06.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_spotlight_path_nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_spotlight_path_v06.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_spotlight_pm_nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_spotlight_pm_v06.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/stratified-sampler.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/grid-sampler.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/sphere-independent-nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/sphere-stratified-nori.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/warptest-GTR1-v.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/warptest-GTR1.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/warptest-GTR2-v.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/warptest-GTR2.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_disney_nori-m0.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_disney_nori-m1.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_disney_nori-r0.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_disney_nori-r1.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_disney_nori-s01.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_disney_nori-s1.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_disney_nori-st0.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_disney_nori-st1.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_disney_nori-c0.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_disney_nori-c1.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_pmap_nori_mp1.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_pmap_nori_mp100.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_pmap_v06_mp1.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/cbox_pmap_v06_mp100.png">
+<meta property="article:published_time" content="2023-12-24T15:49:46.000Z">
+<meta property="article:modified_time" content="2024-11-15T14:42:48.038Z">
+<meta property="article:author" content="皓">
+<meta property="article:tag" content="Graphics">
+<meta property="article:tag" content="Project">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/01/02/FHRUOCLqBpaJQgw.jpg">
+
+
+<link rel="canonical" href="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/","path":"2023/12/24/gamegraphics/noriproject/","title":"Ray Tracing Renderer (Course Project)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Ray Tracing Renderer (Course Project) | 皓</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="皓" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">皓</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">游戏开发 | ETH MSCS 在读</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-english"><a href="https://lucashaozh.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Motivational Image</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Final Images</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Features implemented</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">Images as Texture</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.1.1.</span> <span class="nav-text">Implementation Details</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.1.2.</span> <span class="nav-text">Validation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text">Normal Mapping</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.2.1.</span> <span class="nav-text">Implementation Details</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.2.2.</span> <span class="nav-text">Validation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.3.</span> <span class="nav-text">Emitter (Spotlight) (5pt)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.3.1.</span> <span class="nav-text">Implementation Details</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.3.2.</span> <span class="nav-text">Validation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.4.</span> <span class="nav-text">Stratified Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.4.1.</span> <span class="nav-text">Implementation Details</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.4.2.</span> <span class="nav-text">Validation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.5.</span> <span class="nav-text">Disney
+BSDF (metallic, specular, roughness, specular tint, clearcoat)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.5.1.</span> <span class="nav-text">Implementation Details:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.5.2.</span> <span class="nav-text">Validation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.6.</span> <span class="nav-text">Progressive Photon Mapping</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.6.1.</span> <span class="nav-text">Implementation Details</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.6.2.</span> <span class="nav-text">Validation</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="皓"
+      src="/images/pikachu.jpg">
+  <p class="site-author-name" itemprop="name">皓</p>
+  <div class="site-description" itemprop="description">图形学及ACG爱好者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lucashaozh" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lucashaozh" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lucashaozh@gmail.com" title="E-Mail → mailto:lucashaozh@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_45951701" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45951701" rel="noopener me" target="_blank"><i class="fab fa-contao fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/shenghao-zhang-b03a64203/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;shenghao-zhang-b03a64203&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+<script src="/js/switch_language.js"></script>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2023/12/24/gamegraphics/noriproject/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="皓">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="皓">
+      <meta itemprop="description" content="图形学及ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Ray Tracing Renderer (Course Project) | 皓">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ray Tracing Renderer (Course Project)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-12-24 16:49:46" itemprop="dateCreated datePublished" datetime="2023-12-24T16:49:46+01:00">2023-12-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-15 15:42:48" itemprop="dateModified" datetime="2024-11-15T15:42:48+01:00">2024-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1><span id="motivational-image">Motivational Image</span></h1>
+<p>The scene that we want to render is a dimly lit, smoky bar, inspired
+by the following two images. Rows of exquisite liquor bottles line the
+shelves, their labels veiled in the subtle play of light and shadow. An
+ashtray rests nearby, adorned with an unlit cigarette. A dim spotlight
+bathes the ashtray and the wine bottles. The scene is to capture the
+essence of the bar's mystique, inviting participants to let their
+imagination run wild as they bring out the richness of the hidden
+stories within the rendering. The following two images are our
+motivation images.</p>
+<p><img src="https://s2.loli.net/2024/01/02/FHRUOCLqBpaJQgw.jpg"> <img src="https://s2.loli.net/2024/01/02/fexQVhryYm2gdnl.jpg"></p>
+<h1><span id="final-images">Final Images</span></h1>
+<p>Based on the motivation images, we rendered our final images.</p>
+<p><img src="https://s2.loli.net/2024/01/02/SVn3gKIpMBth4ND.png"></p>
+<span id="more"></span>
+<h1><span id="features-implemented">Features implemented</span></h1>
+<h2><span id="images-as-texture">Images as Texture</span></h2>
+<p><strong>Relevant Code</strong></p>
+<ul>
+<li><code>imagetexture.cpp</code></li>
+</ul>
+<h3><span id="implementation-details">Implementation Details</span></h3>
+<p>To load the texture from external files, I used
+<code>stb_image</code> to read the image data. I defined a
+<code>ImageData</code> class similar to <code>Bitmap</code> class, which
+is drived from <code>Eigen::Array</code> to store the image data. The
+read image data is probably in sRGB color space. Therefore, we provide
+an option boolean field <code>raw</code> in the <code>img_texture</code>
+property to indicate whether use raw image color space or convert it to
+linear color space with <code>toLinearRGB()</code> function. We also
+provide two difference filter modes, <code>nearest</code> and
+<code>bilinear</code>.</p>
+<h3><span id="validation">Validation</span></h3>
+<p>To validate the results, we used a texture from the website <a target="_blank" rel="noopener" href="https://www.artstation.com/blogs/zeeshannasir/peYz/reference-uv-map-grids">Reference:
+UV Map Grids</a> and the scenes in assignment for rendering. The results
+look right. We also compared our results with mitsuba. Since the
+coordinate used in mitsuba is right-handed while nori's is left-handed,
+the up axis coordinate is inversed so that the scene representation is
+the same. The results are quite similar, while the results of mitsuba
+seem to be more vivid than ours. I think this may due to the usage of
+mipmap in mitsuba. The overall results are correct.</p>
+<div class="twentytwenty-container" style="max-width:720px">
+<img src="plane-texture-nori.png" data-width="720">
+<img src="plane-texture-v06.png" data-width="720">
+</div>
+<div class="twentytwenty-container" style="max-width:720px">
+<img src="floor-texture-nori-nearest.png" data-width="720">
+<img src="floor-texture-v06-nearest.png" data-width="720">
+</div>
+<div class="twentytwenty-container" style="max-width:720px">
+<img src="mesh-texture-nori-bilinear.png" data-width="720">
+<img src="mesh-texture-v06-bilinear.png" data-width="720">
+</div>
+<h2><span id="normal-mapping">Normal Mapping</span></h2>
+<p><strong>Relevant Code</strong></p>
+<ul>
+<li><code>mesh.h</code></li>
+<li><code>mesh.cpp</code></li>
+<li><code>shape.h</code></li>
+<li><code>shape.cpp</code></li>
+</ul>
+<h3><span id="implementation-details">Implementation Details</span></h3>
+<p>Normal mapping requires us to update the mesh normal with the normals
+provided in the normal textures. Since the frame normal is calculated in
+the <code>setHitInformation()</code> function in <code>Shape</code>, I
+decided to read the normal map and update the normals here. I added a
+field of type <code>Texture&lt;Color3f&gt; m_normalMap</code>. The
+normal map can be loaded with the Image as Texture implemented before.
+After reading the texture evaled value, it has to be converted to range
+[-1, 1]. Currently, only <code>Mesh</code> supports computing shaing
+frame with normal mapping. In the <code>setHitInformation()</code>
+function in <code>Mesh</code>, the local normal read from the normal
+mapping needs to be converted to the world normal using the local frame
+first. However, if the default frame setup is used, the result is
+discontinuous and is absolutely wrong. Therefore, I need to construct
+the right local frame first. I followed the formula in <a target="_blank" rel="noopener" href="https://learnopengl.com/Advanced-Lighting/Normal-Mapping">learnopengl</a>.</p>
+<p><span class="math display">\[
+\begin{bmatrix}T_{x}&amp;T_{y}&amp;T_{z}\\
+B_{x}&amp;B_{y}&amp;B_{z}\end{bmatrix}=\frac{1}{\Delta U_{1}\Delta
+V_{2}-\Delta U_{2}\Delta V_{1}}\begin{bmatrix}\Delta V_{2}&amp;-\Delta
+V_{1} \\ -\Delta U_{2} &amp; \Delta U_{1}
+\end{bmatrix}\begin{bmatrix}E_{1x}&amp;E_{1y}&amp;E_{1z}\\
+E_{2x}&amp;E_{2y}&amp;E_{2z}\end{bmatrix}
+\]</span></p>
+<p>where <span class="math inline">\(E_{1}\)</span> and <span class="math inline">\(E_{2}\)</span> are two edges of the triangle, and
+<span class="math inline">\(\Delta U, \Delta V\)</span> are the
+corresponding uv offsets of the edges. <span class="math inline">\(T\)</span> and <span class="math inline">\(B\)</span> is <code>dpdv</code> and
+<code>dpdu</code>. Then, we can construct the local frame correctly with
+<code>dpdv</code> and <code>dpdu</code>.</p>
+<h3><span id="validation">Validation</span></h3>
+<p>To validate the results, the results of nori are compared to the
+results of mitsuba.</p>
+<div class="twentytwenty-container" style="max-width:720px">
+<img src="plane-normalmap-c-nori.png" data-width="720" data-height="720">
+<img src="plane-normalmap-c-v06.png" data-width="720" data-height="720">
+</div>
+<div class="twentytwenty-container" style="max-width:720px">
+<img src="plane-normalmap-t-nori.png" data-width="720" data-height="720">
+<img src="plane-normalmap-t-v06.png" data-width="720" data-height="720">
+</div>
+<div class="twentytwenty-container" style="max-width:720px">
+<img src="floor-normalmap-c-nori.png" data-width="720" data-height="720">
+<img src="floor-normalmap-c-v06.png" data-width="720" data-height="720">
+</div>
+<div class="twentytwenty-container" style="max-width:720px">
+<img src="floor-normalmap-t-nori.png" data-width="720" data-height="720">
+<img src="floor-normalmap-t-v06.png" data-width="720" data-height="720">
+</div>
+<div class="twentytwenty-container" style="max-width:720px">
+<img src="sphere-mesh-normalmap-c-nori.png" data-width="720" data-height="720">
+<img src="sphere-mesh-normalmap-c-v06.png" data-width="720" data-height="720">
+</div>
+<div class="twentytwenty-container" style="max-width:720px">
+<img src="sphere-mesh-normalmap-t-nori.png" data-width="720" data-height="720">
+<img src="sphere-mesh-normalmap-t-v06.png" data-width="720" data-height="720">
+</div>
+<h2><span id="emitter-spotlight-5pt">Emitter (Spotlight) (5pt)</span></h2>
+<p><strong>Relevant Code</strong></p>
+<ul>
+<li><code>spotlight.cpp</code></li>
+<li><code>path_mis.cpp</code></li>
+<li><code>direct_mis.cpp</code></li>
+</ul>
+<h3><span id="implementation-details">Implementation Details</span></h3>
+<p>The implementation of the spotlight follows the mistuba designs. It
+has three properties, <code>intensity</code>, <code>maxAngle</code> and
+<code>beamAngle</code>. <code>intensity</code> is the max irridiance of
+emitter at the center. All the ray emitted within the beamAngle has an
+irridiance of <code>intensity</code>. The emitted intensity of the ray
+begins to attenuate linearly between beamAngle and maxAngle. All the ray
+outside <code>maxAngle</code> is evaluated to be zero, meaning no light
+can be emitted in that direction. The <code>FallOff</code> function
+calculates that attenuation giving the sampled outgoing light direction.
+I also implemented the <code>samplePhoton</code> function in order to
+apply spotlight in photon mapper. The sampled power is simply
+<code>I * falloff / pdf</code>, following implementation in mitsuba. Pdf
+of the sampled photon uses
+<code>Warp::squareToUniformSphereCapPdf(cosMaxAngle)</code> since the
+sampled ray can only exist in the cone area contrained by
+<code>maxAnlge</code>.</p>
+<p>One problem is that since the spotlight is a delta emitter, the
+original implementation of multiple importance sampling does not work on
+spotlight. So I added a flag <code>isDeltaEmitter</code> in
+<code>EmitterRecord</code>. Everytime a delta emitter is sampled, the
+weight of the emitter sampling should be 1 while weight of bsdf is 0. I
+modified <code>direct_mis</code> and <code>path_mis</code> based on this
+rule to fix the problem.</p>
+<h3><span id="validation">Validation</span></h3>
+<p>To validate the correctness of the spotlight and the modification on
+the integrator, I compared several rendered scenes in different
+integrator with mitsuba. The first scene is a simple floor with
+spotlight shooting from the above, rendered in direct integrator.</p>
+<div class="twentytwenty-container" style="max-width:720px">
+<img src="floor-spotlight-nori.png" data-width="720">
+<img src="floor-spotlight-v06.png" data-width="720">
+</div>
+<p>To validate the correctness in direct, path and photonmapper
+integrator, I put a spotlight in the cbox scene. The noise level may be
+slightly different from mitsuba, but the overall brightness is correct.
+This can successfully validate the correctness of spotlight</p>
+<div class="twentytwenty-container" style="max-width:600px">
+<img src="cbox_spotlight_direct_nori.png" data-width="600" data-height="600">
+<img src="cbox_spotlight_direct_v06.png" data-width="600" data-height="600">
+</div>
+<div class="twentytwenty-container" style="max-width:600px">
+<img src="cbox_spotlight_path_nori.png" data-width="600" data-height="600">
+<img src="cbox_spotlight_path_v06.png" data-width="600" data-height="600">
+</div>
+<div class="twentytwenty-container" style="max-width:600px">
+<img src="cbox_spotlight_pm_nori.png" data-width="600" data-height="600">
+<img src="cbox_spotlight_pm_v06.png" data-width="600" data-height="600">
+</div>
+<h2><span id="stratified-sampling">Stratified Sampling</span></h2>
+<p><strong>Relevant Code</strong></p>
+<ul>
+<li><code>stratified.cpp</code></li>
+<li><code>render.cpp</code></li>
+</ul>
+<h3><span id="implementation-details">Implementation Details</span></h3>
+<p><code>Stratified</code> class is derived from <code>Sampler</code>
+and implemented the stratified sampling. <code>prepare()</code> function
+is used to initialize the sampler before start sampling. It is called
+before the first sample starts. <code>generate()</code> function is used
+to prepare for the sampling of the next image pixel.
+<code>advanced()</code> function is called every time before the next
+sampling starts. <code>next1D</code> and <code>next2D</code> is used to
+retrieve the next 1d or 2d samples.</p>
+<p>To enable sampling multiple dimensions, a <code>dimensionIndex</code>
+is maintained in the class. Similarly, <code>sampleIndex</code> and
+<code>pixelIndex</code> records the number of samples that are already
+sampled and the number of pixels sampled. When a sample is needed, first
+a seed will be calculated based on a permutation base seed, dimension
+index and pixel index. The permutation sequences are thus the same for
+all the samples with the same <code>dimensionIndex</code> and
+<code>pixelIndex</code>, while different <code>dimensionIndex</code> and
+<code>pixelIndex</code> will have different sequences. Then, the
+position of the current sampled region is retrieved with
+<code>sampleIndex</code>. Then a random offset is added according to
+whether the sampled is jittered or not.</p>
+<p>In the <code>prepare()</code> function, I initialize the
+<code>sampleIndex</code> and the random number generators. A base
+permutation seed is generated randomly. It can then be used to generate
+a permuation sequence of size <code>sampleCount</code>.
+<code>generate()</code> resets the dimension index and increment the
+pixelIndex. <code>advance</code> resets the pixel index and increment
+the sample index.</p>
+<h3><span id="validation">Validation</span></h3>
+<p>In th warptest, I visualize the results of the stratified sampler and
+grid sampler to show the difference between them. The result is shown
+below.</p>
+<div class="twentytwenty-container" style="max-width:700px">
+<img src="stratified-sampler.png" data-width="700">
+<img src="grid-sampler.png" data-width="700">
+</div>
+<p>I also rendered a simple scene which consists of a plane and a sphere
+to see the actual effects of the stratified sampler. The result is shown
+below. The stratified sampler can reduce the noise level in .</p>
+<div class="twentytwenty-container" style="max-width:720px">
+<img src="sphere-independent-nori.png" data-width="720">
+<img src="sphere-stratified-nori.png" data-width="720">
+</div>
+<h2><span id="disneybsdf-metallic-specular-roughness-specular-tint-clearcoat">Disney
+BSDF (metallic, specular, roughness, specular tint, clearcoat)</span></h2>
+<p><strong>Relevant Code</strong></p>
+<ul>
+<li><code>disney.cpp</code></li>
+<li><code>warp.h</code></li>
+<li><code>warp.cpp</code></li>
+<li><code>warptest.cpp</code></li>
+</ul>
+<h3><span id="implementation-details">Implementation Details:</span></h3>
+<p>The disney BSDF is implemented based on the paper <a target="_blank" rel="noopener" href="https://media.disneyanimation.com/uploads/production/publication_asset/48/asset/s2012_pbs_disney_brdf_notes_v3.pdf">Physically-Based
+Shading at Disney</a>. The code basically refers to the implementation
+of <a target="_blank" rel="noopener" href="https://github.com/wdas/brdf/blob/main/src/brdfs/disney.brdf">Disney
+BRDF explorer</a>.</p>
+<p>There are ten parameters in Disney BRDF. Five of them, metallic,
+specular, roughness, specular tint and clearcoat graded. Disney BRDF is
+consisted of three parts, which are diffuse, specular and clearcoat.
+Diffuse is influenced by metallic and roughness. Specular is influenced
+by specular, metallic, roughness and specular tint. Clearcoat is
+influenced by clearcoat. (Only graded ones are listed here) The specular
+and clearcoat are two microfacet models. The normal distribution of
+specular is GGX (GTR2), and the normal distribution of clearcoat is
+GTR1. The <code>squareToGTR2()</code>, <code>squareToGTR1()</code> and
+their pdf uses the formula derived in the appendix of the paper. The pdf
+are essentially the cosine weighted pdf of the normal distribution. The
+<code>eval()</code> function follows exactly the same as BRDF explorer.
+The choice of the sampling lobe refers to the implementation in
+mitsuba.</p>
+<h3><span id="validation">Validation</span></h3>
+<p>The GTR1 and GTR2 are tested in the warptest. The results are shown
+below.</p>
+<p><img src="warptest-GTR1-v.png"> <img src="warptest-GTR1.png">
+<img src="warptest-GTR2-v.png"> <img src="warptest-GTR2.png"></p>
+<p>To validate the correctness of disney BSDF, I used the scene
+<code>cbox</code> for test. For each test, only the parameter being
+tested is changed, with all other graded parameters fixed and all other
+ungraded parameters being 0. The results are shown below.</p>
+<p><strong>Metallic=0 vs Metallic=1</strong></p>
+<div class="twentytwenty-container" style="max-width:600px">
+<img src="cbox_disney_nori-m0.png" data-width="600">
+<img src="cbox_disney_nori-m1.png" data-width="600">
+</div>
+<p><strong>Roughness=0 vs Roughness=1</strong></p>
+<div class="twentytwenty-container" style="max-width:600px">
+<img src="cbox_disney_nori-r0.png" data-width="600">
+<img src="cbox_disney_nori-r1.png" data-width="600">
+</div>
+<p><strong>Specular=0.1 vs Specular=1</strong></p>
+<div class="twentytwenty-container" style="max-width:600px">
+<img src="cbox_disney_nori-s01.png" data-width="600">
+<img src="cbox_disney_nori-s1.png" data-width="600">
+</div>
+<p><strong>Specular tint=0 vs Specular tint=1</strong></p>
+<div class="twentytwenty-container" style="max-width:600px">
+<img src="cbox_disney_nori-st0.png" data-width="600">
+<img src="cbox_disney_nori-st1.png" data-width="600">
+</div>
+<p><strong>Clearcoat=0 vs Clearcoat=1</strong></p>
+<div class="twentytwenty-container" style="max-width:600px">
+<img src="cbox_disney_nori-c0.png" data-width="600">
+<img src="cbox_disney_nori-c1.png" data-width="600">
+</div>
+<h2><span id="progressive-photon-mapping">Progressive Photon Mapping</span></h2>
+<p><strong>Relevant Code</strong></p>
+<ul>
+<li><code>progressivepm.cpp</code></li>
+</ul>
+<h3><span id="implementation-details">Implementation Details</span></h3>
+<p>The implementation of progressive photon mapping is basically based
+on the paper <a target="_blank" rel="noopener" href="http://graphics.ucsd.edu/~henrik/papers/progressive_photon_mapping/progressive_photon_mapping.pdf">Progressive
+Photon Mapping</a>. The algorithm is consisted of two passes. In the
+first pass, we need to generate the visible hit points from the camera
+and store them. In the second pass, we need to generate the photon map
+repeated. After each photon map generation, we need to update the hit
+points with radius reduction and flux correction. A new rendered image
+can be generated right after eahc photon map generation process.</p>
+<p>To make use of the current multiple thread rendering framework, the
+execution process of the progressive photon mapper is a little different
+from other integrators. In the <code>process()</code> function, we
+iterate all the image pixels and shoot <code>sampleCount</code> rays and
+perform path tracing for each ray and get the hit point on the diffuse
+surfaces. I define a function <code>persamplePreprocess()</code>. This
+function is called everytime a new sample starts. In this way, the
+<code>sampleCount</code> defined in the <code>sampler</code> is actually
+the number of photon map generation passes, while the actual number of
+samples for each pixel is the <code>sampleCount</code> defined in the
+progressive photon mapper. Then in the
+<code>persamplePreprocess()</code> function, a new photon map is
+generated. Then, a new image is rendered in <code>Li()</code> function.
+Since now the pixel is needed to find the corresponding hit points
+stored, a new parameter <code>pixel</code> is added to the
+<code>Li()</code> function. First, the hit points information is updated
+with the new photon map. Then, the image is rendered with the updated
+hit points. Doing these two steps at the same time in <code>Li()</code>
+function can make the best of the rendering framework to accelerate the
+rendering process and is easy to implement even though it is a little
+unintuitive.</p>
+<h3><span id="validation">Validation</span></h3>
+<p>To validate the progressive photon mapper, I rendered cbox with
+progressive photon mapper of 1 photon map generation pass and 1000
+photon map generation passes. I also used the same setting on mitsuba
+for comparison. Even though the results are not exactly the same, it
+proves that the progressive photon mapper is converging to the correct
+results.</p>
+<p><strong>My results</strong></p>
+<div class="twentytwenty-container" style="max-width:600px">
+<img src="cbox_pmap_nori_mp1.png" data-width="600">
+<img src="cbox_pmap_nori_mp100.png" data-width="600">
+</div>
+<p><strong>Mistuba results</strong></p>
+<div class="twentytwenty-container" style="max-width:600px">
+<img src="cbox_pmap_v06_mp1.png" data-width="600">
+<img src="cbox_pmap_v06_mp100.png" data-width="600">
+</div>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.event.move.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.twentytwenty.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/css/twentytwenty.min.css"/><script>
+(function(){
+  function initialize_twentytwenty() {
+    $(".twentytwenty-container").each(function() {
+      var $container = $(this);
+      var $images = $container.find('img');
+      var loadedImages = 0;
+
+      $images.on('load', function(){
+        loadedImages++;
+        if (loadedImages === $images.length) {
+          if ($.fn.twentytwenty) {
+            $container.twentytwenty();
+            console.log("Twentytwenty Initialized for", $container);
+          } else {
+            console.log("TwentyTwenty plugin not loaded yet");
+          }
+        }
+      }).each(function(){
+        if (this.complete) $(this).trigger('load');
+      });
+    });
+  }
+
+  $(document).ready(function() {
+    initialize_twentytwenty();
+  });
+
+  // 为了处理可能的延迟加载情况
+  $(window).on('load', function() {
+    initialize_twentytwenty();
+  });
+
+  $(document).on('pjax:complete', function() {
+    initialize_twentytwenty();
+  });
+})();
+</script>
+          <div class="post-tags">
+              <a href="/tags/Graphics/" rel="tag"># Graphics</a>
+              <a href="/tags/Project/" rel="tag"># Project</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/07/09/computervision/gan-lun-wen-jing-du/" rel="prev" title="GAN论文精读">
+                  <i class="fa fa-angle-left"></i> GAN论文精读
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/02/19/gamegraphics/pbdsimulator/" rel="next" title="Postion Based Dynamics软体模拟">
+                  Postion Based Dynamics软体模拟 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">皓</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">205k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:07</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cjk_width":0.9,"normal_width":0.6,"append_css":true,"js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lucashaozh","repo":"GitalkBlogRepo","client_id":"c140415e06b9641c5d85","client_secret":"ab2e8dcb43c6c08eca4a2191c10630a8eb6f2d18","admin_user":"lucashaozh","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"667e33b9bc3935d65ecde1c695d44cf7"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

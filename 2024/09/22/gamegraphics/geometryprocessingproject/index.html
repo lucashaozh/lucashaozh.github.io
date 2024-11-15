@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/pikachu.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+CJK+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lucashaozh.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Implicit Surface Reconstruction Mesh Parameterization  Uniform and cotangent Laplacian LSCM ARAP  Shape Deformation Skinning and Skeletal Animation  Rotation Representation Harmonic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Geometry Processing Project">
+<meta property="og:url" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/index.html">
+<meta property="og:site_name" content="皓">
+<meta property="og:description" content="Implicit Surface Reconstruction Mesh Parameterization  Uniform and cotangent Laplacian LSCM ARAP  Shape Deformation Skinning and Skeletal Animation  Rotation Representation Harmonic">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/09/21/zedTcXsnWpYtMxK.png">
+<meta property="og:image" content="https://s2.loli.net/2024/04/25/7VlIFtjNv5zsaSR.png">
+<meta property="og:image" content="https://s2.loli.net/2024/09/22/tYRwjISQlyW2J1f.png">
+<meta property="og:image" content="https://s2.loli.net/2024/09/22/znycJjoqNCtbK19.png">
+<meta property="og:image" content="https://s2.loli.net/2024/09/22/Yyz2u4bKoF1q5Cw.png">
+<meta property="og:image" content="https://s2.loli.net/2024/09/21/bQjHe6omEWdcXkS.png">
+<meta property="og:image" content="https://s2.loli.net/2024/09/22/OXJNh1mUl3wf9v6.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/res/handle0.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/res/handle10.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/res/handle12.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/res/weight0.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/res/weight10.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/res/weight12.png">
+<meta property="og:image" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/res/hand_lbs.gif">
+<meta property="og:image" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/res/hand_dqs.gif">
+<meta property="og:image" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/res/hand_perface.gif">
+<meta property="og:image" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/res/eg_lbs.gif">
+<meta property="og:image" content="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/res/eg_contextaware.gif">
+<meta property="article:published_time" content="2024-09-22T14:09:00.000Z">
+<meta property="article:modified_time" content="2024-11-15T14:42:47.828Z">
+<meta property="article:author" content="皓">
+<meta property="article:tag" content="Graphics">
+<meta property="article:tag" content="Project">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/09/21/zedTcXsnWpYtMxK.png">
+
+
+<link rel="canonical" href="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/","path":"2024/09/22/gamegraphics/geometryprocessingproject/","title":"Geometry Processing Project"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Geometry Processing Project | 皓</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="皓" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">皓</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">游戏开发 | ETH MSCS 在读</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-english"><a href="https://lucashaozh.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Implicit Surface
+Reconstruction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Mesh Parameterization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">Uniform and cotangent
+Laplacian</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">LSCM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">ARAP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Shape Deformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">Skinning and Skeletal
+Animation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.1.</span> <span class="nav-text">Rotation Representation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.2.</span> <span class="nav-text">Harmonic skinning
+weights on selected handles</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">4.2.1.</span> <span class="nav-text">Handle selection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">4.2.2.</span> <span class="nav-text">Skinning weights
+visualization</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.3.</span> <span class="nav-text">Skeletal animation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.4.</span> <span class="nav-text">Context-aware per-vertex LBS</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="皓"
+      src="/images/pikachu.jpg">
+  <p class="site-author-name" itemprop="name">皓</p>
+  <div class="site-description" itemprop="description">图形学及ACG爱好者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lucashaozh" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lucashaozh" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lucashaozh@gmail.com" title="E-Mail → mailto:lucashaozh@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_45951701" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45951701" rel="noopener me" target="_blank"><i class="fab fa-contao fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/shenghao-zhang-b03a64203/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;shenghao-zhang-b03a64203&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+<script src="/js/switch_language.js"></script>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2024/09/22/gamegraphics/geometryprocessingproject/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="皓">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="皓">
+      <meta itemprop="description" content="图形学及ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Geometry Processing Project | 皓">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Geometry Processing Project
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-09-22 16:09:00" itemprop="dateCreated datePublished" datetime="2024-09-22T16:09:00+02:00">2024-09-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-15 15:42:47" itemprop="dateModified" datetime="2024-11-15T15:42:47+01:00">2024-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><!-- toc -->
+<ul>
+<li><a href="#implicit-surface-reconstruction">Implicit Surface
+Reconstruction</a></li>
+<li><a href="#mesh-parameterization">Mesh Parameterization</a>
+<ul>
+<li><a href="#uniform-and-cotangent-laplacian">Uniform and cotangent
+Laplacian</a></li>
+<li><a href="#lscm">LSCM</a></li>
+<li><a href="#arap">ARAP</a></li>
+</ul></li>
+<li><a href="#shape-deformation">Shape Deformation</a></li>
+<li><a href="#skinning-and-skeletal-animation">Skinning and Skeletal
+Animation</a>
+<ul>
+<li><a href="#rotation-representation">Rotation Representation</a></li>
+<li><a href="#harmonic-skinning-weights-on-selected-handles">Harmonic
+skinning weights on selected handles</a>
+<ul>
+<li><a href="#handle-selection">Handle selection</a></li>
+<li><a href="#skinning-weights-visualization">Skinning weights
+visualization</a></li>
+</ul></li>
+<li><a href="#skeletal-animation">Skeletal animation</a></li>
+<li><a href="#context-aware-per-vertex-lbs">Context-aware per-vertex
+LBS</a></li>
+</ul></li>
+</ul>
+<!-- tocstop -->
+<span id="more"></span>
+<h2><span id="implicit-surfacereconstruction">Implicit Surface
+Reconstruction</span></h2>
+<ul>
+<li>Compute an implicit MLS function approximating a 3D point cloud with
+given normals.</li>
+<li>Sample the implicit function on a 3D volumetric grid.</li>
+<li>Apply the marching cubes algorithm to extract a triangle mesh from
+the zero level set.</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/09/21/zedTcXsnWpYtMxK.png" alt="Image 1" style="width: 45%; object-fit: contain;"></p>
+<h2><span id="mesh-parameterization">Mesh Parameterization</span></h2>
+<ul>
+<li>Parameterize a mesh by minimizing four different distortion measures
+with fixed or free boundaries.
+<ul>
+<li>Spring energy (uniform Laplacian)</li>
+<li>Dirichlet/harmonic energy (cotangent Laplacian)</li>
+<li>Least Squares Conformal Maps (LSCM)</li>
+<li>As-Rigid-As-Possible (ARAP)</li>
+</ul></li>
+<li>Visualize the distortion by color coding.</li>
+</ul>
+<h3><span id="uniform-and-cotangentlaplacian">Uniform and cotangent
+Laplacian</span></h3>
+<p>Spring energy is defined as <span class="math display">\[
+\frac{1}{2}k_{i,j}\Vert \mathbf{u}_{i}-\mathbf{u}_{j} \Vert^{2}
+\]</span> Minimizing the spring enegy <span class="math display">\[
+\begin{align*}
+E(\mathbf{u}_{1}, \cdots, \mathbf{u}_{n})&amp;=\sum\limits
+\frac{1}{2}k_{i,j}\Vert \mathbf{u}_{i}-\mathbf{u}_{j} \Vert^{2}\\
+\frac{\partial{E(\mathbf{u}_{1},\cdots,\mathbf{u}_{n})}}{\partial
+\mathbf{u}_{i}}&amp;=\sum\limits
+k_{i,j}(\mathbf{u}_{i}-\mathbf{u}_{j})=0 \\
+\sum\limits_{j \in \mathcal{N}(i)\cap \mathcal{B}}
+k_{ij}\mathbf{u}_{i}+\sum\limits_{j \in \mathcal{N}(i) \backslash
+\mathcal{B}} k_{i,j}(\mathbf{u}_{i}-\mathbf{u}_{j})&amp;= \sum\limits_{j
+\in \mathcal{N}(i)\cap \mathcal{B}} k_{i,j}\mathbf{u}_{j}
+\end{align*}
+\]</span></p>
+<figure>
+<img src="https://s2.loli.net/2024/04/25/7VlIFtjNv5zsaSR.png" alt="Solve linear system">
+<figcaption aria-hidden="true">Solve linear system</figcaption>
+</figure>
+<ul>
+<li>Two choices of spring constants
+<ul>
+<li>Uniform <span class="math inline">\(k_{i,j}=1\)</span></li>
+<li>Cotan <span class="math inline">\(k_{i,j}=\cot{\phi_{i,j}}+\cot{\phi_{j,i}}\)</span></li>
+</ul></li>
+</ul>
+<figure style="text-align: center">
+<img src="https://s2.loli.net/2024/09/22/tYRwjISQlyW2J1f.png" alt="Uniform Laplacian">
+<figcaption>
+Uniform Laplacian
+</figcaption>
+</figure>
+<figure style="text-align: center">
+<img src="https://s2.loli.net/2024/09/22/znycJjoqNCtbK19.png" alt="Cotan Laplacian">
+<figcaption>
+Cotan Laplacian
+</figcaption>
+</figure>
+<h3><span id="lscm">LSCM</span></h3>
+The LSCM distortion measure can be defined as <span class="math display">\[
+D(J) = \| J + J^T - (\text{tr}\, J) I \|_F^2
+\]</span>
+<figure style="text-align: center">
+<img src="https://s2.loli.net/2024/09/22/Yyz2u4bKoF1q5Cw.png" alt="LSCM">
+<figcaption>
+Cotan Laplacian
+</figcaption>
+</figure>
+<h3><span id="arap">ARAP</span></h3>
+<p>The ARAP distortion is defined as <span class="math display">\[
+D(J) = \| J - R\|_F^2
+\]</span> where <span class="math inline">\(R\)</span> is the cloest
+rotation matrix to <span class="math inline">\(J\)</span>. The ARAP
+procedure follows the steps below: - Local step: The Jacobians for each
+face of the current iterate are computed. Then for each Jacobian the
+closest rotation matrix is found. This can be done using the SVD of
+<span class="math inline">\(J\)</span>. - Global step: Then for each
+Jacobian the closest rotation matrix is found, they are all assumed to
+be fixed, and then minimize the ARAP distortion measure by solving a
+linear system.</p>
+<figure style="text-align: center">
+<img src="https://s2.loli.net/2024/09/21/bQjHe6omEWdcXkS.png" alt="LSCM">
+<figcaption>
+ARAP
+</figcaption>
+</figure>
+<h2><span id="shape-deformation">Shape Deformation</span></h2>
+<p>Implement multiresolution mesh editing algorithm to interactively
+deform 3D models. Construct a two-level multi-resolution surface
+representation and use naive Laplacian editing to deform it.</p>
+<p><img src="https://s2.loli.net/2024/09/22/OXJNh1mUl3wf9v6.png"></p>
+<p>Multiresolution mesh editing algorithm: 1. Remove high-frequency
+details by surface smoothing 2. Deform the smooth mesh 3. Transfer
+high-frequency details back to the deformed surface</p>
+<p><video src="videos/mesh_edit.mp4" controls><a href="videos/mesh_edit.mp4">Video</a></video></p>
+<h2><span id="skinning-and-skeletalanimation">Skinning and Skeletal
+Animation</span></h2>
+<h3><span id="rotation-representation">Rotation Representation</span></h3>
+<table>
+<colgroup>
+<col style="width: 7%">
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Representions</th>
+<th style="text-align: center;">Short Description</th>
+<th style="text-align: center;">pros</th>
+<th style="text-align: center;">cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">rotation matrix</td>
+<td style="text-align: center;">3x3 Matrix to represent rotation in
+3D</td>
+<td style="text-align: center;">Simple to use directly.</td>
+<td style="text-align: center;">Requires 9 elements to compute. Hard to
+interpolation. Direct interpolation leads to artifact.</td>
+</tr>
+<tr>
+<td style="text-align: center;">euler angles</td>
+<td style="text-align: center;">Use three angles (yaw, pitch, roll) to
+represent 3D representation</td>
+<td style="text-align: center;">Only three parameters needed to
+represent rotations. Intuitive. Easy to transformed to rotation
+matrix</td>
+<td style="text-align: center;">The gimbal lock problem. Can result in
+interpolation problems</td>
+</tr>
+<tr>
+<td style="text-align: center;">axis angle</td>
+<td style="text-align: center;">Rotation defined by an rotation axis and
+an angle</td>
+<td style="text-align: center;">straightforward and intuitive, easily be
+converted to and from a matrix</td>
+<td style="text-align: center;">Angle choices is not unique. Cannot
+perform interpolation directly</td>
+</tr>
+<tr>
+<td style="text-align: center;">quaternions</td>
+<td style="text-align: center;">Use a four-tuple of real number
+(x,y,z,w)</td>
+<td style="text-align: center;">very efficient for interpolation.
+Without gimbal lock. Only 4 parameters required.</td>
+<td style="text-align: center;">Less intuitive. more complex to
+transformed to rotation matrix. Double cover problem</td>
+</tr>
+</tbody>
+</table>
+<h3><span id="harmonic-skinningweights-on-selected-handles">Harmonic skinning
+weights on selected handles</span></h3>
+<h4><span id="handle-selection">Handle selection</span></h4>
+<table>
+<colgroup>
+<col style="width: 5%">
+<col style="width: 30%">
+<col style="width: 32%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">shape name</th>
+<th style="text-align: center;">joint 1</th>
+<th style="text-align: center;">joint 2</th>
+<th style="text-align: center;">joint 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">hand</td>
+<td style="text-align: center;"><img align="center" src="res/handle0.png" width="300"></td>
+<td style="text-align: center;"><img align="center" src="./res/handle10.png" width="300"></td>
+<td style="text-align: center;"><img align="center" src="./res/handle12.png" width="300"></td>
+</tr>
+</tbody>
+</table>
+<h4><span id="skinning-weightsvisualization">Skinning weights
+visualization</span></h4>
+<table>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">shape name</th>
+<th style="text-align: center;">joint 1</th>
+<th style="text-align: center;">joint 2</th>
+<th style="text-align: center;">joint 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">hand</td>
+<td style="text-align: center;"><img align="center" src="./res/weight0.png" width="300"></td>
+<td style="text-align: center;"><img align="center" src="./res/weight10.png" width="300"></td>
+<td style="text-align: center;"><img align="center" src="./res/weight12.png" width="300"></td>
+</tr>
+</tbody>
+</table>
+<h3><span id="skeletal-animation">Skeletal animation</span></h3>
+<table>
+<colgroup>
+<col style="width: 32%">
+<col style="width: 32%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Linear Blend Skinning</th>
+<th style="text-align: center;">Dual Quaternion Skinning</th>
+<th style="text-align: center;">per-face + averaging quaternions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img align="center" src="./res/hand_lbs.gif" width="300"></td>
+<td style="text-align: center;"><img align="center" src="./res/hand_dqs.gif" width="300"></td>
+<td style="text-align: center;"><img align="center" src="./res/hand_perface.gif" width="300"></td>
+</tr>
+</tbody>
+</table>
+<h3><span id="context-aware-per-vertex-lbs">Context-aware per-vertex LBS</span></h3>
+<table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">without context</th>
+<th style="text-align: center;">with context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img align="center" src="./res/eg_lbs.gif" width="300"></td>
+<td style="text-align: center;"><img align="center" src="./res/eg_contextaware.gif" width="300"></td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.event.move.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.twentytwenty.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/css/twentytwenty.min.css"/><script>
+(function(){
+  function initialize_twentytwenty() {
+    $(".twentytwenty-container").each(function() {
+      var $container = $(this);
+      var $images = $container.find('img');
+      var loadedImages = 0;
+
+      $images.on('load', function(){
+        loadedImages++;
+        if (loadedImages === $images.length) {
+          if ($.fn.twentytwenty) {
+            $container.twentytwenty();
+            console.log("Twentytwenty Initialized for", $container);
+          } else {
+            console.log("TwentyTwenty plugin not loaded yet");
+          }
+        }
+      }).each(function(){
+        if (this.complete) $(this).trigger('load');
+      });
+    });
+  }
+
+  $(document).ready(function() {
+    initialize_twentytwenty();
+  });
+
+  // 为了处理可能的延迟加载情况
+  $(window).on('load', function() {
+    initialize_twentytwenty();
+  });
+
+  $(document).on('pjax:complete', function() {
+    initialize_twentytwenty();
+  });
+})();
+</script>
+          <div class="post-tags">
+              <a href="/tags/Graphics/" rel="tag"># Graphics</a>
+              <a href="/tags/Project/" rel="tag"># Project</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/" rel="prev" title="图形学入门笔记7: 空间加速结构">
+                  <i class="fa fa-angle-left"></i> 图形学入门笔记7: 空间加速结构
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">皓</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">205k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:07</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cjk_width":0.9,"normal_width":0.6,"append_css":true,"js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lucashaozh","repo":"GitalkBlogRepo","client_id":"c140415e06b9641c5d85","client_secret":"ab2e8dcb43c6c08eca4a2191c10630a8eb6f2d18","admin_user":"lucashaozh","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"a1de3d7a8b0eb69793de2fd5ed62e654"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

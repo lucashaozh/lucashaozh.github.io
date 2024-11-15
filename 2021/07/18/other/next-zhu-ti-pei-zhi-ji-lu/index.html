@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/pikachu.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+CJK+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lucashaozh.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="原来折腾了很久的Yilia主题，然而搞了半天终于还是来到了NexT的怀抱，NexT提供的功能相比于Yilia确实多了不少，这篇就作为一个记录，稍微记载下NexT中的一些配置吧。  2022.9.10 更新 以后打算就在这里记录一下对博客的更新情况">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NexT主题配置记录">
+<meta property="og:url" content="https://lucashaozh.github.io/2021/07/18/other/next-zhu-ti-pei-zhi-ji-lu/index.html">
+<meta property="og:site_name" content="皓">
+<meta property="og:description" content="原来折腾了很久的Yilia主题，然而搞了半天终于还是来到了NexT的怀抱，NexT提供的功能相比于Yilia确实多了不少，这篇就作为一个记录，稍微记载下NexT中的一些配置吧。  2022.9.10 更新 以后打算就在这里记录一下对博客的更新情况">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/Darkmode.gif">
+<meta property="og:image" content="https://i.loli.net/2021/07/23/rHYxJv5Rk96UNpd.png">
+<meta property="article:published_time" content="2021-07-18T20:45:24.000Z">
+<meta property="article:modified_time" content="2024-11-15T14:42:48.598Z">
+<meta property="article:author" content="皓">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/Darkmode.gif">
+
+
+<link rel="canonical" href="https://lucashaozh.github.io/2021/07/18/other/next-zhu-ti-pei-zhi-ji-lu/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lucashaozh.github.io/2021/07/18/other/next-zhu-ti-pei-zhi-ji-lu/","path":"2021/07/18/other/next-zhu-ti-pei-zhi-ji-lu/","title":"NexT主题配置记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>NexT主题配置记录 | 皓</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="皓" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">皓</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">游戏开发 | ETH MSCS 在读</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-english"><a href="https://lucashaozh.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">修改默认字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Hexo图片对比插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Hexo博客中英文板块以及切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">Hexo站点内页面跳转的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">添加可以切换模式的DarkMode支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">使用mathjax对\(\LaTeX\)公式进行渲染</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">NexT主题的目录层级问题</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="皓"
+      src="/images/pikachu.jpg">
+  <p class="site-author-name" itemprop="name">皓</p>
+  <div class="site-description" itemprop="description">图形学及ACG爱好者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lucashaozh" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lucashaozh" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lucashaozh@gmail.com" title="E-Mail → mailto:lucashaozh@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_45951701" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45951701" rel="noopener me" target="_blank"><i class="fab fa-contao fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/shenghao-zhang-b03a64203/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;shenghao-zhang-b03a64203&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+<script src="/js/switch_language.js"></script>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2021/07/18/other/next-zhu-ti-pei-zhi-ji-lu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="皓">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="皓">
+      <meta itemprop="description" content="图形学及ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="NexT主题配置记录 | 皓">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NexT主题配置记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-18 22:45:24" itemprop="dateCreated datePublished" datetime="2021-07-18T22:45:24+02:00">2021-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-15 15:42:48" itemprop="dateModified" datetime="2024-11-15T15:42:48+01:00">2024-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Other/" itemprop="url" rel="index"><span itemprop="name">Other</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>原来折腾了很久的Yilia主题，然而搞了半天终于还是来到了NexT的怀抱，NexT提供的功能相比于Yilia确实多了不少，这篇就作为一个记录，稍微记载下NexT中的一些配置吧。</p>
+<hr>
+<p>2022.9.10 更新 以后打算就在这里记录一下对博客的更新情况
+<span id="more"></span></p>
+<ul>
+<li><label><input type="checkbox">英文版网页，英文行距字体等等</label></li>
+<li>2024.9.18 更新作品集页面(AI真好用)</li>
+<li>2024.2.15 修改默认字体</li>
+<li>2023.12.24
+添加twentytwenty图片对比插件，但是仍有很多问题有待解决</li>
+<li>2022.12.5
+添加hexo-auto-category，自动根据文件夹目录设置categories</li>
+<li>2022.9.11 中英文切换功能，中英文板块分离;</li>
+<li>2022.9.10 增加Portfolio页面; 添加DarkMode以及切换功能;</li>
+<li>2021.7.18 切换主题为Next主题并进行配置;</li>
+</ul>
+<h2><span id="修改默认字体">修改默认字体</span></h2>
+<p>Next的配置项中可以直接对字体进行更改，相关配置如下 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Font Settings</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Find fonts on Google Fonts (https://fonts.google.com)</span></span><br><span class="line"><span class="comment"># All fonts set here will have the following styles:</span></span><br><span class="line"><span class="comment">#   light | light italic | normal | normal italic | bold | bold italic</span></span><br><span class="line"><span class="comment"># Be aware that setting too much fonts will cause site running slowly</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Web Safe fonts are recommended for `global` (and `title`):</span></span><br><span class="line"><span class="comment"># Arial | Tahoma | Helvetica | Times New Roman | Courier New | Verdana | Georgia | Palatino | Garamond | Comic Sans MS | Trebuchet MS</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="string">enable</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Uri of fonts host, e.g. https://fonts.googleapis.com (Default).</span></span><br><span class="line">  <span class="attr">host:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font options:</span></span><br><span class="line">  <span class="comment"># `external: true` will load this font family from `host` above.</span></span><br><span class="line">  <span class="comment"># `family: Times New Roman`. Without any quotes.</span></span><br><span class="line">  <span class="comment"># `size: x.x`. Use `em` as unit. Default: 1 (16px)</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Global font settings used for all elements inside &lt;body&gt;.</span></span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Inter</span></span><br><span class="line">    <span class="attr">size:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for site title (.site-title).</span></span><br><span class="line">  <span class="attr">title:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">SC</span></span><br><span class="line">    <span class="attr">size:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for headlines (&lt;h1&gt; to &lt;h6&gt;).</span></span><br><span class="line">  <span class="attr">headings:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">SC</span></span><br><span class="line">    <span class="attr">size:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for posts (.post-body).</span></span><br><span class="line">  <span class="attr">posts:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">SC</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for &lt;code&gt; and code blocks.</span></span><br><span class="line">  <span class="attr">codes:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Fira</span> <span class="string">Code</span></span><br></pre></td></tr></table></figure></p>
+<p>现在直接统一调成了中文字体，但实际上还是有点想要中英文字体进行一下区分，参考<a target="_blank" rel="noopener" href="https://bambrow.com/20200718-hexo-next-font-settings/">Hexo NexT
+主题的字体更换</a>，但是最后没有成功不知道为什么。</p>
+<h2><span id="hexo图片对比插件">Hexo图片对比插件</span></h2>
+<p>作为一个图形学选手，渲染的结果经常需要进行对比。jQuery的twentytwenty插件能够方便的提供双图以至四图的对比，所以我就试图寻找一个插件实现这个功能。<a target="_blank" rel="noopener" href="https://github.com/tea3/hexo-tag-twentytwenty">hexo-tag-twentytwenty</a>刚好可以。但是这个插件还有一些问题，按照github上的描述从cdn中加载twentytwenty.js是可行的，但是似乎这个版本并不是很好，在cdn上也并没有找到一个更好的其他的版本。这个版本的问题在于，一无法居中对齐，二无法设置<code>alt</code>参数。我在本地有一个我期望的twentytwenty版本，但是尝试各种方法之后，发现都很难通过本地路径嵌入到静态网页当中去，感觉肯定是有办法的，但是确实不是很熟悉。以后如果有空再尝试尝试吧。此外，这个插件太老了，而且现在的next没有了jquery，所以在他的基础上进行一些更改。代码如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;theme_inject&#x27;</span>, <span class="keyword">function</span> (<span class="params">injects</span>) &#123;</span><br><span class="line">  injects.<span class="property">postBodyEnd</span>.<span class="title function_">raw</span>(<span class="string">&#x27;jquery&#x27;</span>, <span class="string">&#x27;&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js&quot;&gt;&lt;/script&gt;&#x27;</span>, &#123;&#125;, &#123; <span class="attr">cache</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">  injects.<span class="property">postBodyEnd</span>.<span class="title function_">raw</span>(<span class="string">&#x27;jquerymove&#x27;</span>, <span class="string">&#x27;&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.event.move.min.js&quot;&gt;&lt;/script&gt;&#x27;</span>, &#123;&#125;, &#123; <span class="attr">cache</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">  injects.<span class="property">postBodyEnd</span>.<span class="title function_">raw</span>(<span class="string">&#x27;twtwscript&#x27;</span>, <span class="string">&#x27;&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.twentytwenty.min.js&quot;&gt;&lt;/script&gt;&#x27;</span>, &#123;&#125;, &#123; <span class="attr">cache</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">  injects.<span class="property">postBodyEnd</span>.<span class="title function_">raw</span>(<span class="string">&#x27;twtwcss&#x27;</span>, <span class="string">&#x27;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/css/twentytwenty.min.css&quot;/&gt;&#x27;</span>, &#123;&#125;, &#123; <span class="attr">cache</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">  injects.<span class="property">postBodyEnd</span>.<span class="title function_">file</span>(<span class="string">&#x27;twtwscripts&#x27;</span>, <span class="string">&#x27;js/twtw.swig&#x27;</span>, &#123;&#125;, &#123; <span class="attr">cache</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">tag</span>.<span class="title function_">register</span>(<span class="string">&#x27;twtw&#x27;</span>, <span class="keyword">function</span>(<span class="params">args, content</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> beforeImg       = args[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">var</span> afterImg        = args[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">var</span> imgWidth        = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> maxWidth        = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> imgHeight       = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(args.<span class="property">length</span> &gt; <span class="number">2</span>)&#123;</span><br><span class="line">    imgWidth = <span class="string">&#x27; data-width=&quot;&#x27;</span> + args[<span class="number">2</span>] + <span class="string">&#x27;&quot;&#x27;</span>;</span><br><span class="line">    maxWidth = <span class="string">&#x27; style=&quot;max-width:&#x27;</span> + args[<span class="number">2</span>] + <span class="string">&#x27;px&quot;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(args.<span class="property">length</span> &gt; <span class="number">3</span>)&#123;</span><br><span class="line">    imgHeight = <span class="string">&#x27; data-height=&quot;&#x27;</span> + args[<span class="number">3</span>] + <span class="string">&#x27;&quot;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> returnHTML  = <span class="string">&#x27;&lt;div class=&quot;twentytwenty-container&quot;&#x27;</span> + maxWidth + <span class="string">&#x27;&gt;\n&#x27;</span></span><br><span class="line">            + <span class="string">&#x27;&lt;img src=&quot;&#x27;</span>+ beforeImg +<span class="string">&#x27;&quot;&#x27;</span> + imgWidth + imgHeight + <span class="string">&#x27;&gt;\n&#x27;</span></span><br><span class="line">            + <span class="string">&#x27;&lt;img src=&quot;&#x27;</span>+ afterImg +<span class="string">&#x27;&quot;&#x27;</span> + imgWidth + imgHeight + <span class="string">&#x27;&gt;\n&#x27;</span></span><br><span class="line">            + <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> returnHTML;</span><br><span class="line">&#125;, &#123;</span><br><span class="line">  <span class="attr">async</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">ends</span>: <span class="literal">false</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>并且在<code>styles.styl</code>中需要添加以下格式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-class">.twentytwenty-container</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: auto</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.post-body</span> <span class="selector-class">.twentytwenty-container</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">0px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在根目录下添加<code>js/twtw.swig</code>，这个文件可以自行更改路径和名称没有什么规定。
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">  $(<span class="variable language_">document</span>).<span class="title function_">ready</span>(</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">initialize_twentytwenty</span>();</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  );</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">initialize_twentytwenty</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span>($(<span class="string">&quot;.twentytwenty-container&quot;</span>).<span class="property">twentytwenty</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">      $(<span class="string">&quot;.twentytwenty-container&quot;</span>).<span class="title function_">twentytwenty</span>();</span></span><br><span class="line"><span class="language-javascript">    &#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">initialize_twentytwenty</span>();</span></span><br><span class="line"><span class="language-javascript">      &#125;,<span class="number">250</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;)();</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其中第一行css就是尝试让图片居中，同时还需要为图片设置合适大小的width，才能正常居中，否则因为<code>twentytwenty-container</code>默认是full
+width，会占据整个页面，而图片在右侧，只能暂时通过这种方式解决，更加合理的解决办法还有待研究。
+另外目前还有一个问题，似乎两边的图片有点色差，不知道是什么导致的问题……不过也只能先凑活着用着</p>
+<h2><span id="hexo博客中英文板块以及切换">Hexo博客中英文板块以及切换</span></h2>
+<p>由于一些原因准备给博客添加英文板块，主要想要实现的功能是中英文板块单独分离，用户在点击中英文切换的按钮后跳转到对应的页面。Next原本就支持双语切换，但是只有Menu等少部分元素的切换，并不是想要的效果。在网上找了很多相关的资料，最终决定还是使用最简单的办法：在github中创两个仓库，hexo_zh和hexo_en，分别作为中文博客和英文博客，并且在Menu上添加外链，点击可以进行跳转。</p>
+<p>需要修改的地方主要有：</p>
+<ol type="1">
+<li><p>en博客删除_post中不需要的中文博客</p></li>
+<li><p>修改<code>_config.yml</code>的URL</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://example.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="comment"># 这里是中英文对应的url，由于是subdirectory，所以需要按照以下写法</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">https://lucas-hao.github.io/hexo_en/</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/hexo_en/</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line"><span class="attr">pretty_urls:</span></span><br><span class="line">  <span class="attr">trailing_index:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span></span><br><span class="line">  <span class="attr">trailing_html:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;.html&#x27; from permalinks</span></span><br></pre></td></tr></table></figure></li>
+<li><p>修改<code>_config.next.yml</code>（即主题配置文件，参见<a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/configuration">Configuration
+| NexT
+(theme-next.js.org)</a>）的Menu，添加切换的外链。这里还有一些Bug没有解决，目前仍然存在的问题是点击切换按钮后只有内容板块切换到了中英文对应的post页面，但是其他包括左侧的边栏以及评论板块都没有刷新，也就是说因为en和zh在同一个root下，所以hexo默认为站内的切换而并非外链，有待寻找解决办法。
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">     <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">     <span class="attr">about:</span> <span class="string">/about/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-user</span></span><br><span class="line">     <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">     <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">     <span class="attr">portfolio:</span> <span class="string">/portfolio/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">     <span class="string">中文:</span> <span class="string">https://lucas-hao.github.io/hexo_zh/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-language</span></span><br><span class="line">     <span class="comment">#archives: /archives/ || fa fa-archive</span></span><br><span class="line">     <span class="comment">#schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">     <span class="comment">#sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">     <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure></p></li>
+<li><p>修改Deploy的git地址</p></li>
+</ol>
+<blockquote>
+<p><strong>参考资料</strong> - <a target="_blank" rel="noopener" href="https://youngforest.github.io/2021/09/07/Setup-English-blog/">Hexo
+创建中英文博客 | YoungForest's blog</a> - <a target="_blank" rel="noopener" href="https://tstrs.me/1448.html?utm_source=blog_decay_fun">Hexo添加多语言支持「国际化i18n」
+- SaltyLeo's Blog (tstrs.me)</a> - <a target="_blank" rel="noopener" href="https://siriusq.top/Hexo-Next-8-%E5%8F%8C%E8%AF%AD%E5%88%87%E6%8D%A2.html">Hexo
+Next 8 双语切换</a></p>
+</blockquote>
+<h2><span id="hexo站点内页面跳转的问题">Hexo站点内页面跳转的问题</span></h2>
+<p>在Hexo站点内部文章页面跳转在hexo中可以使用<code>My portfolio: &#123;% poge_link "Post Name"&#125;</code>这种方式简便的实现，但是由于我想要实现的是两个Page之间的跳转，而不是一个post跳转到另一个post，这种方式就无法实现了。最傻的办法就是直接使用markdown传统的网址链接的方式，但是感觉有点不是太方便，具体的页面跳转的方式有待查证(TODO)</p>
+<blockquote>
+<p><strong>参考资料</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/tag-plugins.html#引用文章">标签插件（Tag
+Plugins） | Hexo</a></li>
+</ul>
+</blockquote>
+<h2><span id="添加可以切换模式的darkmode支持">添加可以切换模式的DarkMode支持</span></h2>
+<p>目前Next主题已经支持DarkMode了，可以直接在<code>_config.yml</code>中进行配置，但是没有切换的功能，所以采用了<a target="_blank" rel="noopener" href="https://github.com/rqh656418510/hexo-next-darkmode">hexo-dark-mode</a>插件来实现深色模式。可以使用自定义styl的方式分别设置浅色深色模式的背景，让背景图片和主题更搭一些。
+自定义styl需要在<code>source/</code>文件夹下创建<code>_data/</code>文件夹，然后再创建一个<code>styles.styl</code>文件，并在<code>_config.next.yml</code>中设置<code>custom_file_path</code>。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(/images/body-light.jpg); <span class="comment">// 可以是路径也可以是链接</span></span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat; <span class="comment">// 不重复</span></span><br><span class="line">    <span class="attribute">background-attachment</span>:fixed; <span class="comment">// 固定住背景图片</span></span><br><span class="line">    <span class="attribute">background-position</span>:<span class="number">50%</span> <span class="number">50%</span>; <span class="comment">// 图片位置：居中</span></span><br><span class="line">    <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">100%</span>; <span class="comment">// 图片长宽扩充为100%</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span><span class="selector-class">.darkmode--activated</span> &#123;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&#x27;/images/body-dark.jpg&#x27;</span>)</span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">    <span class="attribute">background-attachment</span>: fixed;</span><br><span class="line">    <span class="attribute">background-position</span>: <span class="number">50%</span>, <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">background-size</span>: <span class="number">100%</span>, <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/Darkmode.gif"></p>
+<blockquote>
+<p><strong>参考资料</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.techgrow.cn/posts/abf4aee1.html">Hexo Next 8.x
+主题添加可切换的暗黑模式 | Clay 的技术博客 (techgrow.cn)</a></li>
+</ul>
+</blockquote>
+<h2><span id="使用mathjax对latex公式进行渲染">使用mathjax对<span class="math inline">\(\LaTeX\)</span>公式进行渲染</span></h2>
+<p>我们在markdown中或多或少都会用到Latex来书写数学符号，NexT就为<span class="math inline">\(\LaTeX\)</span>提供了非常方便的渲染方式。我们只需要找到<code>/next/__config.yml</code>，然后找到如下配置并修改</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mathjax:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Available values: none | ams | all</span></span><br><span class="line">    <span class="attr">tags:</span> <span class="string">none</span></span><br></pre></td></tr></table></figure>
+<p>然而，由于hexo自带的<code>hexo-renderer-marked</code>会造成一些bug，所以我们使用pandoc会更加好一点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-pandoc --save</span><br></pre></td></tr></table></figure>
+<p>然后，进行部署就会发现渲染成功啦</p>
+<p>更新2022.9.12</p>
+<p>今天写的时候发现一个问题，<code>$$</code>符号没有隐藏，然后发现是因为似乎pandoc自动渲染了<code>\begin&#123;align&#125;</code>中的公式，所以外层的<code>$$</code>就被忽略了，所以去掉就好了，但是这样子就会有一个问题，就是在typora中是无法预览的，不是很方便，也许有机会研究一下如何解决吧
+(TODO)</p>
+<blockquote>
+<p>参考资料</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://nokiasonic.github.io/2020/12/17/%5BHexo%5DNext主题更好地支持LaTeX数学公式/">【Hexo】Next主题更好地支持LaTeX数学公式</a></li>
+</ul>
+</blockquote>
+<h2><span id="next主题的目录层级问题">NexT主题的目录层级问题</span></h2>
+<p>发现如果跨级使用目录的话，就会造成bug导致目录下的层级错乱，这就是由于我比较喜欢二级标题跟着四级标题，如果标题逐级递减就不会有这个问题了，把四级标题都改成三级标题就好了</p>
+<p><img title src="https://i.loli.net/2021/07/23/rHYxJv5Rk96UNpd.png" alt="image-20210723224432413" width="387"></p>
+<p>更新 (2022.10.6)
+最近又出现了目录乱七八糟的问题，这次是二级标题+三级标题但是还是有问题，尝试了一下严格的使用一级标题二级标题，发现就好了，以后还是一级标题起手吧orz。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.event.move.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.twentytwenty.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/css/twentytwenty.min.css"/><script>
+(function(){
+  function initialize_twentytwenty() {
+    $(".twentytwenty-container").each(function() {
+      var $container = $(this);
+      var $images = $container.find('img');
+      var loadedImages = 0;
+
+      $images.on('load', function(){
+        loadedImages++;
+        if (loadedImages === $images.length) {
+          if ($.fn.twentytwenty) {
+            $container.twentytwenty();
+            console.log("Twentytwenty Initialized for", $container);
+          } else {
+            console.log("TwentyTwenty plugin not loaded yet");
+          }
+        }
+      }).each(function(){
+        if (this.complete) $(this).trigger('load');
+      });
+    });
+  }
+
+  $(document).ready(function() {
+    initialize_twentytwenty();
+  });
+
+  // 为了处理可能的延迟加载情况
+  $(window).on('load', function() {
+    initialize_twentytwenty();
+  });
+
+  $(document).on('pjax:complete', function() {
+    initialize_twentytwenty();
+  });
+})();
+</script>
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/17/backend/postgresql-sheng-cheng-restful-shen-qi-postgrest/" rel="prev" title="PostgreSQL生成RESTful神器PostgREST">
+                  <i class="fa fa-angle-left"></i> PostgreSQL生成RESTful神器PostgREST
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/07/21/leetcode/jian-zhi-offer-52-liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian/" rel="next" title="剑指 Offer 52. 两个链表的第一个公共节点">
+                  剑指 Offer 52. 两个链表的第一个公共节点 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">皓</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">205k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:07</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cjk_width":0.9,"normal_width":0.6,"append_css":true,"js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lucashaozh","repo":"GitalkBlogRepo","client_id":"c140415e06b9641c5d85","client_secret":"ab2e8dcb43c6c08eca4a2191c10630a8eb6f2d18","admin_user":"lucashaozh","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"b1e430ef5de198c85de605eb50b1e3ca"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>
