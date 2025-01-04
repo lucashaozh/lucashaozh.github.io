@@ -6,7 +6,7 @@
   <link href="https://lucashaozh.github.io/atom.xml" rel="self"/>
   
   <link href="https://lucashaozh.github.io/"/>
-  <updated>2024-11-15T14:42:47.828Z</updated>
+  <updated>2025-01-04T01:26:32.394Z</updated>
   <id>https://lucashaozh.github.io/</id>
   
   <author>
@@ -15,6 +15,82 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>实时渲染笔记-Importance Resampling and ReSTIR</title>
+    <link href="https://lucashaozh.github.io/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-importance-resampling-and-restir/"/>
+    <id>https://lucashaozh.github.io/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-importance-resampling-and-restir/</id>
+    <published>2025-01-04T01:02:00.000Z</published>
+    <updated>2025-01-04T01:26:32.394Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;resampled-importance-sampling-ris&quot;&gt;Resampled importance sampling
+(RIS)&lt;/h2&gt;
+&lt;h3 id=&quot;ris算法流程&quot;&gt;RIS算法流程&lt;/h3&gt;
+&lt;p&gt;RIS流程:&lt;/p&gt;
+&lt;ol type=&quot;1&quot;&gt;
+&lt;li&gt;从一个易于采样的分布(&lt;strong&gt;proposal PDF&lt;/strong&gt;) &lt;span
+class=&quot;math inline&quot;&gt;&#92;(p(x)&#92;)&lt;/span&gt;上，进行采样，抽取&lt;span
+class=&quot;math inline&quot;&gt;&#92;(M&#92;)&lt;/span&gt;个样本&lt;/li&gt;
+&lt;li&gt;得到一个期望进行拟合的真实目标概率分布(&lt;strong&gt;target PDF&lt;/strong&gt;)
+&lt;span class=&quot;math inline&quot;&gt;&#92;(&#92;hat p(x)&#92;)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;对于每一个抽取的样本，分配权重&lt;span class=&quot;math inline&quot;&gt;&#92;(w(x)={&#92;hat
+p(x)}/{p(x)}&#92;)&lt;/span&gt;，进而得到每个样本的条件概率，通过这种方式进行采样的方法叫做重要性重采样Sampling
+importance resampling (SIR)&lt;/li&gt;
+&lt;li&gt;采样出来的结果可以用于1-sample RIS estimator&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;&#92;[
+&#92;langle L &#92;rangle = &#92;frac{f(y)}{&#92;hat p(y)} &#92;cdot &#92;left(
+&#92;frac{1}{M}&#92;sum&#92;limits_{j=1}^{M}w(x_{j}) &#92;right)
+&#92;]&lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&quot;5&quot; type=&quot;1&quot;&gt;
+&lt;li&gt;多次进行RIS采样，从样本池中的&lt;span
+class=&quot;math inline&quot;&gt;&#92;(M&#92;)&lt;/span&gt;个样本（可以重新生成样本池，也可以直接在同一个样本池中进行采样进行简化）中有放回的采样&lt;span
+class=&quot;math inline&quot;&gt;&#92;(N&#92;)&lt;/span&gt;个样本，得到最终的结果&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;&#92;[
+&#92;langle L &#92;rangle = &#92;frac{1}{N}
+&#92;sum&#92;limits_{i=1}^{N}&#92;left(&#92;frac{f(y_{i})}{&#92;hat p(y_{i})} &#92;cdot &#92;left(
+&#92;frac{1}{M}&#92;sum&#92;limits_{j=1}^{M}w_{i}(x_{ij}) &#92;right) &#92;right)
+&#92;]&lt;/span&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+    <category term="实时渲染" scheme="https://lucashaozh.github.io/tags/%E5%AE%9E%E6%97%B6%E6%B8%B2%E6%9F%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实时渲染笔记-Global Illumination</title>
+    <link href="https://lucashaozh.github.io/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-global-illumination/"/>
+    <id>https://lucashaozh.github.io/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-global-illumination/</id>
+    <published>2025-01-04T00:57:00.000Z</published>
+    <updated>2025-01-04T01:27:57.301Z</updated>
+    
+    
+    <summary type="html">&lt;figure&gt;
+&lt;img src=&quot;https://s2.loli.net/2024/12/31/dL9xGh2gctreIkK.png&quot;
+alt=&quot;image.png&quot; /&gt;
+&lt;figcaption aria-hidden=&quot;true&quot;&gt;image.png&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;全局光照对于渲染真实的场景起到至关重要的作用。通常情况下，整个场景被照亮是一个非常复杂的过程，一个shading
+point可能会受到直接光照、间接光照、散射、焦散、阴影等等的影响，如上图所示。所以没有全局光照只有直接光照会导致渲染的结果不真实，最直观的效果就是阴影区域非常黑，而有了间接光照，阴影区域就会有一个合理的亮度。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
+    
+    
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+    <category term="实时渲染" scheme="https://lucashaozh.github.io/tags/%E5%AE%9E%E6%97%B6%E6%B8%B2%E6%9F%93/"/>
+    
+  </entry>
   
   <entry>
     <title>Geometry Processing Project</title>
@@ -66,11 +142,11 @@ LBS&lt;/a&gt;&lt;/li&gt;
   </entry>
   
   <entry>
-    <title>图形学入门笔记7: 空间加速结构</title>
-    <link href="https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/"/>
-    <id>https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/</id>
+    <title>图形学入门笔记5: 空间加速结构</title>
+    <link href="https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-5-kong-jian-jia-su-jie-gou/"/>
+    <id>https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-5-kong-jian-jia-su-jie-gou/</id>
     <published>2024-09-18T14:41:48.000Z</published>
-    <updated>2024-11-15T14:42:48.593Z</updated>
+    <updated>2025-01-04T01:19:30.045Z</updated>
     
     
     <summary type="html">&lt;p&gt;在光追渲染中，我们需要对物体和射线的相交进行判断；在物理模拟中，我们需要对物体之间的碰撞进行检测。如果我们采用暴力算法，那么每一帧都需要大量时间计算射线或者碰撞检测。所以我们需要一些更加高效的方式来进行检测，这就需要我们用空间加速结构进行加速。
@@ -255,26 +331,25 @@ to Image的转化。&lt;/p&gt;</summary>
     <link href="https://lucashaozh.github.io/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/"/>
     <id>https://lucashaozh.github.io/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/</id>
     <published>2023-06-04T19:44:00.000Z</published>
-    <updated>2024-11-15T14:42:48.592Z</updated>
+    <updated>2025-01-04T01:04:03.922Z</updated>
     
     
-    <summary type="html">&lt;p&gt;本文基于Games202 Lecture 3，作业1以及&lt;a
-href=&quot;https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping&quot;&gt;LearnOpenGL&lt;/a&gt;
-阴影在实时渲染中是非常重要的一个部分。没有引擎的画面就失去了三维的立体感。实现阴影的基本思想是Shadow
-Map，为了解决Shadow
-Map的锯齿问题，我们可以采用PCF和PCSS。本文结合Games202作业1记录一下各种阴影的实现方法。&lt;/p&gt;
-&lt;h3 id=&quot;shadow-map&quot;&gt;Shadow Map&lt;/h3&gt;
-&lt;p&gt;Shadow
-Map的思想非常简单，就是通过两个Pass将阴影渲染出来。在第一个Pass中，从光源的视角去渲染场景，记录片元的深度，得到一张深度图。然后进行第二个Pass，从摄像机的视角去渲染场景，对于渲染的每一个片元，将其坐标转化为以光源为参照的坐标，可以得到当前的深度，将这个深度值和存储在深度图中的深度值进行比较，如果说当前深度大于深度图中的深度，说明这个位置的光源被物体遮挡了，是一个阴影。&lt;/p&gt;</summary>
+      
+      
+        
+        
+    <summary type="html">&lt;h3&gt;&lt;span id=&quot;shadow-map&quot;&gt;Shadow</summary>
+        
+      
     
     
     
     <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
-    
     <category term="Cpp" scheme="https://lucashaozh.github.io/tags/Cpp/"/>
+    
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
     
   </entry>
   
@@ -328,9 +403,9 @@ Map的思想非常简单，就是通过两个Pass将阴影渲染出来。在第�
     <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
-    
     <category term="Cpp" scheme="https://lucashaozh.github.io/tags/Cpp/"/>
+    
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
     
   </entry>
   
@@ -385,9 +460,9 @@ GeeksforGeeks&lt;/a&gt;，GeeksforGeeks上的数据结构今天刚好搜到了�
     <category term="Algorithms" scheme="https://lucashaozh.github.io/categories/Algorithms/"/>
     
     
-    <category term="算法" scheme="https://lucashaozh.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
     <category term="C++" scheme="https://lucashaozh.github.io/tags/C/"/>
+    
+    <category term="算法" scheme="https://lucashaozh.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -482,9 +557,9 @@ Algorithm笔记&lt;/p&gt;
     <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
     
     
-    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
-    
     <category term="Cpp" scheme="https://lucashaozh.github.io/tags/Cpp/"/>
+    
+    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
     
   </entry>
   
@@ -507,54 +582,9 @@ href=&quot;https://www.runoob.com/cplusplus/cpp-data-types.html&quot;&gt;菜鸟�
     <category term="Bug" scheme="https://lucashaozh.github.io/categories/Bug/"/>
     
     
+    <category term="Bug" scheme="https://lucashaozh.github.io/tags/Bug/"/>
+    
     <category term="C++" scheme="https://lucashaozh.github.io/tags/C/"/>
-    
-    <category term="Bug" scheme="https://lucashaozh.github.io/tags/Bug/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Three.js使用贝塞尔曲线绘制心形</title>
-    <link href="https://lucashaozh.github.io/2022/02/10/gamegraphics/three-js-shi-yong-bei-sai-er-qu-xian-hui-zhi-xin-xing/"/>
-    <id>https://lucashaozh.github.io/2022/02/10/gamegraphics/three-js-shi-yong-bei-sai-er-qu-xian-hui-zhi-xin-xing/</id>
-    <published>2022-02-10T09:38:45.000Z</published>
-    <updated>2024-11-15T14:42:48.591Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;贝塞尔曲线是图形学中非常重要的知识，是绘制曲线以及曲面的基础，在很多地方都有着非常广泛的应用，比如Photoshop里的钢笔工具，字体设计，各种过渡动画等等。本文将记录贝塞尔曲线的原理公式，以及使用Three.js中的贝塞尔曲线API进行简单的心形绘制。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="GameGraphics" scheme="https://lucashaozh.github.io/categories/GameGraphics/"/>
-    
-    
-    <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
-    
-    <category term="前端" scheme="https://lucashaozh.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-    <category term="Three.js" scheme="https://lucashaozh.github.io/tags/Three-js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BugMysql:Access Denied for user &#39;root&#39;@&#39;localhost&#39;</title>
-    <link href="https://lucashaozh.github.io/2021/11/21/bug/bugmysql-access-denied-for-user-root-localhost/"/>
-    <id>https://lucashaozh.github.io/2021/11/21/bug/bugmysql-access-denied-for-user-root-localhost/</id>
-    <published>2021-11-21T00:20:57.000Z</published>
-    <updated>2024-11-15T14:42:47.828Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;终于将困扰了很长时间的mysql的Bug解决了。朋友在macOS上的mysql每次进入的时候都会弹出&lt;code&gt;Access denied......&lt;/code&gt;的错误提示，经过长时间的上网搜索未果，今天终于有机会将其解决。&lt;/p&gt;
-&lt;p&gt;</summary>
-    
-    
-    
-    <category term="Bug" scheme="https://lucashaozh.github.io/categories/Bug/"/>
-    
-    
-    <category term="Bug" scheme="https://lucashaozh.github.io/tags/Bug/"/>
-    
-    <category term="Mysql" scheme="https://lucashaozh.github.io/tags/Mysql/"/>
     
   </entry>
   

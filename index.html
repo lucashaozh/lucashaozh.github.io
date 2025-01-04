@@ -90,7 +90,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-english"><a href="https://lucashaozh.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">45</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-english"><a href="https://lucashaozh.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -155,7 +155,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -202,6 +202,242 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-importance-resampling-and-restir/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="皓">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="皓">
+      <meta itemprop="description" content="图形学及ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 皓">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-importance-resampling-and-restir/" class="post-title-link" itemprop="url">实时渲染笔记-Importance Resampling and ReSTIR</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-01-04 02:02:00 / 修改时间：02:26:32" itemprop="dateCreated datePublished" datetime="2025-01-04T02:02:00+01:00">2025-01-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="resampled-importance-sampling-ris">Resampled importance sampling
+(RIS)</h2>
+<h3 id="ris算法流程">RIS算法流程</h3>
+<p>RIS流程:</p>
+<ol type="1">
+<li>从一个易于采样的分布(<strong>proposal PDF</strong>) <span
+class="math inline">\(p(x)\)</span>上，进行采样，抽取<span
+class="math inline">\(M\)</span>个样本</li>
+<li>得到一个期望进行拟合的真实目标概率分布(<strong>target PDF</strong>)
+<span class="math inline">\(\hat p(x)\)</span></li>
+<li>对于每一个抽取的样本，分配权重<span class="math inline">\(w(x)={\hat
+p(x)}/{p(x)}\)</span>，进而得到每个样本的条件概率，通过这种方式进行采样的方法叫做重要性重采样Sampling
+importance resampling (SIR)</li>
+<li>采样出来的结果可以用于1-sample RIS estimator</li>
+</ol>
+<p><span class="math display">\[
+\langle L \rangle = \frac{f(y)}{\hat p(y)} \cdot \left(
+\frac{1}{M}\sum\limits_{j=1}^{M}w(x_{j}) \right)
+\]</span></p>
+<ol start="5" type="1">
+<li>多次进行RIS采样，从样本池中的<span
+class="math inline">\(M\)</span>个样本（可以重新生成样本池，也可以直接在同一个样本池中进行采样进行简化）中有放回的采样<span
+class="math inline">\(N\)</span>个样本，得到最终的结果</li>
+</ol>
+<p><span class="math display">\[
+\langle L \rangle = \frac{1}{N}
+\sum\limits_{i=1}^{N}\left(\frac{f(y_{i})}{\hat p(y_{i})} \cdot \left(
+\frac{1}{M}\sum\limits_{j=1}^{M}w_{i}(x_{ij}) \right) \right)
+\]</span>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-importance-resampling-and-restir/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-global-illumination/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="皓">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="皓">
+      <meta itemprop="description" content="图形学及ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 皓">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-global-illumination/" class="post-title-link" itemprop="url">实时渲染笔记-Global Illumination</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-01-04 01:57:00 / 修改时间：02:27:57" itemprop="dateCreated datePublished" datetime="2025-01-04T01:57:00+01:00">2025-01-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure>
+<img src="https://s2.loli.net/2024/12/31/dL9xGh2gctreIkK.png"
+alt="image.png" />
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>全局光照对于渲染真实的场景起到至关重要的作用。通常情况下，整个场景被照亮是一个非常复杂的过程，一个shading
+point可能会受到直接光照、间接光照、散射、焦散、阴影等等的影响，如上图所示。所以没有全局光照只有直接光照会导致渲染的结果不真实，最直观的效果就是阴影区域非常黑，而有了间接光照，阴影区域就会有一个合理的亮度。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-global-illumination/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -346,7 +582,7 @@ LBS</a></li>
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/">
+    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-5-kong-jian-jia-su-jie-gou/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/pikachu.jpg">
@@ -364,7 +600,7 @@ LBS</a></li>
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/" class="post-title-link" itemprop="url">图形学入门笔记7: 空间加速结构</a>
+          <a href="/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-5-kong-jian-jia-su-jie-gou/" class="post-title-link" itemprop="url">图形学入门笔记5: 空间加速结构</a>
         </h2>
 
         <div class="post-meta-container">
@@ -382,7 +618,7 @@ LBS</a></li>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-11-15 15:42:48" itemprop="dateModified" datetime="2024-11-15T15:42:48+01:00">2024-11-15</time>
+      <time title="修改时间：2025-01-04 02:19:30" itemprop="dateModified" datetime="2025-01-04T02:19:30+01:00">2025-01-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -427,7 +663,7 @@ LBS</a></li>
 <li>Bounding Box Hierachy (BVH)
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/#more" rel="contents">
+              <a class="btn" href="/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-5-kong-jian-jia-su-jie-gou/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1129,273 +1365,6 @@ to Image的转化。</p>
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/pikachu.jpg">
-      <meta itemprop="name" content="皓">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="皓">
-      <meta itemprop="description" content="图形学及ACG爱好者">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 皓">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/" class="post-title-link" itemprop="url">图形学入门笔记4: 实时阴影</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-06-04 21:44:00" itemprop="dateCreated datePublished" datetime="2023-06-04T21:44:00+02:00">2023-06-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-11-15 15:42:48" itemprop="dateModified" datetime="2024-11-15T15:42:48+01:00">2024-11-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>本文基于Games202 Lecture 3，作业1以及<a
-target="_blank" rel="noopener" href="https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping">LearnOpenGL</a>
-阴影在实时渲染中是非常重要的一个部分。没有引擎的画面就失去了三维的立体感。实现阴影的基本思想是Shadow
-Map，为了解决Shadow
-Map的锯齿问题，我们可以采用PCF和PCSS。本文结合Games202作业1记录一下各种阴影的实现方法。</p>
-<h3 id="shadow-map">Shadow Map</h3>
-<p>Shadow
-Map的思想非常简单，就是通过两个Pass将阴影渲染出来。在第一个Pass中，从光源的视角去渲染场景，记录片元的深度，得到一张深度图。然后进行第二个Pass，从摄像机的视角去渲染场景，对于渲染的每一个片元，将其坐标转化为以光源为参照的坐标，可以得到当前的深度，将这个深度值和存储在深度图中的深度值进行比较，如果说当前深度大于深度图中的深度，说明这个位置的光源被物体遮挡了，是一个阴影。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/06/04/gamegraphics/tu-xing-xue-ru-men-bi-ji-4-shi-shi-yin-ying/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2023/01/06/cpp/c-fan-she-ji-zhi-dong-tai-fan-she/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/pikachu.jpg">
-      <meta itemprop="name" content="皓">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="皓">
-      <meta itemprop="description" content="图形学及ACG爱好者">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 皓">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/01/06/cpp/c-fan-she-ji-zhi-dong-tai-fan-she/" class="post-title-link" itemprop="url">C++反射机制详解（一） 动态反射</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-01-06 21:16:00" itemprop="dateCreated datePublished" datetime="2023-01-06T21:16:00+01:00">2023-01-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-11-15 20:01:24" itemprop="dateModified" datetime="2024-11-15T20:01:24+01:00">2024-11-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>11k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>10 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>在实际的项目开发中，我们有时候需要进行一些操作比如说序列化。而如果我们对所有的内容都进行hardcode，显然这样的工作比较繁琐。因此，使用反射可以让我们在运行时获得类型信息，从而更方便的进行开发。在C++中原生不能提供反射机制，因此，通常需要我们手动去实现。</p>
-<p>在C++中，常见的反射实现通常分为动态反射和静态反射。静态反射将类型信息在编译时进行导出，通常情况下使用parser在编译时期生成一些辅助代码，通过对类型、字段和函数的标记，生成相应的反射类型信息，如Unreal
-Engine、Qt等都是通过静态反射去实现反射的功能。动态反射是在运行时将类型信息记录下来，通常需要我们手动去register所需要的反射信息。</p>
-<h2><span id="一种简单的反射实现">一种简单的反射实现</span></h2>
-<p>首先，我们可以从简单开始，考虑一个最基本的问题，我们如何通过一个类名的字符串创建出对应的类。我们可以通过一个Class工厂类，存储我们注册的类名和类的构造信息。在创建类的同时，我们实现一个类的回调构造函数，这就是我们在工厂类中保存的类的构造信息，这样我们就可以使用类名字符串创建对应的类了。代码如下
-(源自 <a target="_blank" rel="noopener" href="https://blog.csdn.net/K346K346/article/details/51698184">我所理解的
-C++反射机制</a> )</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">void</span>* (*PTRCreateObject)(<span class="type">void</span>);  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ClassFactory</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:  </span><br><span class="line">    map&lt;string, PTRCreateObject&gt; m_classMap ;  </span><br><span class="line">	<span class="built_in">ClassFactory</span>()&#123;&#125;; <span class="comment">//构造函数私有化</span></span><br><span class="line">	</span><br><span class="line"><span class="keyword">public</span>:   </span><br><span class="line">    <span class="function"><span class="type">void</span>* <span class="title">getClassByName</span><span class="params">(string className)</span></span>;  </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">registClass</span><span class="params">(string name, PTRCreateObject method)</span> </span>;  </span><br><span class="line">    <span class="function"><span class="type">static</span> ClassFactory&amp; <span class="title">getInstance</span><span class="params">()</span> </span>;  </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span>* <span class="title">ClassFactory::getClassByName</span><span class="params">(string className)</span></span>&#123;  </span><br><span class="line">    map&lt;string, PTRCreateObject&gt;::const_iterator iter;  </span><br><span class="line">    iter = m_classMap.<span class="built_in">find</span>(className) ;  </span><br><span class="line">    <span class="keyword">if</span> ( iter == m_classMap.<span class="built_in">end</span>() )  </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span> ;  </span><br><span class="line">    <span class="keyword">else</span>  </span><br><span class="line">        <span class="keyword">return</span> iter-&gt;<span class="built_in">second</span>() ;  </span><br><span class="line">&#125;  </span><br><span class="line">   </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">ClassFactory::registClass</span><span class="params">(string name, PTRCreateObject method)</span></span>&#123;  </span><br><span class="line">    m_classMap.<span class="built_in">insert</span>(<span class="built_in">pair</span>&lt;string, PTRCreateObject&gt;(name, method)) ;  </span><br><span class="line">&#125;  </span><br><span class="line">   </span><br><span class="line"><span class="function">ClassFactory&amp; <span class="title">ClassFactory::getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">static</span> ClassFactory sLo_factory;  </span><br><span class="line">    <span class="keyword">return</span> sLo_factory ;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RegisterAction</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">RegisterAction</span>(string className,PTRCreateObject ptrCreateFn)&#123;</span><br><span class="line">		ClassFactory::<span class="built_in">getInstance</span>().<span class="built_in">registClass</span>(className,ptrCreateFn);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> REGISTER(className)                                             \</span></span><br><span class="line"><span class="meta">    className* objectCreator##className()&#123;                              \</span></span><br><span class="line"><span class="meta">        return new className;                                           \</span></span><br><span class="line"><span class="meta">    &#125;                                                                   \</span></span><br><span class="line"><span class="meta">    RegisterAction g_creatorRegister##className(                        \</span></span><br><span class="line"><span class="meta">        #className,(PTRCreateObject)objectCreator##className)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// test class</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestClass</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">m_print</span><span class="params">()</span></span>&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;hello TestClass&quot;</span>&lt;&lt;endl;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">REGISTER</span>(TestClass);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">	TestClass* ptrObj=(TestClass*)ClassFactory::<span class="built_in">getInstance</span>().<span class="built_in">getClassByName</span>(<span class="string">&quot;TestClass&quot;</span>);</span><br><span class="line">	ptrObj-&gt;<span class="built_in">m_print</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="taichi-反射库">Taichi 反射库</span></h2>
-<p>Taichi Training类似于RTTR实现了一套动态反射库作为教程，教程链接<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MY4y1c7hU?vd_source=3ba69f5a040f08d144671fe461ae8b68">40
-分钟搓一个 C++
-反射库【原理、用法、实现都在这里了！】_哔哩哔哩_bilibili</a></p>
-<p>首先，我们可以先看一段测试代码</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">PassByValue</span><span class="params">(std::string s)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Foo::PassByValue(`&quot;</span> &lt;&lt; s &lt;&lt; <span class="string">&quot;`)&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">PassByConstRef</span><span class="params">(<span class="type">const</span> std::string &amp;s)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Foo::PassByConstRef(const `&quot;</span> &lt;&lt; s &lt;&lt; <span class="string">&quot;` &amp;)&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">std::string <span class="title">Concat</span><span class="params">(<span class="type">const</span> std::string &amp;head, <span class="type">const</span> std::string &amp;tail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> res = head + tail;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// std::unique_ptr will result in compile-time error</span></span><br><span class="line">  <span class="function">std::shared_ptr&lt;<span class="type">float</span>&gt; <span class="title">MakeFloatPtr</span><span class="params">(<span class="type">float</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">make_shared</span>&lt;<span class="type">float</span>&gt;(i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">MakeReflectable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    reflect::<span class="built_in">AddClass</span>&lt;Foo&gt;(<span class="string">&quot;Foo&quot;</span>)</span><br><span class="line">        .<span class="built_in">AddMemberVar</span>(<span class="string">&quot;name&quot;</span>, &amp;Foo::name)</span><br><span class="line">        .<span class="built_in">AddMemberVar</span>(<span class="string">&quot;x_&quot;</span>, &amp;Foo::x_)</span><br><span class="line">        .<span class="built_in">AddMemberFunc</span>(<span class="string">&quot;PassByValue&quot;</span>, &amp;Foo::PassByValue)</span><br><span class="line">        .<span class="built_in">AddMemberFunc</span>(<span class="string">&quot;PassByConstRef&quot;</span>, &amp;Foo::PassByConstRef)</span><br><span class="line">        .<span class="built_in">AddMemberFunc</span>(<span class="string">&quot;Concat&quot;</span>, &amp;Foo::Concat)</span><br><span class="line">        .<span class="built_in">AddMemberFunc</span>(<span class="string">&quot;MakeFloatPtr&quot;</span>, &amp;Foo::MakeFloatPtr);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">int</span> <span class="title">x</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> x_; &#125;</span><br><span class="line"></span><br><span class="line">  std::string name;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="type">int</span> x_&#123;<span class="number">0</span>&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>注册类型信息的代码就在<code>MakeReflectable</code>中，可以看到这里采用了一个建造者模式，可以链式的对成员函数和成员变量进行register。首先，在<code>AddClass</code>中会创建出这样的一个Builder</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">details::TypeDescriptorBuilder&lt;T&gt; <span class="title">AddClass</span><span class="params">(<span class="type">const</span> std::string &amp;name)</span> </span>&#123;</span><br><span class="line">  details::TypeDescriptorBuilder&lt;T&gt; b&#123;name&#125;;</span><br><span class="line">  <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样的Builder最终想要创建的就是一个<code>TypeDescriptor</code>，</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TypeDescriptor</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">const</span> std::string &amp;<span class="title">name</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name_;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">const</span> std::vector&lt;MemberVariable&gt; &amp;<span class="title">member_vars</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> member_vars_;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">const</span> std::vector&lt;MemberFunction&gt; &amp;<span class="title">member_funcs</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> member_funcs_;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">MemberVariable <span class="title">GetMemberVar</span><span class="params">(<span class="type">const</span> std::string &amp;name)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span> &amp;mv : member_vars_) &#123;</span><br><span class="line">      <span class="keyword">if</span> (mv.<span class="built_in">name</span>() == name) &#123;</span><br><span class="line">        <span class="keyword">return</span> mv;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> MemberVariable&#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">MemberFunction <span class="title">GetMemberFunc</span><span class="params">(<span class="type">const</span> std::string &amp;name)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span> &amp;mf : member_funcs_) &#123;</span><br><span class="line">      <span class="keyword">if</span> (mf.<span class="built_in">name</span>() == name) &#123;</span><br><span class="line">        <span class="keyword">return</span> mf;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> MemberFunction&#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">friend</span> <span class="keyword">class</span> <span class="title class_">RawTypeDescriptorBuilder</span>;</span><br><span class="line"></span><br><span class="line">  std::string name_;</span><br><span class="line">  std::vector&lt;MemberVariable&gt; member_vars_;</span><br><span class="line">  std::vector&lt;MemberFunction&gt; member_funcs_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3><span id="成员变量">成员变量</span></h3>
-<p>在<code>MemberVariable</code>的实现中，使用了C++中的一种Type
-Eraser的方法，这样在编译时我们不需要类型信息，将类型信息的处理放在了运行时进行，也就是将类型的处理交给了使用者。也就是说这里MemberVariable本身不包含任何模板，类型的传递在构造函数以及getter和setter中使用模板进行推导。<code>getter_</code>和<code>setter_</code>的参数和返回值都使用<code>std::any</code>，也就是任意类型，在更古老的版本中可以用<code>void*</code>。在<code>getter_</code>和<code>setter_</code>的具体实现中，使用<code>std::any_cast</code>对类型进行强制类型转化。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MemberVariable</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">MemberVariable</span>() = <span class="keyword">default</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> C, <span class="keyword">typename</span> T&gt;</span><br><span class="line">  <span class="built_in">MemberVariable</span>(T C::*var) &#123;</span><br><span class="line">    getter_ = [var](std::any obj) -&gt; std::any &#123;</span><br><span class="line">      <span class="keyword">return</span> std::<span class="built_in">any_cast</span>&lt;<span class="type">const</span> C *&gt;(obj)-&gt;*var;</span><br><span class="line">    &#125;;</span><br><span class="line">    setter_ = [var](std::any obj, std::any val) &#123;</span><br><span class="line">      <span class="comment">// Syntax: https://stackoverflow.com/a/670744/12003165</span></span><br><span class="line">      <span class="comment">// `obj.*member_var`</span></span><br><span class="line">      <span class="keyword">auto</span> *self = std::<span class="built_in">any_cast</span>&lt;C *&gt;(obj);</span><br><span class="line">      self-&gt;*var = std::<span class="built_in">any_cast</span>&lt;T&gt;(val);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">const</span> std::string &amp;<span class="title">name</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name_;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> C&gt;</span><br><span class="line">  <span class="function">T <span class="title">GetValue</span><span class="params">(<span class="type">const</span> C &amp;c)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">any_cast</span>&lt;T&gt;(<span class="built_in">getter_</span>(&amp;c));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> C, <span class="keyword">typename</span> T&gt;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">SetValue</span><span class="params">(C &amp;c, T val)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">setter_</span>(&amp;c, val);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">friend</span> <span class="keyword">class</span> <span class="title class_">RawTypeDescriptorBuilder</span>;</span><br><span class="line"></span><br><span class="line">  std::string name_;</span><br><span class="line">  std::function&lt;std::any(std::any)&gt; getter_&#123;<span class="literal">nullptr</span>&#125;;</span><br><span class="line">  std::function&lt;<span class="type">void</span>(std::any, std::any)&gt; setter_&#123;<span class="literal">nullptr</span>&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3><span id="成员函数">成员函数</span></h3>
-<p>成员函数中，类似的，也采用了Type
-Eraser的策略。这里的构造函数从一个变成了四个，分别对应 -
-<code>void func(params...)</code> -
-<code>return_type func(params...)</code> -
-<code>void func(params...) const</code> -
-<code>return_type func(params...) const</code>
-四种情况。具体的实现中，<code>C::*func</code>中<code>C</code>时类的类型，<code>func</code>时成员函数，<code>Args...</code>时参数列表。绑定函数到<code>fn_</code>上调用时，首先会将类<code>C</code>和参数列表<code>Args...</code>转化成一个<code>tuple</code>的指针，然后调用<code>std::apply</code>函数执行函数返回结果。</p>
-<p>另外，在调用的时候，使用<code>std::reference_wrapper</code>对类型进行了引用封装，用于确保该对象是作为一个引用保存在<code>tuple</code>中而不是值。</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/utility/tuple/make_tuple">std::make_tuple</a>
-Creates a tuple object, deducing the target type from the types of
-arguments. For each <code>Ti</code> in <code>Types...</code>, the
-corresponding type <code>Vi</code> in <code>VTypes...</code> is <a target="_blank" rel="noopener" href="http://en.cppreference.com/w/cpp/types/decay">std::decay</a>&lt;Ti&gt;::type unless
-application of <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/types/decay" title="cpp/types/decay">std::decay</a> results in <a target="_blank" rel="noopener" href="http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper">std::reference_wrapper</a>&lt;X&gt; for
-some type <code>X</code>, in which case the deduced type
-is <code>X&amp;</code>.</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MemberFunction</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">MemberFunction</span>() = <span class="keyword">default</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> C, <span class="keyword">typename</span> R, <span class="keyword">typename</span>... Args&gt;</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">MemberFunction</span><span class="params">(R (C::*func)(Args...))</span> </span>&#123;</span><br><span class="line">    fn_ = [<span class="keyword">this</span>, func](std::any obj_args) -&gt; std::any &#123;</span><br><span class="line">      <span class="keyword">using</span> <span class="type">tuple_t</span> = std::tuple&lt;C &amp;, Args...&gt;;</span><br><span class="line">      <span class="comment">// How to debug compile-time types...</span></span><br><span class="line">      <span class="comment">// static_assert(std::is_same&lt;tuple_t, void&gt;::value, &quot;Hoi!&quot;);</span></span><br><span class="line">      <span class="keyword">auto</span> *tp_ptr = std::<span class="built_in">any_cast</span>&lt;<span class="type">tuple_t</span> *&gt;(obj_args);</span><br><span class="line">      <span class="keyword">return</span> std::<span class="built_in">apply</span>(func, *tp_ptr);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> C, <span class="keyword">typename</span>... Args&gt;</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">MemberFunction</span><span class="params">(<span class="type">void</span> (C::*func)(Args...))</span> </span>&#123;</span><br><span class="line">    fn_ = [<span class="keyword">this</span>, func](std::any obj_args) -&gt; std::any &#123;</span><br><span class="line">      <span class="keyword">using</span> <span class="type">tuple_t</span> = std::tuple&lt;C &amp;, Args...&gt;;</span><br><span class="line">      <span class="keyword">auto</span> *tp_ptr = std::<span class="built_in">any_cast</span>&lt;<span class="type">tuple_t</span> *&gt;(obj_args);</span><br><span class="line">      std::<span class="built_in">apply</span>(func, *tp_ptr);</span><br><span class="line">      <span class="keyword">return</span> std::any&#123;&#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> C, <span class="keyword">typename</span> R, <span class="keyword">typename</span>... Args&gt;</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">MemberFunction</span><span class="params">(R (C::*func)(Args...) <span class="type">const</span>)</span> </span>&#123;</span><br><span class="line">    fn_ = [<span class="keyword">this</span>, func](std::any obj_args) -&gt; std::any &#123;</span><br><span class="line">      <span class="keyword">using</span> <span class="type">tuple_t</span> = std::tuple&lt;<span class="type">const</span> C &amp;, Args...&gt;;</span><br><span class="line">      <span class="comment">// How to debug compile-time types...</span></span><br><span class="line">      <span class="comment">// static_assert(std::is_same&lt;tuple_t, void&gt;::value, &quot;Hoi!&quot;);</span></span><br><span class="line">      <span class="keyword">auto</span> *tp_ptr = std::<span class="built_in">any_cast</span>&lt;<span class="type">tuple_t</span> *&gt;(obj_args);</span><br><span class="line">      <span class="keyword">return</span> std::<span class="built_in">apply</span>(func, *tp_ptr);</span><br><span class="line">    &#125;;</span><br><span class="line">    is_const_ = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> C, <span class="keyword">typename</span>... Args&gt;</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">MemberFunction</span><span class="params">(<span class="type">void</span> (C::*func)(Args...) <span class="type">const</span>)</span> </span>&#123;</span><br><span class="line">    fn_ = [<span class="keyword">this</span>, func](std::any obj_args) -&gt; std::any &#123;</span><br><span class="line">      <span class="keyword">using</span> <span class="type">tuple_t</span> = std::tuple&lt;<span class="type">const</span> C &amp;, Args...&gt;;</span><br><span class="line">      <span class="keyword">auto</span> *tp_ptr = std::<span class="built_in">any_cast</span>&lt;<span class="type">tuple_t</span> *&gt;(obj_args);</span><br><span class="line">      std::<span class="built_in">apply</span>(func, *tp_ptr);</span><br><span class="line">      <span class="keyword">return</span> std::any&#123;&#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">    is_const_ = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">const</span> std::string &amp;<span class="title">name</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name_;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">bool</span> <span class="title">is_const</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> is_const_;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> C, <span class="keyword">typename</span>... Args&gt;</span><br><span class="line">  <span class="function">std::any <span class="title">Invoke</span><span class="params">(C &amp;c, Args &amp;&amp;... args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (is_const_) &#123;</span><br><span class="line">      <span class="keyword">auto</span> tp = std::<span class="built_in">make_tuple</span>(std::<span class="built_in">reference_wrapper</span>&lt;<span class="type">const</span> C&gt;(c), args...);</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">fn_</span>(&amp;tp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">auto</span> tp = std::<span class="built_in">make_tuple</span>(std::<span class="built_in">reference_wrapper</span>&lt;C&gt;(c), args...);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">fn_</span>(&amp;tp);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">friend</span> <span class="keyword">class</span> <span class="title class_">RawTypeDescriptorBuilder</span>;</span><br><span class="line"></span><br><span class="line">  std::string name_;</span><br><span class="line">  <span class="type">bool</span> is_const_&#123;<span class="literal">false</span>&#125;;</span><br><span class="line">  std::function&lt;std::any(std::any)&gt; fn_&#123;<span class="literal">nullptr</span>&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3><span id="最终的测试和使用">最终的测试和使用</span></h3>
-<p>测试代码如下，这里需要注意一点，对于const
-reference和reference的参数传递，需要手动添加一个<code>std::ref</code>和<code>std::cref</code>的包装，否则会crash。这是因为否则存在tuple中的类型不是一个引用类型，这和我们希望的是冲突的，所以会产生问题。</p>
-<p>这里还有另一个解决办法，作者通过一层中间层<code>ArgWrap</code>对形参到实参的转化作了处理，细节参考代码和视频</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">TestFoo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;&gt;&gt;&gt; TestFoo\n&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">  Foo::<span class="built_in">MakeReflectable</span>();</span><br><span class="line">  <span class="keyword">auto</span> <span class="type">foo_t</span> = reflect::<span class="built_in">GetByName</span>(<span class="string">&quot;Foo&quot;</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span> &amp;mv : <span class="type">foo_t</span>.<span class="built_in">member_vars</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;member var: &quot;</span> &lt;&lt; mv.<span class="built_in">name</span>() &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">  std::cout &lt;&lt; std::endl;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span> &amp;mf : <span class="type">foo_t</span>.<span class="built_in">member_funcs</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;member func: &quot;</span> &lt;&lt; mf.<span class="built_in">name</span>() &lt;&lt; <span class="string">&quot;, is_const=&quot;</span> &lt;&lt; mf.<span class="built_in">is_const</span>()</span><br><span class="line">              &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">  std::cout &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">  Foo f;</span><br><span class="line">  <span class="comment">// Test member variables</span></span><br><span class="line">  <span class="keyword">auto</span> name_var = <span class="type">foo_t</span>.<span class="built_in">GetMemberVar</span>(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">  name_var.<span class="built_in">SetValue</span>(f, std::string&#123;<span class="string">&quot;taichi&quot;</span>&#125;);</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;f.name=&quot;</span> &lt;&lt; f.name &lt;&lt; std::endl;</span><br><span class="line">  <span class="keyword">auto</span> x_var = <span class="type">foo_t</span>.<span class="built_in">GetMemberVar</span>(<span class="string">&quot;x_&quot;</span>);</span><br><span class="line">  x_var.<span class="built_in">SetValue</span>(f, <span class="number">42</span>);</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;f.x=&quot;</span> &lt;&lt; f.<span class="built_in">x</span>() &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Test member functions</span></span><br><span class="line">  <span class="keyword">auto</span> foo_make_float_ptr = <span class="type">foo_t</span>.<span class="built_in">GetMemberFunc</span>(<span class="string">&quot;MakeFloatPtr&quot;</span>);</span><br><span class="line">  <span class="keyword">auto</span> res = foo_make_float_ptr.<span class="built_in">Invoke</span>(f, <span class="number">123.4f</span>);</span><br><span class="line">  <span class="keyword">auto</span> float_sptr = std::any_cast&lt;std::shared_ptr&lt;<span class="type">float</span>&gt;&gt;(res);</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;MakeFloatPtr res: &quot;</span> &lt;&lt; *float_sptr &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">  std::string hello_s&#123;<span class="string">&quot;hello&quot;</span>&#125;;</span><br><span class="line">  std::string world_s&#123;<span class="string">&quot; world&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">auto</span> foo_pass_by_val = <span class="type">foo_t</span>.<span class="built_in">GetMemberFunc</span>(<span class="string">&quot;PassByValue&quot;</span>);</span><br><span class="line">  foo_pass_by_val.<span class="built_in">Invoke</span>(f, hello_s);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">auto</span> foo_pass_by_cref = <span class="type">foo_t</span>.<span class="built_in">GetMemberFunc</span>(<span class="string">&quot;PassByConstRef&quot;</span>);</span><br><span class="line">  <span class="comment">// foo_pass_by_cref.Invoke(f, hello_s);  // Crash, value</span></span><br><span class="line">  <span class="comment">// foo_pass_by_cref.Invoke(f, std::ref(hello_s));  // Crash, non-const ref</span></span><br><span class="line">  foo_pass_by_cref.<span class="built_in">Invoke</span>(f, std::<span class="built_in">cref</span>(hello_s));  <span class="comment">// OK: const ref</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">auto</span> foo_concat = <span class="type">foo_t</span>.<span class="built_in">GetMemberFunc</span>(<span class="string">&quot;Concat&quot;</span>);</span><br><span class="line">  <span class="comment">// foo_concat.Invoke(f, hello_s, world_s);</span></span><br><span class="line">  res = foo_concat.<span class="built_in">Invoke</span>(f, std::<span class="built_in">cref</span>(hello_s), std::<span class="built_in">cref</span>(world_s));</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;Concat got: &quot;</span> &lt;&lt; std::<span class="built_in">any_cast</span>&lt;std::string&gt;(res) &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;&lt;&lt;&lt; TestFoo OK\n&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="参考资料">参考资料</span></h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/K346K346/article/details/51698184">我所理解的
-C++ 反射机制_恋喵大鲤鱼的博客-CSDN博客_c++ 反射</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MY4y1c7hU?vd_source=3ba69f5a040f08d144671fe461ae8b68">40
-分钟搓一个 C++
-反射库【原理、用法、实现都在这里了！】_哔哩哔哩_bilibili</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -1408,7 +1377,7 @@ C++ 反射机制_恋喵大鲤鱼的博客-CSDN博客_c++ 反射</a></li>
 
   <div class="copyright">
     &copy; 2020 – 
-    <span itemprop="copyrightYear">2024</span>
+    <span itemprop="copyrightYear">2025</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -1420,14 +1389,14 @@ C++ 反射机制_恋喵大鲤鱼的博客-CSDN博客_c++ 反射</a></li>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">205k</span>
+    <span title="站点总字数">221k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">3:07</span>
+    <span title="站点阅读时长">3:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

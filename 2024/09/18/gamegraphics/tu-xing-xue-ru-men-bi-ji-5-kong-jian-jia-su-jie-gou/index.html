@@ -21,8 +21,8 @@
 
     <meta name="description" content="在光追渲染中，我们需要对物体和射线的相交进行判断；在物理模拟中，我们需要对物体之间的碰撞进行检测。如果我们采用暴力算法，那么每一帧都需要大量时间计算射线或者碰撞检测。所以我们需要一些更加高效的方式来进行检测，这就需要我们用空间加速结构进行加速。 今天主要记录几种在渲染和模拟中比较常用的方法  Spatial Hashing (Uniform Grid) Spatial Hierarchy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图形学入门笔记7: 空间加速结构">
-<meta property="og:url" content="https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/index.html">
+<meta property="og:title" content="图形学入门笔记5: 空间加速结构">
+<meta property="og:url" content="https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-5-kong-jian-jia-su-jie-gou/index.html">
 <meta property="og:site_name" content="皓">
 <meta property="og:description" content="在光追渲染中，我们需要对物体和射线的相交进行判断；在物理模拟中，我们需要对物体之间的碰撞进行检测。如果我们采用暴力算法，那么每一帧都需要大量时间计算射线或者碰撞检测。所以我们需要一些更加高效的方式来进行检测，这就需要我们用空间加速结构进行加速。 今天主要记录几种在渲染和模拟中比较常用的方法  Spatial Hashing (Uniform Grid) Spatial Hierarchy">
 <meta property="og:locale" content="zh_CN">
@@ -34,20 +34,20 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Lucas-hao/Picgo-Picture/master/img/20230216234700.png">
 <meta property="og:image" content="https://s2.loli.net/2024/02/17/RghClODsLVZbF8e.png">
 <meta property="article:published_time" content="2024-09-18T14:41:48.000Z">
-<meta property="article:modified_time" content="2024-11-15T14:42:48.593Z">
+<meta property="article:modified_time" content="2025-01-04T01:19:30.045Z">
 <meta property="article:author" content="皓">
 <meta property="article:tag" content="图形学">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2024/02/17/NTOxbhg9AoCRPS3.png">
 
 
-<link rel="canonical" href="https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/">
+<link rel="canonical" href="https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-5-kong-jian-jia-su-jie-gou/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/","path":"2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/","title":"图形学入门笔记7: 空间加速结构"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-5-kong-jian-jia-su-jie-gou/","path":"2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-5-kong-jian-jia-su-jie-gou/","title":"图形学入门笔记5: 空间加速结构"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>图形学入门笔记7: 空间加速结构 | 皓</title>
+<title>图形学入门笔记5: 空间加速结构 | 皓</title>
   
 
 
@@ -101,7 +101,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-english"><a href="https://lucashaozh.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">45</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-english"><a href="https://lucashaozh.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -167,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -178,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -224,7 +224,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-7-kong-jian-jia-su-jie-gou/">
+    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2024/09/18/gamegraphics/tu-xing-xue-ru-men-bi-ji-5-kong-jian-jia-su-jie-gou/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/pikachu.jpg">
@@ -237,12 +237,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="图形学入门笔记7: 空间加速结构 | 皓">
+      <meta itemprop="name" content="图形学入门笔记5: 空间加速结构 | 皓">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          图形学入门笔记7: 空间加速结构
+          图形学入门笔记5: 空间加速结构
         </h1>
 
         <div class="post-meta-container">
@@ -260,7 +260,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-11-15 15:42:48" itemprop="dateModified" datetime="2024-11-15T15:42:48+01:00">2024-11-15</time>
+      <time title="修改时间：2025-01-04 02:19:30" itemprop="dateModified" datetime="2025-01-04T02:19:30+01:00">2025-01-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -353,7 +353,7 @@ Grid的方法在光线求交的时候效率不高，因为没有hierarchy的结�
 BVH是一种按照物体进行划分的空间加速算法。首先找到所有物体的一个包围盒，然后递归的将物体分成两个子集，并计算新的包围盒，当包围盒中的物体达到一定的数量的时候，停止继续细分，将所有物体存储在叶子节点当中。
 使用BVH也可以进行碰撞检测，流程如下。从叶子节点开始，向上一层一层进行碰撞检测。
 <img src="https://s2.loli.net/2024/02/17/RghClODsLVZbF8e.png" alt="image.png"></p>
-<div class="note default no-icon"><ul>
+<div class="note info no-icon"><ul>
 <li>Spatial
 Hashing相对来说实现更容易，并且可以支持GPU并行计算，但是需要每次update之后都重新计算Hash</li>
 <li>BVH实现起来会更复杂，并且由于其树状的递归结构，并不利于在GPU上计算，但是对于BVH，只需要更新Bounding
@@ -450,7 +450,7 @@ Lecture 09 Collision Handling</a></li>
 
   <div class="copyright">
     &copy; 2020 – 
-    <span itemprop="copyrightYear">2024</span>
+    <span itemprop="copyrightYear">2025</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -462,14 +462,14 @@ Lecture 09 Collision Handling</a></li>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">205k</span>
+    <span title="站点总字数">221k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">3:07</span>
+    <span title="站点阅读时长">3:21</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -558,7 +558,7 @@ darkmode.showWidget();
 </script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lucashaozh","repo":"GitalkBlogRepo","client_id":"c140415e06b9641c5d85","client_secret":"ab2e8dcb43c6c08eca4a2191c10630a8eb6f2d18","admin_user":"lucashaozh","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"09e6d392c676020035cf16241cd68336"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lucashaozh","repo":"GitalkBlogRepo","client_id":"c140415e06b9641c5d85","client_secret":"ab2e8dcb43c6c08eca4a2191c10630a8eb6f2d18","admin_user":"lucashaozh","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"c99268bfb9976e698082f8660774f2e9"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>

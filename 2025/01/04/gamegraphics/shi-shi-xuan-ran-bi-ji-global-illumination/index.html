@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/pikachu.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+CJK+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lucashaozh.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="image.png  全局光照对于渲染真实的场景起到至关重要的作用。通常情况下，整个场景被照亮是一个非常复杂的过程，一个shading point可能会受到直接光照、间接光照、散射、焦散、阴影等等的影响，如上图所示。所以没有全局光照只有直接光照会导致渲染的结果不真实，最直观的效果就是阴影区域非常黑，而有了间接光照，阴影区域就会有一个合理的亮度。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实时渲染笔记-Global Illumination">
+<meta property="og:url" content="https://lucashaozh.github.io/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-global-illumination/index.html">
+<meta property="og:site_name" content="皓">
+<meta property="og:description" content="image.png  全局光照对于渲染真实的场景起到至关重要的作用。通常情况下，整个场景被照亮是一个非常复杂的过程，一个shading point可能会受到直接光照、间接光照、散射、焦散、阴影等等的影响，如上图所示。所以没有全局光照只有直接光照会导致渲染的结果不真实，最直观的效果就是阴影区域非常黑，而有了间接光照，阴影区域就会有一个合理的亮度。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/12/31/dL9xGh2gctreIkK.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/03/KZO1jtoplkLRVXz.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/03/CqjGMkEu2dRihPr.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/03/PxILc9eBNYfJoKS.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/03/ovFrZlMXyAz86si.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/03/JPIdVvefhWsG5Rm.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/03/UNszdfMlIOPHCjB.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/03/NGo6u3XxfSqgZT7.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/03/S2RmAbiEgN1o6MD.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/03/9zXMbmZJsaxYEFB.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/03/Mo94ZOlSAc6kgzn.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/04/bWTDn3rhYKZJwaC.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/04/tGZc1JDEv53Xiq6.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/04/W5nKyxajANLgrvt.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/04/dkRG96uAqrQcpia.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/04/2tMB87aqOJTd3Nb.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/04/ZJkazHGgjCOeNv1.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/04/kjRBFePKfQ5Jd61.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/04/q7oT51afDYSP8Ak.png">
+<meta property="article:published_time" content="2025-01-04T00:57:00.000Z">
+<meta property="article:modified_time" content="2025-01-04T01:27:57.301Z">
+<meta property="article:author" content="皓">
+<meta property="article:tag" content="图形学">
+<meta property="article:tag" content="实时渲染">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/31/dL9xGh2gctreIkK.png">
+
+
+<link rel="canonical" href="https://lucashaozh.github.io/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-global-illumination/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lucashaozh.github.io/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-global-illumination/","path":"2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-global-illumination/","title":"实时渲染笔记-Global Illumination"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>实时渲染笔记-Global Illumination | 皓</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="皓" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">皓</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">游戏开发 | ETH MSCS 在读</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">45</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-english"><a href="https://lucashaozh.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Light Propagation Volumes
+(LPV)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Voxel Global Illumination
+(VXGI)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Screen Space</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">Screen Space Reflection (SSR)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="皓"
+      src="/images/pikachu.jpg">
+  <p class="site-author-name" itemprop="name">皓</p>
+  <div class="site-description" itemprop="description">图形学及ACG爱好者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lucashaozh" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lucashaozh" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lucashaozh@gmail.com" title="E-Mail → mailto:lucashaozh@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_45951701" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45951701" rel="noopener me" target="_blank"><i class="fab fa-contao fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/shenghao-zhang-b03a64203/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;shenghao-zhang-b03a64203&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+<script src="/js/switch_language.js"></script>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-global-illumination/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="皓">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="皓">
+      <meta itemprop="description" content="图形学及ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="实时渲染笔记-Global Illumination | 皓">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          实时渲染笔记-Global Illumination
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-01-04 01:57:00 / 修改时间：02:27:57" itemprop="dateCreated datePublished" datetime="2025-01-04T01:57:00+01:00">2025-01-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GameGraphics/" itemprop="url" rel="index"><span itemprop="name">GameGraphics</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><figure>
+<img src="https://s2.loli.net/2024/12/31/dL9xGh2gctreIkK.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>全局光照对于渲染真实的场景起到至关重要的作用。通常情况下，整个场景被照亮是一个非常复杂的过程，一个shading
+point可能会受到直接光照、间接光照、散射、焦散、阴影等等的影响，如上图所示。所以没有全局光照只有直接光照会导致渲染的结果不真实，最直观的效果就是阴影区域非常黑，而有了间接光照，阴影区域就会有一个合理的亮度。</p>
+<span id="more"></span>
+<p><img src="https://s2.loli.net/2025/01/03/KZO1jtoplkLRVXz.png" alt="image.png"> # Reflective Shadow Maps (RSM)</p>
+<p>Reflective Shadow Map (RSM)
+从名称上也可以看出来，这种方法的思路和Shadow Map是一致的，区别是Shadow
+Map只记录从光源出渲染的深度，而RSM还会存储包括深度、世界坐标、法线、光照能量等信息</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/03/CqjGMkEu2dRihPr.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>它的基本思想是，从光源视角出发，我们可以得到所有可以被光源照亮的区域，这些区域就可以当作是次级光的发出光源。在Shadow
+Map上的每一个像素可以视作是一小片间接光的光源patch，我们知道光入射的方向，但是我们不知道光出射的方向。因此，RSM作出了一个假设，假设这些patch的surface都是diffuse的，因此出射光是朝着半球面各个方向发散的。</p>
+<p>现在我们需要知道每一片间接光光源patch对shading
+point的贡献。回顾渲染方程，可以通过换元将单位立体角上的积分转化为对光源面积的积分，下面是表示p点照亮q点反射的渲染方程。
+<span class="math display">\[
+\begin{align*}
+L_o(q, \omega_o) &amp;= \int_{\Omega_\text{patch}} L_i(q, \omega_i) V(q,
+\omega_i) f_r(q, \omega_i, \omega_o) \cos \theta_i \, d\omega_{i}\\
+&amp;= \int_{A_\text{patch}} L_i(p \to q) V(q, \omega_i) f_r(q, p \to q,
+\omega_o) \frac{\cos \theta_p \cos \theta_q}{\|q - p\|^2} \, dA
+\end{align*}
+\]</span></p>
+<p>由于我们假设次级光源表面是diffuse的，所以有 <span class="math display">\[
+f_{r}(p)=\frac{\rho}{\pi}
+\]</span> Shading
+point接收到的radiance就是这一个patch反射出的光强，这里从光源到次级光源的radiance可以写作flux和面积的比值，这样的好处是面积可以和积分中的面积约掉，这样子在存储的时候只需要存储一个flux就可以了，而不用考虑面积。
+<span class="math display">\[
+L_{i}(p)=f_{r}(p)\cdot E(l \rightarrow p)=f_{r} \cdot
+\frac{\Phi}{\mathrm{d}A}
+\]</span>
+存储了次级光源处的flux，我们就可以在渲染q点的时候利用存储的flux通过以下公式计算出p点对q点贡献的irradiance大小。这里忽略了从p点到q点的visibility的计算，因为如果每一个光线都计算的话计算量太大，很难算。所以RSM直接假设所有的次级光源对于shading
+point都是可见的。</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/03/PxILc9eBNYfJoKS.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>当然，在实际实现过程中，我们不可能把shadow
+map上所有的像素都进行计算，所以我们需要进行采样。总体上看，离shading
+point更近的次级光源对于shading
+point会更大。这里RSM再次作出假设，根据shading point在shadow
+map上的位置和次级光源在像素上的位置的距离进行不同密度的采样，距离近的采样密度大，远的采样密度小。对于采样的结果，RSM引入了权重，权重同样通过距离决定，越近权重越小，越远权重越大。</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/03/ovFrZlMXyAz86si.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>RSM好处在于实现非常简单，完全按照Shadow
+Map的一套流程，但是性能有待提高，因为对于每一个光源都需要生成相应的RSM，而且由于存在很多假设，并且只考虑了一次反射的间接光，所以效果肯定是局限的。</p>
+<h1><span id="light-propagation-volumeslpv">Light Propagation Volumes
+(LPV)</span></h1>
+<p>在全局光照中，我们核心要解决的问题是在shading
+point上获得从任意一个方向上接收到的radiance大小。通常情况下，我们都会采用一个基本假设，也就是radiance在传播过程中大小是不会改变的。LPV从名称上看，采用了Volume的方式，让光线在volume中进行传播。具体实现中，分为以下步骤</p>
+<ol type="1">
+<li>生成直接光照的场景表示
+<ul>
+<li>第一步采用了Reflective Shadow
+Map的办法，生成一个虚拟次级光源的集合，同样的，将次级光源的表面假设为diffuse材质。</li>
+</ul></li>
+<li>次级虚拟光源在场景体素中的注入
+<ul>
+<li>将整个场景划分为三维网格</li>
+<li>对于每一个格点，找到其中所有的虚拟光源，将虚拟光源的有向radiance贡献相加</li>
+<li>对于有向radiance，可以使用Spherical
+Harmonics进行压缩，常用的做法是映射到二阶SH上</li>
+</ul></li>
+<li>体素中的radiance传播
+<ul>
+<li>对于每一个格点，计算上下左右前后的六个格点中光源的对该格点的贡献，并重新映射到SH上</li>
+<li>迭代若干次，使得LPV达到稳定的状态（这有点类似流体中的格点法） <img src="https://s2.loli.net/2025/01/03/JPIdVvefhWsG5Rm.png" alt="image.png"></li>
+</ul></li>
+<li>使用最终的light propagation volume进行场景渲染
+<ul>
+<li>在最后渲染时，对于每一个shading
+point，找到它所在的格点，利用格点中存储的radiance进行渲染</li>
+</ul></li>
+</ol>
+<figure>
+<img src="https://s2.loli.net/2025/01/03/UNszdfMlIOPHCjB.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>这样的方法在最后渲染时存在一个问题，如上图中，如果三维网格的划分过于稀疏，就会存在虽然一个次级光源本不该照亮一个被遮挡的shading
+point，但是由于他们在同一个网格之中，实际计算会考虑这个次级光源的贡献的。因此，就会有下面的结果的出现</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/03/NGo6u3XxfSqgZT7.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>在工业界的具体实现中，可能会存在一些自适应网格的方法，使用不规则的网格大小适应不同区域内的物体大小，带来的损失就是需要较为复杂的计算。更常见的做法时Cascaded的LPV，采用层级网格对不同距离的物体用不同大小的网格。</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/03/S2RmAbiEgN1o6MD.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<h1><span id="voxel-global-illuminationvxgi">Voxel Global Illumination
+(VXGI)</span></h1>
+<p>VXGI也是一个2pass的算法，但是区别于Reflective Shadow
+Map，VXGI采用了Voxel对radiance信息进行存储。总体上VXGI分为两个步骤 1.
+light
+pass：从光源视角出发，发出光线，同样的生成次级光源的patch，存储在八叉树的网格结构中
+2. camera pass：从摄像机出发，根据shading
+point的BRDF采样一个反射的cone，并计算其贡献 <img src="https://s2.loli.net/2025/01/03/9zXMbmZJsaxYEFB.png" alt="image.png"></p>
+<p>具体的，首先VXGI将整个场景划分为一个层次化结构，使用八叉树进行网格划分。使用层次结构(Hierachical
+structure)的好处是我们可以获得一个类似mipmap的结构，在最后的渲染中可以使用更高级的节点进行估算。在light
+pass中，首先从光源出发，我们可以将每个光源patch的radiance计算出来，存储在八叉树的叶子节点中。为了实现mipmap的效果，需要继续进行filtering，逐层的更新父级节点的radiance。具体细节参见paper。</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/03/Mo94ZOlSAc6kgzn.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>有了存储的radiance之后，在cone
+tracing的时候就可以进行加速。最直观的思路是找到cone内所有相交的voxel，将所有的贡献相加，这显然是不显示的。VXGI提出的方法类似于ray
+marching，从shading
+point出发逐级步进，在之前存储的层次化结构上逐级查询，通过插值得到贡献的radiance大小。</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/04/bWTDn3rhYKZJwaC.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>对于glossy材质的物体，只需要采样一个cone，而对于diffuse的物体，理论上我们需要计算整个半球面上所有的次级光源的贡献。VXGI提出我们可以近似的用多个cone去近似的覆盖整个半球面（8个）</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/04/tGZc1JDEv53Xiq6.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<h1><span id="screen-space">Screen Space</span></h1>
+<p>RSM、LPV、VXGI都是直接利用三维空间中的信息计算Global
+Illumination，这些方法基本上都有一个缺陷，就是性能消耗比较大。Screen
+Space的方法性能相比于三维空间会更好，这类方法的基本思想是从screen
+space上的直接光照信息通过后期处理计算出间接光照。 ## Screen Space
+Ambient Occulusion (SSAO)</p>
+<p>环境光遮蔽(AO)指的是环境中的间接光由于物体的几何关系产生遮挡产生的视觉效果，AO往往能带来更真实的视觉效果。SSAO是一种在屏幕空间中对全局光照估计的一种方法。</p>
+<p>SSAO做了以下假设 1.
+任意一点的间接光照的强度都是常数（类似于Phong光照模型中的ambient项） 2.
+我们只需要考虑在每个shading point在各个方向上的可见性 3.
+同样的，假定表面都是diffuse材质</p>
+<p>在理论上为什么我们只需要考虑shading
+point的visibility呢？首先，从rendering equation出发 <span class="math display">\[
+L_{o}(p.
+\omega_{o})=\int_{\Omega+}L_{i}(p,\omega_{i})f_{r}(p,\omega_{i},\omega_{o})V(p,
+\omega_{i})\cos{\theta_{i}}\mathrm{d}\omega_{i}
+\]</span> 利用结论 <span class="math display">\[
+\int_{\Omega}f(x)g(x)\mathrm{d}x\approx\frac{\int_{\Omega_{G}}f(x)\mathrm{d}x}{\int_{\Omega_{G}}\mathrm{d}x}
+\cdot \int_{\Omega}g(x)\mathrm{d}x
+\]</span> 分离visibility项</p>
+<p><span class="math display">\[
+L_{o}^{\text{indir}}(p, \omega_{o}) \approx \frac{\int_{\Omega_{+}}V(p,
+\omega_{i})
+\cos{\theta_{i}}\mathrm{d}\omega_{i}}{\int_{\Omega_{+}}\cos{\theta_{i}}\mathrm{d}\omega_{i}}
+\cdot \int_{\Omega_{+}}L_{i}(p, \omega_{i})f_{r}(p, \omega_{i},
+\omega_{o})\cos{\theta_{i}}\mathrm{d}\omega_{i}
+\]</span> 这里利用了<span class="math inline">\(\mathrm{d}x_\perp=\cos{\theta_{i}}\mathrm{d}\omega_{i}\)</span>的结论，从半球面上的积分转化到了平面上的积分</p>
+<p>其中第一项经过化简之后就是所有方向上的visibility cos加权平均 <span class="math display">\[
+k_{A}=\frac{\int_{\Omega_{+}}V(p, \omega_{i})
+\cos{\theta_{i}}\mathrm{d}\omega_{i}}{\pi}
+\]</span> 第二项是间接光照，由于SSAO作出的假设，这一项就是常数 <span class="math display">\[
+L_{i}^{\text{indir}}(p) \cdot \frac{\rho}{\pi} \cdot
+\pi=L_{i}^{\text{indir}}(p) \cdot \rho
+\]</span> 所以现在的问题就是我们应该如何计算shading point的遮罩<span class="math inline">\(k_{A}(p)\)</span>。</p>
+<p>SSAO利用屏幕空间中存储的depth
+buffer来解决这个问题。我们需要计算shading
+point在各个方向上的visibility的均值，很自然的我们就可以进行采样对这个值进行估算，具体的我们会在shading
+point的一定半径的球面或者半球面进行采样。我们可以分成shading
+point上有法线和没有法线两种情况 - SSAO(有法线) - 在shading
+point一定半径范围内的球内进行采样，采样点投影到camera，得到采样点的深度
+- 采样点的深度和屏幕空间记录的深度作对比，小于screen
+space深度即为可见，大于screen space深度即为不可见 -
+因为没有法线信息，所以只能在整个球里进行采样。当过半的采样点在物体内部，说明有AO，否则就不需要AO
+<img src="https://s2.loli.net/2025/01/04/W5nKyxajANLgrvt.png" alt="image.png"> - 问题：会出现false occulusion的问题 <img src="https://s2.loli.net/2025/01/04/dkRG96uAqrQcpia.png" alt="image.png"> - Horizon based ambient occulusion (HBAO) 有法线信息
+- 在法线所在的半球面上进行采样 - 有了法线信息可以加入cosine权重 <img src="https://s2.loli.net/2025/01/04/2tMB87aqOJTd3Nb.png" alt="image.png"> ## Screen Space Directional Occlusion (SSDO)</p>
+<p>SSAO中假设所有的indirect illumination是相同的，但实际上在screen
+space上我们也有可以直接利用的间接光照信息，也就是从camera视角下已经渲染好的图像。SSDO就是在此基础上对SSAO的改进。SSDO的基本思想是，从shading
+point出发，随机射出光线，击中障碍物，说明是间接光照，未击中则是直接光照。</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/04/ZJkazHGgjCOeNv1.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>类似于SSAO，SSDO从shading
+point所在的半球面上进行采样，从采样点到P点的visibility同样的利用深度进行估计。如果在物体外部没有遮挡，采用环境光贴图的直接光照；如果在物体内部，那么利用从摄像机出发看到的surface
+patch作为次级光源计算简介光的贡献（具体方法和RSM类似）。当然因为visibility是通过摄像机的visibility近似得到的，所以实际情况下会有不符合的情况（上图右）。</p>
+<p>SSDO的问题是，由于采样点的半球范围限制，间接光照只能计算在一定范围内的，无法计算远距离的。这一点和SSAO刚好相反，SSAO假设可见部分可以被远距离的环境光照亮，被遮挡的无法照亮；SSDO则是被遮挡部分会贡献间接光照，远距离无间接光贡献。另一个问题是screen
+space存在的问题，由于screen
+space只记录了从摄像机视角看到的信息，会忽略摄像机没有看到的信息，如下图所示，当左侧的表面消失在摄像机视野内时，它在地面的间接光照贡献就会被忽略。</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/04/kjRBFePKfQ5Jd61.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<h2><span id="screen-space-reflection-ssr">Screen Space Reflection (SSR)</span></h2>
+<p>SSR是一种在屏幕空间作的ray
+tracing，因此不需要三维空间中的mesh信息，而是利用屏幕空间中的法线、深度、图像信息。SSR的基本思路时，对于一个shading
+point，去trace它的反射光线。这里不需要对shading
+point的材质作出限制，无论时specular还是glossy的材质，都可以使用path
+tracing中类似的方法去sample一根光线。</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/04/q7oT51afDYSP8Ak.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>在trace反射光线的过程中，我们需要一个合适的步长，如果步长太大或者步长太小都会导致问题。因此SSR提出了Hierarchical
+ray trace的方式。这种方法需要使用到Depth Mip-Map
+(HiZ)，和普通Mipmap不同的是HiZ在filtering的時候用的是min
+pooling而不是平均，这样可以保证如果一个光线没有和一个高层级的节点相交，那它肯定也不会和低层级的节点相交。具体的trace伪代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mip = 0;</span><br><span class="line">while (level &gt; -1)</span><br><span class="line">	step through current cell;</span><br><span class="line">	if (above Z plane) ++level;</span><br><span class="line">	if (below Z plane) --level;</span><br></pre></td></tr></table></figure>
+<p>在SSR中，由于我们仍然需要知道次级光源的出射radiance，所以次级光源表面的材质仍然假设是diffuse的。但是SSR很好的解决了shading
+point和次级光源的可见性问题，因为是严格的进行ray trace得到的结果。</p>
+<h1><span id="参考资料">参考资料</span></h1>
+<ol type="1">
+<li><p><a target="_blank" rel="noopener" href="https://advances.realtimerendering.com/s2009/Light_Propagation_Volumes.pdf">advances.realtimerendering.com/s2009/Light_Propagation_Volumes.pdf</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/1053427.1053460">Reflective shadow
+maps | Proceedings of the 2005 symposium on Interactive 3D graphics and
+games</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://research.nvidia.com/sites/default/files/publications/GIVoxels-pg2011-authors.pdf">research.nvidia.com/sites/default/files/publications/GIVoxels-pg2011-authors.pdf</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/1507149.1507161">Approximating
+dynamic global illumination in image space | Proceedings of the 2009
+symposium on Interactive 3D graphics and games</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://www.ea.com/frostbite/news/stochastic-screen-space-reflections">Stochastic
+Screen-Space Reflections - Frostbite</a></p></li>
+<li><p>Games 202 Lecture 7, 8, 9</p></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.event.move.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.twentytwenty.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/css/twentytwenty.min.css"/><script>
+(function(){
+  function initialize_twentytwenty() {
+    $(".twentytwenty-container").each(function() {
+      var $container = $(this);
+      var $images = $container.find('img');
+      var loadedImages = 0;
+
+      $images.on('load', function(){
+        loadedImages++;
+        if (loadedImages === $images.length) {
+          if ($.fn.twentytwenty) {
+            $container.twentytwenty();
+            console.log("Twentytwenty Initialized for", $container);
+          } else {
+            console.log("TwentyTwenty plugin not loaded yet");
+          }
+        }
+      }).each(function(){
+        if (this.complete) $(this).trigger('load');
+      });
+    });
+  }
+
+  $(document).ready(function() {
+    initialize_twentytwenty();
+  });
+
+  // 为了处理可能的延迟加载情况
+  $(window).on('load', function() {
+    initialize_twentytwenty();
+  });
+
+  $(document).on('pjax:complete', function() {
+    initialize_twentytwenty();
+  });
+})();
+</script>
+          <div class="post-tags">
+              <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 图形学</a>
+              <a href="/tags/%E5%AE%9E%E6%97%B6%E6%B8%B2%E6%9F%93/" rel="tag"># 实时渲染</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/09/22/gamegraphics/geometryprocessingproject/" rel="prev" title="Geometry Processing Project">
+                  <i class="fa fa-angle-left"></i> Geometry Processing Project
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-importance-resampling-and-restir/" rel="next" title="实时渲染笔记-Importance Resampling and ReSTIR">
+                  实时渲染笔记-Importance Resampling and ReSTIR <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">皓</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">221k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:21</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cjk_width":0.9,"normal_width":0.6,"append_css":true,"js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lucashaozh","repo":"GitalkBlogRepo","client_id":"c140415e06b9641c5d85","client_secret":"ab2e8dcb43c6c08eca4a2191c10630a8eb6f2d18","admin_user":"lucashaozh","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"8f8192c8f6bd765430feb6459a2a6a41"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>
