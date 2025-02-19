@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/pikachu.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/pikachu.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+CJK+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lucashaozh.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Diffusion Model的基本原理(DDPM) Denoising Diffusion Probabilistic Models(DDPM)在流程上分为两个步骤 - Forward (diffusion) process: 在输入的数据上逐步的增加噪声 - Backward (denoising) process: 在噪声图上进行降噪，从噪声中恢复出原来的图像">
+<meta property="og:type" content="article">
+<meta property="og:title" content="扩散模型(Diffusion Model)原理详解">
+<meta property="og:url" content="https://lucashaozh.github.io/2025/02/19/computervision/kuo-san-mo-xing-diffusion-model-yuan-li-xiang-jie/index.html">
+<meta property="og:site_name" content="皓">
+<meta property="og:description" content="Diffusion Model的基本原理(DDPM) Denoising Diffusion Probabilistic Models(DDPM)在流程上分为两个步骤 - Forward (diffusion) process: 在输入的数据上逐步的增加噪声 - Backward (denoising) process: 在噪声图上进行降噪，从噪声中恢复出原来的图像">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/05/06/wMiEscWqSGf2zrb.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/06/k7jxUXSfrqPeb3m.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/01/USZLYBskHTh92NQ.png">
+<meta property="og:image" content="https://s2.loli.net/2025/01/26/vzLjD5mJ6ZMIRnP.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/06/2rOQx3Hl7kqVGEs.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/01/jUeBrI6V3tPdy9N.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/01/tUdTDaHVRzMgYFJ.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/01/mkv8KPCtj16N2F3.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/01/3jHcfplT29bCWPq.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/01/L6X3GFI9Eh2lT1i.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/06/kYpVcjCnD8HMLsU.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/06/4LaDJd8OYxzNyrR.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/02/7iBW56zIRHwujoe.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/02/dVxjIQYXLRefzU9.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/02/TrSogKQdJaFP8Ul.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/02/X67Cj9gVvFNSBmH.png">
+<meta property="article:published_time" content="2025-02-19T18:51:00.000Z">
+<meta property="article:modified_time" content="2025-02-19T19:07:49.007Z">
+<meta property="article:author" content="皓">
+<meta property="article:tag" content="CV">
+<meta property="article:tag" content="Diffusion">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/05/06/wMiEscWqSGf2zrb.png">
+
+
+<link rel="canonical" href="https://lucashaozh.github.io/2025/02/19/computervision/kuo-san-mo-xing-diffusion-model-yuan-li-xiang-jie/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lucashaozh.github.io/2025/02/19/computervision/kuo-san-mo-xing-diffusion-model-yuan-li-xiang-jie/","path":"2025/02/19/computervision/kuo-san-mo-xing-diffusion-model-yuan-li-xiang-jie/","title":"扩散模型(Diffusion Model)原理详解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>扩散模型(Diffusion Model)原理详解 | 皓</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="皓" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">皓</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">计算机图形学 | ETH MSCS</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">46</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a></li><li class="menu-item menu-item-portfolio"><a href="/portfolio/" rel="section"><i class="fa fa-archive fa-fw"></i>作品集</a></li><li class="menu-item menu-item-english"><a href="https://lucashaozh.github.io/en" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Diffusion
+Model的基本原理(DDPM)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">Diffusion Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">Denoise Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">Training Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.4.</span> <span class="nav-text">Network Architecture</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Denosing Diffusion
+Implicit Model (DDIM)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">待定系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">生成过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">加速生成模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.4.</span> <span class="nav-text">📌方差选择整理(DDPM &amp; DDIM)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Latent Diffusion Model
+(Stable Diffusion)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="皓"
+      src="/images/pikachu.jpg">
+  <p class="site-author-name" itemprop="name">皓</p>
+  <div class="site-description" itemprop="description">图形学及ACG爱好者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lucashaozh" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lucashaozh" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lucashaozh@gmail.com" title="E-Mail → mailto:lucashaozh@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_45951701" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45951701" rel="noopener me" target="_blank"><i class="fab fa-contao fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/shenghao-zhang-b03a64203/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;shenghao-zhang-b03a64203&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+<script src="/js/switch_language.js"></script>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lucashaozh.github.io/2025/02/19/computervision/kuo-san-mo-xing-diffusion-model-yuan-li-xiang-jie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/pikachu.jpg">
+      <meta itemprop="name" content="皓">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="皓">
+      <meta itemprop="description" content="图形学及ACG爱好者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="扩散模型(Diffusion Model)原理详解 | 皓">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          扩散模型(Diffusion Model)原理详解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-02-19 19:51:00 / 修改时间：20:07:49" itemprop="dateCreated datePublished" datetime="2025-02-19T19:51:00+01:00">2025-02-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ComputerVision/" itemprop="url" rel="index"><span itemprop="name">ComputerVision</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1><span id="diffusionmodel的基本原理ddpm">Diffusion
+Model的基本原理(DDPM)</span></h1>
+<p>Denoising Diffusion Probabilistic Models(DDPM)在流程上分为两个步骤 -
+Forward (diffusion) process: 在输入的数据上逐步的增加噪声 - Backward
+(denoising) process: 在噪声图上进行降噪，从噪声中恢复出原来的图像</p>
+<span id="more"></span>
+<figure>
+<img src="https://s2.loli.net/2024/05/06/wMiEscWqSGf2zrb.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<h2><span id="diffusion-process">Diffusion Process</span></h2>
+<p>Diffusion
+Process是在原始数据的基础上逐步增加噪声，通过超参数迭代次数<span class="math inline">\(T\)</span>和variance schedule <span class="math inline">\(\beta_{t} \in (0,1)\)</span>
+控制。因此，有以下条件概率 <span class="math display">\[
+q(\mathbf{x}_{t}| \mathbf{x}_{t-1})=\mathcal{N}(\mathbf{x}_{t} |
+\sqrt{1-\beta_{t}}\mathbf{x}_{t-1},\beta_{t} \mathbf{I})
+\]</span> 其中variance schedule满足 <span class="math display">\[
+0 &lt; \beta_{1} &lt; \beta_{2} &lt; \cdots &lt; \beta_{T} &lt; 1
+\]</span> 这里采样时候需要采用Reparameterization
+Trick，因为采样是无法进行反向传播的。所以引入一个新的变量<span class="math inline">\(\epsilon\)</span>将随机性和传播过程分离开 <span class="math display">\[
+\begin{align*}
+\mathcal{N}(\mu,\sigma^{2})&amp;= \mu+\sigma \cdot \epsilon\\
+\epsilon &amp;\sim \mathcal{N}(0, \mathbf{I})
+\end{align*}
+\]</span> 所以，diffusion每一步增加噪声可以按照如下操作 <span class="math display">\[
+\mathbf{x}_{t}=\sqrt{1-\beta_{t}} \mathbf{x}_{t-1} + \sqrt{\beta_{t}}
+\epsilon
+\]</span> 由于diffusion
+process是确定的，在实际过程中并不需要进行每一步迭代，可以直接计算出从原始数据到迭代<span class="math inline">\(T\)</span>步后的结果</p>
+<figure>
+<img src="https://s2.loli.net/2024/05/06/k7jxUXSfrqPeb3m.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>从上面的条件概率中，可以得到diffusion process的closed form <span class="math display">\[
+\begin{align*}
+\mathbf{x}_{t} &amp;= \sqrt{\bar{\alpha_{t}}}\mathbf{x}_{0} +
+\sqrt{1-\bar{\alpha}_{t}} \epsilon\\
+\alpha_{t} &amp;= 1-\beta_{t}\\
+\bar{\alpha}_{t} &amp;= \prod_{i=1}^{t} \alpha_{i}\\
+\epsilon &amp;\sim \mathcal{N}(0, \mathbf{I})
+\end{align*}
+\]</span></p>
+<h2><span id="denoise-process">Denoise Process</span></h2>
+<p>Denoise
+process是从噪声图中移除噪声来恢复原图。这个过程需要我们知道概率分布<span class="math inline">\(q(\mathbf{x}_{t-1} |
+\mathbf{x}_{t})\)</span>，也就是从某一时刻的数据反推上一时刻的数据，进行多次迭代后恢复最初的数据<span class="math inline">\(\mathbf{x}_{0}\)</span>。根据Bayes Rule， <span class="math display">\[
+q(\mathbf{x}_{t-1}|\mathbf{x}_{t})=q(\mathbf{x}_{t}|\mathbf{x}_{t-1})\frac{q(\mathbf{x}_{t-1})}{q(\mathbf{x}_{t})}
+\]</span> 其中 <span class="math inline">\(q(\mathbf{x}_{t})=\int
+q(\mathbf{x}_{t} | \mathbf{x}_{0}) q(\mathbf{x}_{0}) \mathrm{d}
+\mathbf{x}_{0}\)</span>，但是这一项积分是无法计算的。因此，DDPM采用了神经网络去学习一个模型
+<span class="math inline">\(p_{\theta}(\mathbf{x}_{t-1} |
+\mathbf{x}_{t})\)</span> 近似估计<span class="math inline">\(q(\mathbf{x}_{t-1} | \mathbf{x}_{t},
+\mathbf{x}_{0})\)</span>。通过推导，可以得到 <span class="math inline">\(q(\mathbf{x}_{t-1} | \mathbf{x}_{t},
+\mathbf{x}_{0})\)</span> 也是一个高斯分布，并且高斯分布的均值和方差如下
+<span class="math display">\[
+\begin{align*}
+\boldsymbol{\mu}_q(\boldsymbol{x}_t, \boldsymbol{x}_0) &amp;=
+\frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})\boldsymbol{x}_t +
+\sqrt{\bar{\alpha}_{t-1}}(1 - \alpha_t)\boldsymbol{x}_0}{1 -
+\bar{\alpha}_t} \\
+\sigma_q^2 &amp;= \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t-1})}{1 -
+\bar{\alpha}_t}
+\end{align*}
+\]</span> 更进一步的将 <span class="math inline">\(x_0 =
+\frac{1}{\sqrt{a_t}} \left( x_t - \sqrt{1 - \bar{a}_t} \epsilon
+\right)\)</span> 带入，可以得到 <span class="math display">\[
+\mu_q(x_t, x_0) = \frac{1}{\sqrt{\alpha_t}} x_t - \frac{1 -
+\alpha_t}{\sqrt{1 - \bar{\alpha}_t} \sqrt{\alpha_t}} \epsilon
+\]</span> 个人对为什么用<span class="math inline">\(p_{\theta}(\mathbf{x}_{t-1} |
+\mathbf{x}_{t})\)</span>拟合<span class="math inline">\(q(\mathbf{x}_{t-1} | \mathbf{x}_{t},
+\mathbf{x}_{0})\)</span>的理解是，当有原始数据和最终的噪声结果的时候，降噪过程是可以计算得到的。但是inference的过程中我们显然是不知道原始数据的，所以希望通过神经网络从原始数据中学习一个采样分布近似的拟合。具体的，给定加噪后的结果<span class="math inline">\(x_{t}\)</span>和时间步长<span class="math inline">\(t\)</span>，用网络预测从<span class="math inline">\(x_{0}\)</span>到<span class="math inline">\(x_{t}\)</span>过程中添加的噪声<span class="math inline">\(\epsilon(x_{t},
+t)\)</span>，预测噪声同时也等价于预测原始图像<span class="math inline">\(x_{0}\)</span>，有了<span class="math inline">\(x_{0}\)</span>就可以用<span class="math inline">\(q(\mathbf{x}_{t-1} | \mathbf{x}_{t},
+\mathbf{x}_{0})\)</span>进行采样。 <span class="math display">\[
+p_{\theta}(x_{t-1} | x_{t}) = \mathcal{N}(x_{t-1}; \mu_{\theta}(x_{t},
+t), \sigma_t I) \approx q(x_{t-1} | x_{t}, x_0)
+\]</span></p>
+<h2><span id="training-process">Training Process</span></h2>
+<p>DDPM的损失函数类似于VAE，使用了ELBO的方法，完整推导参见<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2208.11970">Understanding Diffusion Models:
+A Unified Perspective</a></p>
+<figure>
+<img src="https://s2.loli.net/2025/02/01/USZLYBskHTh92NQ.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p><span class="math display">\[
+\begin{align*}
+\log p(\boldsymbol{x}) \geq&amp; \mathbb{E}_q(\boldsymbol{x}_{1:T} |
+\boldsymbol{x}_0) \left[ \log
+\frac{p(\boldsymbol{x}_{0:T})}{q(\boldsymbol{x}_{1:T} |
+\boldsymbol{x}_0)} \right] \\
+=&amp;\underbrace{\mathbb{E}_{q\left(\boldsymbol{x}_1 \mid
+\boldsymbol{x}_0\right)}\left[\log
+p_{\boldsymbol{\theta}}\left(\boldsymbol{x}_0 \mid
+\boldsymbol{x}_1\right)\right]}_{\text {reconstruction term
+}}-\underbrace{D_{\mathrm{KL}}\left(q\left(\boldsymbol{x}_T \mid
+\boldsymbol{x}_0\right) \| p\left(\boldsymbol{x}_T\right)\right)}_{\text
+{prior matching term }}\\
+&amp;-\sum_{t=2}^T \underbrace{\mathbb{E}_{q\left(\boldsymbol{x}_t \mid
+\boldsymbol{x}_0\right)}\left[D_{\mathrm{KL}}\left(q\left(\boldsymbol{x}_{t-1}
+\mid \boldsymbol{x}_t, \boldsymbol{x}_0\right) \|
+p_{\boldsymbol{\theta}}\left(\boldsymbol{x}_{t-1} \mid
+\boldsymbol{x}_t\right)\right)\right]}_{\text {denoising matching term
+}}
+\end{align*}
+\]</span></p>
+<ul>
+<li>Reconstruction term: <span class="math inline">\(\mathbb{E}_{q\left(\boldsymbol{x}_1 \mid
+\boldsymbol{x}_0\right)}\left[\log
+p_{\boldsymbol{\theta}}\left(\boldsymbol{x}_0 \mid
+\boldsymbol{x}_1\right)\right]\)</span></li>
+<li>Prior matching term: <span class="math inline">\(D_{\mathrm{KL}}\left(q\left(\boldsymbol{x}_T \mid
+\boldsymbol{x}_0\right) \|
+p\left(\boldsymbol{x}_T\right)\right)\)</span></li>
+<li>Denoising matching term: <span class="math inline">\(\mathbb{E}_{q\left(\boldsymbol{x}_t \mid
+\boldsymbol{x}_0\right)}\left[D_{\mathrm{KL}}\left(q\left(\boldsymbol{x}_{t-1}
+\mid \boldsymbol{x}_t, \boldsymbol{x}_0\right) \|
+p_{\boldsymbol{\theta}}\left(\boldsymbol{x}_{t-1} \mid
+\boldsymbol{x}_t\right)\right)\right]\)</span></li>
+</ul>
+<p>注意到这里reconstruction term和prior matching term实际上就是VAE
+loss，由于这两项是在diffusion
+process中没有任何网络参数参与，所以可以看作是常数忽略不计。</p>
+<p>由于<span class="math inline">\(q\left(\boldsymbol{x}_{t-1} \mid
+\boldsymbol{x}_t, \boldsymbol{x}_0\right)\)</span>和<span class="math inline">\(p_{\boldsymbol{\theta}}\left(\boldsymbol{x}_{t-1}
+\mid \boldsymbol{x}_t\right)\)</span> 都是高斯分布，所以denoising
+matching term可以实际上转化为 <span class="math display">\[
+\arg \min_{\theta} D_{KL}(q(x_{t-1}|x_t, x_0) \parallel
+p_\theta(x_{t-1}|x_t)) = \arg \min_{\theta} \frac{1}{2\sigma_q^2(t)}
+\left[ \| \mu_\theta - \mu_q \|_2^2 \right]
+\]</span> <span class="math inline">\(\mu_{q}\)</span>在之前已经推导过了，同样的我们可以把模型预测的高斯参数<span class="math inline">\(\mu_{\theta}\)</span>写作 <span class="math display">\[
+\mu_\theta(x_t, t) = \frac{1}{\sqrt{\alpha_t}} x_t - \frac{1 -
+\alpha_t}{\sqrt{1 - \bar{\alpha}_t} \sqrt{\alpha_t}}
+\hat\epsilon(x_{t},t)
+\]</span> 其中<span class="math inline">\(\hat
+\epsilon(x_{t},t)\)</span>是模型预测的噪声，因此最终的损失函数就变成了匹配随机生成的噪声和模型预测的噪声<span class="math inline">\(\|\epsilon-\epsilon_{\theta}(\sqrt{\bar{\alpha}_{t}}\mathbf{x}_{0}+\sqrt{1-\bar{\alpha}_{t}}\epsilon,t)\|\)</span>。</p>
+<figure>
+<img src="https://s2.loli.net/2025/01/26/vzLjD5mJ6ZMIRnP.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<h2><span id="network-architecture">Network Architecture</span></h2>
+<p>Diffusion Model目前常见的网络结构主要采用了U-Net +
+Attention的结构</p>
+<figure>
+<img src="https://s2.loli.net/2024/05/06/2rOQx3Hl7kqVGEs.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<h1><span id="denosing-diffusionimplicit-model-ddim">Denosing Diffusion
+Implicit Model (DDIM)</span></h1>
+<p>DDPM存在的一个问题是需要设置比较长的扩散步长才能得到比较好的生成结果，因此生成的速度比较慢。DDIM通过解除DDPM中扩散过程的马尔可夫链的限制，用非马尔可夫过程进行生成，大大提高了DDPM的生成效率。</p>
+<p>DDIM注意到了DDPM中的一个问题，就是噪声生成的过程<span class="math inline">\(q(x_{t} | x_{0})\)</span>实际上只用了marginal
+distribution并没有用到join distribution <span class="math inline">\(q(x_{1:T}|x_{0})\)</span>，也就是给定<span class="math inline">\(x_0\)</span>和时间<span class="math inline">\(t\)</span>，加噪的过程实际上是确定的 <span class="math display">\[
+q(\mathbf{x}_{t} | \mathbf{x}_{0}) = \mathcal{N}(\mathbf{x}_{t};
+\sqrt{\alpha_{t}}\mathbf{x_{0}}, (1-\alpha_{t}) \mathbf{I})
+\]</span> 因此，如果可以在将马尔科夫链限制去除的同时，能够保持<span class="math inline">\(q(x_{t}|
+x_0)\)</span>有着相同的概率分布，也就是对任意时间步长<span class="math inline">\(t\)</span>，使得<span class="math inline">\(q(x_{t}|
+x_{0})\)</span>都满足以上的概率分布。DDIM提出了以下采样概率分布 <span class="math display">\[
+\begin{align*}
+q_{\sigma}(x_{t-1}|x_t,x_0) = \mathcal{N}\left(
+  \sqrt{\alpha_{t-1}}x_0 + \sqrt{1 - \alpha_{t-1} - \sigma_t^2} \cdot
+\frac{x_t - \sqrt{\alpha_t}x_0}{\sqrt{1 - \alpha_t}}, \
+  \sigma_{t}^2I
+\right). \tag{1}
+\end{align*}
+\]</span> 其中这里的符号<span class="math inline">\(\alpha_{t}\)</span>就是DDPM中的<span class="math inline">\(\bar \alpha\)</span></p>
+<h2><span id="待定系数">待定系数</span></h2>
+<p>在DDPM中，根据贝叶斯公式，有以下结论 <span class="math display">\[
+p(x_{t-1} | x_{t}, x_{0})=\frac{p(x_{t} | x_{t-1}) p(x_{t-1} |
+x_{0})}{p(x_{t} | x_{0})}
+\]</span> 其中我们已知 <span class="math display">\[
+\begin{align*}
+p(x_{t} | x_{0}) &amp;= \mathcal{N}(\sqrt{\bar \alpha_{t}} x_{0},
+(1-\bar \alpha_{t}) \mathbf{I}) \\
+x_{t} &amp;= \sqrt{\bar \alpha_{t}} x_{0} + \sqrt{1 - \bar{\alpha_{t}}}
+\epsilon &#39;&#39;, \textbf{ where } \epsilon&#39;&#39; \sim
+\mathcal{N}(0, \mathbf{I}) \tag{2}
+\end{align*}
+\]</span>
+类似的，我们可以进行推广，将DDPM中的马尔可夫链限制去除，我们可以将 <span class="math inline">\(t-1\)</span> 和 <span class="math inline">\(t\)</span> 替换为<span class="math inline">\(s,
+k\)</span> 其中 <span class="math inline">\(s&lt;k\)</span>，得到 <span class="math display">\[
+p(x_{s} | x_{k}, x_{0})=\frac{p(x_{k} | x_{s}) p(x_{s} | x_{0})}{p(x_{k}
+| x_{0})}
+\]</span> 这里<span class="math inline">\(p(x_{s}|x_{0}),p(x_{k}|x_{0})\)</span>是已知固定的，但是<span class="math inline">\(p(x_{k}|x_{s})\)</span>是未知的。如何设定采样分布的形式呢？这里可以使用待定系数法，将<span class="math inline">\(p(x_{s}|x_{k},x_{0})\)</span>设定为和未知变量<span class="math inline">\(k,m,\alpha\)</span>有关的高斯分布 <span class="math display">\[
+p(x_{s}| x_{k},x_{0}) \sim \mathcal{N}(k x_{0} + m x_{k}, \sigma^{2}
+\mathbf{I}) \tag{3}
+\]</span> 重参数化并带入已知结论(2) <span class="math display">\[
+\begin{align*}
+x_{s} &amp;=  kx_{0} + m x_{k} + \alpha \epsilon&#39;\\
+&amp;= kx_{0} + m \left(\sqrt{\bar \alpha_{k}} x_{0} + \sqrt{1 -
+\bar{\alpha_{k}}} \epsilon &#39;&#39;\right) + \sigma \epsilon&#39;\\
+&amp;= \left(k+m \sqrt{\bar \alpha_{k}}\right)x_{0} + m\sqrt{1-\bar
+\alpha_{k}} \epsilon&#39;&#39; + \sigma \epsilon&#39;
+\end{align*}
+\]</span> 其中<span class="math inline">\(\epsilon&#39; \sim
+\mathcal{N}(0,\mathbf{I})\)</span>，所以这就是两个独立高斯分布 <span class="math inline">\(\epsilon&#39;\)</span> 和 <span class="math inline">\(\epsilon&#39;&#39;\)</span> 的和。因此<span class="math inline">\(x_{s}\)</span>满足高斯分布 <span class="math display">\[
+\begin{align*}
+x_{s} \sim \mathcal{N}\left(\left(k+m \sqrt{\bar
+\alpha_{k}}\right)x_{0},m^{2}(1-\bar \alpha_{k})+\sigma^{2}\right)
+\end{align*}
+\]</span> 重参数化后已知结论进行对比 <span class="math display">\[
+\begin{align*}
+x_{s} &amp;= \left(k+m\sqrt{\bar \alpha_{k}}x_{0}\right) +
+\sqrt{m^{2}(1-\bar \alpha_{k}) + \sigma^{2}} \epsilon \\
+x_{s} &amp;= \sqrt{\bar \alpha_{s}} x_{0} + \sqrt{1 - \bar \alpha_{s}}
+\epsilon&#39;&#39;
+\end{align*}
+\]</span> 根据待定系数得出以下两个方程 <span class="math display">\[
+\begin{align*}
+k + m \sqrt{\bar \alpha_{k}} &amp;= \sqrt{\bar \alpha_{s}}\\
+\sqrt{m^{2}(1-\bar \alpha_{k}) + \sigma^{2}} &amp;= \sqrt{1 - \bar
+\alpha_{s}}
+\end{align*}
+\]</span> 通过两个方程我们可以将<span class="math inline">\(m,k\)</span>解出 <span class="math display">\[
+\begin{align*}
+m &amp;= \sqrt{\frac{1 - \bar \alpha_{s} - \sigma^{2}}{1 - \bar
+\alpha_{k}}}\\
+k &amp;= \sqrt{\bar \alpha_{s}} - \sqrt{\frac{(1 - \bar \alpha_{s} -
+\sigma^{2})\bar \alpha_{k}}{1 - \bar \alpha_{k}}}
+\end{align*}
+\]</span> 带入到公式(3)中，可以得到 <span class="math display">\[
+p(x_{s}| x_{k},x_{0}) \sim \mathcal{N}\left(\left(\sqrt{\bar \alpha_{s}}
+- \sqrt{\frac{(1 - \bar \alpha_{s} - \sigma^{2})\bar \alpha_{k}}{1 -
+\bar \alpha_{k}}}\right) x_{0} + \sqrt{\frac{1 - \bar \alpha_{s} -
+\sigma^{2}}{1 - \bar \alpha_{k}}} x_{k}, \sigma^{2} \mathbf{I}\right)
+\tag{3}
+\]</span> 重新整理并让<span class="math inline">\(s=t-1,k=t\)</span>时，就可以推出公式(1)</p>
+<p>在DDIM的附录中通过数学归纳法证明了，当使用给出的采样概率分布时，是能够满足<span class="math inline">\(q(x_{t}|x_{0})\)</span>需要的概率分布的，如下两张图所示</p>
+<figure>
+<img src="https://s2.loli.net/2025/02/01/jUeBrI6V3tPdy9N.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<figure>
+<img src="https://s2.loli.net/2025/02/01/tUdTDaHVRzMgYFJ.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>这里利用了结论(2.115) <img src="https://s2.loli.net/2025/02/01/mkv8KPCtj16N2F3.png" alt="image.png"></p>
+<h2><span id="生成过程">生成过程</span></h2>
+<p>DDIM的生成过程和DDPM是一致的，同样是通过神经网络学习预测噪声，再通过采样分布进行采样进而迭代生成结果。DDIM论文里通过Theorem
+1说明了DDIM和DDPM的变分目标是一致的</p>
+<figure>
+<img src="https://s2.loli.net/2025/02/01/3jHcfplT29bCWPq.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>因此可以采用同样的优化目标，也就是对预测的噪声和实际的噪声进行匹配
+<span class="math display">\[
+\begin{align*}
+L_{\gamma}(\epsilon_\theta)
+:= \sum_{t=1}^T \gamma_t \mathbb{E}_{\\
+x_0 \sim q(x_0),\epsilon_t \sim \mathcal{N}({\bf 0}, I)
+} \left[
+  \left\|
+    \epsilon_\theta^{(t)}\left(
+      \sqrt{\alpha_t}x_0 + \sqrt{1-\alpha_t}\epsilon_t
+    \right) - \epsilon_t
+  \right\|_2^2
+\right]
+\end{align*}
+\]</span> (注：这里开始用的都是DDIM论文中的表示，也就是<span class="math inline">\(\alpha_{t}=\bar \alpha_{t}\)</span>)
+所以，由于优化目标和生成过程的一致性，DDIM可以利用预训练好的DDPM模型作为优化目标的求解结果，也就是相同的噪声预测网络，只需要调整采样的过程以及参数<span class="math inline">\(\sigma\)</span>得到更好的生成过程。</p>
+<p>通过将公式(1)进行重参数化展开，以及将<span class="math inline">\(x_{0}\)</span>替换为网络预测结果，可以得到以下采样过程
+<span class="math display">\[
+\begin{align*}
+\boldsymbol{x}_{t-1} = \sqrt{\alpha_{t-1}} \underbrace{\left(
+\frac{\boldsymbol{x}_t - \sqrt{1 - \alpha_t}
+\epsilon^{(t)}_{\theta}(\boldsymbol{x}_t)}{\sqrt{\alpha_t}}
+\right)}_{\text{&quot;predicted $\boldsymbol{x}_0$&quot;}} +
+\underbrace{\sqrt{1 - \alpha_{t-1} - \sigma^2_t \cdot
+\epsilon^{(t)}_{\theta}(\boldsymbol{x}_t)}}_{\text{&quot;direction
+pointing to $\boldsymbol{x}_t$&quot;}} + \underbrace{\sigma_t
+\epsilon_t}_{\text{random noise}}
+\end{align*}
+\]</span> 其中，当<span class="math inline">\(\sigma_t = \sqrt{\frac{1 -
+\alpha_{t-1}}{1 - \alpha_t}} \sqrt{1 -
+\frac{\alpha_t}{\alpha_{t-1}}}\)</span>时，生成过程等价于DDPM；而当<span class="math inline">\(\sigma_{t}=0\)</span>时，这时random
+noise就是0，所以生成过程就失去了随机性变成了一个确定的过程，论文中将这种情况称之为<em>denoising
+diffusion implicit model</em> (DDIM)</p>
+<p><span class="math inline">\(\sigma_{t}\)</span>可以写成是<span class="math inline">\(\eta (\sqrt{\frac{1 - \alpha_{t-1}}{1 - \alpha_t}}
+\sqrt{1 - \frac{\alpha_t}{\alpha_{t-1}}})\)</span>的形式，其中<span class="math inline">\(0 \leq \eta \leq 1\)</span>用于控制生成过程</p>
+<h2><span id="加速生成模型">加速生成模型</span></h2>
+<p>DDIM论文提出了这样一个观点：DDPM的训练结果实质上包含了它的任意子序列参数的训练结果。因此，生成过程不需要严格遵循<span class="math inline">\((x_{T}, \cdots,
+x_{1})\)</span>的过程，而是可以进行跳跃步，选择其中的一个长度为<span class="math inline">\(S\)</span>的子序列<span class="math inline">\((x_{\tau_{S}},\cdots,x_{\tau_{1}})\)</span>做生成，只需要满足
+<span class="math display">\[
+q(x_{\tau_{i}} | x_{0}) =
+\mathcal{N}(x_{\tau_{i}};\sqrt{\alpha_{\tau_{i}}x_{0}}, (1-
+\alpha_{\tau_{i}}) \mathbf{I})
+\]</span> 如下图所示，本来生成过程是<span class="math inline">\(x_{3}
+\rightarrow x_{2} \rightarrow x_{1} \rightarrow x_{0}\)</span>
+，现在可以跳步，变成了<span class="math inline">\(x_{3}  \rightarrow
+x_{1} \rightarrow x_{0}\)</span></p>
+<figure>
+<img src="https://s2.loli.net/2025/02/01/L6X3GFI9Eh2lT1i.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<div class="note info no-icon"><h2><span id="方差选择整理ddpm-amp-ddim">📌方差选择整理(DDPM &amp; DDIM)</span></h2>
+<p><strong>DDPM</strong> 的方差选择<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/525106459">1</a>：</p>
+<ol type="1">
+<li><strong><span class="math inline">\(\sigma_{t, \theta}^2 =
+\Sigma_{\theta}(x_t, t)\)</span></strong>
+<ul>
+<li>模型学习的方差（称为 <code>learned</code>）<br>
+</li>
+<li>实际未在 DDPM 中使用，但被 GLIDE 采用。</li>
+</ul></li>
+<li><strong><span class="math inline">\(\sigma_{t, s}^2 = \beta_t =
+\frac{1 - \alpha_{t-1}}{1 - \alpha_t} \beta_t\)</span></strong>
+<ul>
+<li>由公式 (8-1) 推导得出（称为 <code>fixedsmall</code>）<br>
+</li>
+<li>用于 <code>celebahq</code> 和 <code>lsun</code> 数据集。</li>
+</ul></li>
+<li><strong><span class="math inline">\(\sigma_{t, l}^2 =
+\beta_t\)</span></strong>
+<ul>
+<li>称为 <code>fixedlarge</code>，用于 <code>cifar10</code> 数据集<br>
+</li>
+<li>满足 <span class="math inline">\(\sigma_{t,l} &gt;
+\sigma_{t,s}\)</span>，即方差更大。</li>
+</ul></li>
+</ol>
+<p><strong>DDIM</strong> 的方差选择： - <strong><span class="math inline">\(\sigma_t(\eta)^2 = \eta \cdot
+\hat{\beta}_t\)</span></strong><br>
+- 基于 DDPM 的 <code>fixedsmall</code> 版本，额外乘以系数 <span class="math inline">\(\eta\)</span>。</p>
+</div>
+<h1><span id="latent-diffusion-modelstable-diffusion">Latent Diffusion Model
+(Stable Diffusion)</span></h1>
+<p>DDPM还存在一个问题，就是需要大量的计算资源。由于DDPM直接在图像空间上进行训练和推理，导致了非常耗时。LDM
+(Latent Diffusion Model)也就是Stable
+Diffusion提出了一种方法，首先将图像用VAE encode为一个低分辨率的latent
+space，在latent space上进行生成，然后再将latent space
+decode还原为图像空间，能够大大降低训练推理所需的计算资源。</p>
+<p><img src="https://s2.loli.net/2024/05/06/kYpVcjCnD8HMLsU.png" alt="image.png"> <img src="https://s2.loli.net/2024/05/06/4LaDJd8OYxzNyrR.png" alt="image.png"></p>
+<p>LDM论文观察到，DDPM模型对图像的压缩通常由perceptual
+compression和semantic
+compression组成。因此，LDM提出可以用Autoencoder将图像的perceptual
+information在训练中剔除掉，只让Diffusion Model对semantic的部分压缩。</p>
+<figure>
+<img src="https://s2.loli.net/2025/02/02/7iBW56zIRHwujoe.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>LDM采用的网络架构如下图所示，其中<span class="math inline">\(\varepsilon\)</span> 和<span class="math inline">\(\mathcal{D}\)</span>分别是预训练好的Autoencoder中的Encoder和Decoder。通过Encoder首先将图片进行perceptual
+compression得到latent space <span class="math inline">\(z\)</span>，然后在latent space通过diffution
+process进行加噪。Denoise process采用了带有Attention的UNet架构，通过Cross
+Attention注入conditioning信息。</p>
+<figure>
+<img src="https://s2.loli.net/2025/02/02/dVxjIQYXLRefzU9.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>Attention由很多变种，在LDM中主要有Self Attention和Cross
+Attention两种。</p>
+<ul>
+<li>Cross Attention
+<ul>
+<li><span class="math inline">\(CrossAttn(A,B)=Attentino(W_{Q} \cdot A,
+W_{K} \cdot B, W_{V} \cdot B)\)</span></li>
+<li>可以理解为利用A对B上的信息进行Query，比如在下图中，不同的文本token会产生不同的attention
+map <img src="https://s2.loli.net/2025/02/02/TrSogKQdJaFP8Ul.png" alt="image.png"></li>
+</ul></li>
+<li>Self Attention
+<ul>
+<li><span class="math inline">\(SelfAttn(A)=Attention(W_{Q} \cdot A,
+W_{K} \cdot A, W_{V} \cdot A)\)</span></li>
+<li>可以理解为A自己作了一次特征提取，将重要的信息提取出来</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://s2.loli.net/2025/02/02/X67Cj9gVvFNSBmH.png" alt="image.png">
+<figcaption aria-hidden="true">image.png</figcaption>
+</figure>
+<p>总结一下，LDM最主要的是两个贡献</p>
+<ol type="1">
+<li>在diffusion model的基础上，对图像空间进行压缩，在压缩后的latent
+space上进行diffusion生成</li>
+<li>使用cross attention将conditioning信息注入到网络中</li>
+</ol>
+<h1><span id="参考资料">参考资料</span></h1>
+<ol type="1">
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/525106459">由浅入深了解Diffusion
+Model - 知乎</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/599160988">一文读懂Diffusion
+Model - 知乎</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2208.11970">Understanding Diffusion
+Models: A Unified Perspective</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/565698027">扩散模型之DDIM -
+知乎</a></li>
+<li><a target="_blank" rel="noopener" href="https://kexue.fm/archives/9181">生成扩散模型漫谈（四）：DDIM =
+高观点DDPM - 科学空间|Scientific Spaces</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YS421d7DN">【论文精读】DENOISING
+DIFFUSION IMPLICIT MODELS【DDIM的背景介绍】</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhouyifan.net/2024/01/23/20230709-SD2/">Stable
+Diffusion 解读（二）：论文精读 | 周弈帆的博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhouyifan.net/2024/01/23/20230713-SD3/">Stable
+Diffusion 解读（三）：原版实现及Diffusers实现源码解读 |
+周弈帆的博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2403.03431">Towards Understanding
+Cross and Self-Attention in Stable Diffusion for Text-Guided Image
+Editing</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2208.01626">Prompt-to-Prompt Image
+Editing with Cross Attention Control</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.event.move.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/js/jquery.twentytwenty.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mhayes-twentytwenty/1.0.0/css/twentytwenty.min.css"/><script>
+(function(){
+  function initialize_twentytwenty() {
+    $(".twentytwenty-container").each(function() {
+      var $container = $(this);
+      var $images = $container.find('img');
+      var loadedImages = 0;
+
+      $images.on('load', function(){
+        loadedImages++;
+        if (loadedImages === $images.length) {
+          if ($.fn.twentytwenty) {
+            $container.twentytwenty();
+            console.log("Twentytwenty Initialized for", $container);
+          } else {
+            console.log("TwentyTwenty plugin not loaded yet");
+          }
+        }
+      }).each(function(){
+        if (this.complete) $(this).trigger('load');
+      });
+    });
+  }
+
+  $(document).ready(function() {
+    initialize_twentytwenty();
+  });
+
+  // 为了处理可能的延迟加载情况
+  $(window).on('load', function() {
+    initialize_twentytwenty();
+  });
+
+  $(document).on('pjax:complete', function() {
+    initialize_twentytwenty();
+  });
+})();
+</script>
+          <div class="post-tags">
+              <a href="/tags/CV/" rel="tag"># CV</a>
+              <a href="/tags/Diffusion/" rel="tag"># Diffusion</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/04/gamegraphics/shi-shi-xuan-ran-bi-ji-importance-resampling-and-restir/" rel="prev" title="实时渲染笔记-Importance Resampling and ReSTIR">
+                  <i class="fa fa-angle-left"></i> 实时渲染笔记-Importance Resampling and ReSTIR
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">皓</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">233k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:32</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cjk_width":0.9,"normal_width":0.6,"append_css":true,"js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"lucashaozh","repo":"GitalkBlogRepo","client_id":"c140415e06b9641c5d85","client_secret":"ab2e8dcb43c6c08eca4a2191c10630a8eb6f2d18","admin_user":"lucashaozh","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"61dd54abb4bc3d5fde9276876462ad89"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>皓</title>
   
-  <subtitle>游戏开发 | ETH MSCS 在读</subtitle>
+  <subtitle>计算机图形学 | ETH MSCS</subtitle>
   <link href="https://lucashaozh.github.io/atom.xml" rel="self"/>
   
   <link href="https://lucashaozh.github.io/"/>
-  <updated>2025-01-04T01:26:32.394Z</updated>
+  <updated>2025-02-19T19:07:49.007Z</updated>
   <id>https://lucashaozh.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>扩散模型(Diffusion Model)原理详解</title>
+    <link href="https://lucashaozh.github.io/2025/02/19/computervision/kuo-san-mo-xing-diffusion-model-yuan-li-xiang-jie/"/>
+    <id>https://lucashaozh.github.io/2025/02/19/computervision/kuo-san-mo-xing-diffusion-model-yuan-li-xiang-jie/</id>
+    <published>2025-02-19T18:51:00.000Z</published>
+    <updated>2025-02-19T19:07:49.007Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;diffusion-model的基本原理ddpm&quot;&gt;Diffusion
+Model的基本原理(DDPM)&lt;/h1&gt;
+&lt;p&gt;Denoising Diffusion Probabilistic Models(DDPM)在流程上分为两个步骤 -
+Forward (diffusion) process: 在输入的数据上逐步的增加噪声 - Backward
+(denoising) process: 在噪声图上进行降噪，从噪声中恢复出原来的图像&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ComputerVision" scheme="https://lucashaozh.github.io/categories/ComputerVision/"/>
+    
+    
+    <category term="CV" scheme="https://lucashaozh.github.io/tags/CV/"/>
+    
+    <category term="Diffusion" scheme="https://lucashaozh.github.io/tags/Diffusion/"/>
+    
+  </entry>
   
   <entry>
     <title>实时渲染笔记-Importance Resampling and ReSTIR</title>
@@ -460,9 +485,9 @@ GeeksforGeeks&lt;/a&gt;，GeeksforGeeks上的数据结构今天刚好搜到了�
     <category term="Algorithms" scheme="https://lucashaozh.github.io/categories/Algorithms/"/>
     
     
-    <category term="C++" scheme="https://lucashaozh.github.io/tags/C/"/>
-    
     <category term="算法" scheme="https://lucashaozh.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="C++" scheme="https://lucashaozh.github.io/tags/C/"/>
     
   </entry>
   
@@ -485,9 +510,9 @@ GeeksforGeeks&lt;/a&gt;，GeeksforGeeks上的数据结构今天刚好搜到了�
     
     <category term="Bug" scheme="https://lucashaozh.github.io/tags/Bug/"/>
     
-    <category term="PyTorch" scheme="https://lucashaozh.github.io/tags/PyTorch/"/>
-    
     <category term="CV" scheme="https://lucashaozh.github.io/tags/CV/"/>
+    
+    <category term="PyTorch" scheme="https://lucashaozh.github.io/tags/PyTorch/"/>
     
     <category term="Python" scheme="https://lucashaozh.github.io/tags/Python/"/>
     
@@ -560,31 +585,6 @@ Algorithm笔记&lt;/p&gt;
     <category term="Cpp" scheme="https://lucashaozh.github.io/tags/Cpp/"/>
     
     <category term="图形学" scheme="https://lucashaozh.github.io/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vscode编译.cpp文件出现中文乱码解决方案</title>
-    <link href="https://lucashaozh.github.io/2022/02/25/bug/g-bian-yi.cpp-wen-jian-chu-xian-zhong-wen-luan-ma-jie-jue-fang-an/"/>
-    <id>https://lucashaozh.github.io/2022/02/25/bug/g-bian-yi.cpp-wen-jian-chu-xian-zhong-wen-luan-ma-jie-jue-fang-an/</id>
-    <published>2022-02-25T16:57:35.000Z</published>
-    <updated>2024-11-15T14:42:47.828Z</updated>
-    
-    
-    <summary type="html">&lt;h1
-id=&quot;vscode编译.cpp文件出现中文乱码解决方案&quot;&gt;vscode编译.cpp文件出现中文乱码解决方案&lt;/h1&gt;
-&lt;p&gt;在vscode中编译.cpp文件，可以使用vscode中的插件code
-runner点击按钮运行，如果熟悉如何使用g++的命令也可以直接使用命令行语句编译运行。但是如果文件中出现了中文字符，就会出现编译之后生成乱码的问题。比如这一段代码（来源于&lt;a
-href=&quot;https://www.runoob.com/cplusplus/cpp-data-types.html&quot;&gt;菜鸟教程&lt;/a&gt;）&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Bug" scheme="https://lucashaozh.github.io/categories/Bug/"/>
-    
-    
-    <category term="Bug" scheme="https://lucashaozh.github.io/tags/Bug/"/>
-    
-    <category term="C++" scheme="https://lucashaozh.github.io/tags/C/"/>
     
   </entry>
   
